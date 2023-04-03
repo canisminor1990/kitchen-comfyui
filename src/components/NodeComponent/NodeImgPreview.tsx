@@ -11,13 +11,17 @@ interface NodeImgPreviewProps {
 const NodeImgPreview: React.FC<NodeImgPreviewProps> = ({ data }) => {
   if (!data || data.length === 0) return null
   return (
-    <div>
+    <Image.PreviewGroup>
       {data
         .map(({ image, index }) => (
-          <Image key={index} src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))} />
+          <Image
+            width={256}
+            key={index}
+            src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))}
+          />
         ))
         .reverse()}
-    </div>
+    </Image.PreviewGroup>
   )
 }
 

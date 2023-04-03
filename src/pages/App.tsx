@@ -1,7 +1,6 @@
-import { ControlPanelContainer } from '@/components'
+import { ControlPanelContainer, FlowContainer } from '@/components'
 import { Layout } from 'antd'
 import React from 'react'
-import FlowContainer from './FlowContainer'
 import WsController from './WsController'
 
 const { Sider, Content } = Layout

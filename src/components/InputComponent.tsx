@@ -3,6 +3,8 @@ import { checkInput } from '@/utils'
 import { Checkbox, Input, InputNumber, Select } from 'antd'
 import React from 'react'
 
+const { TextArea } = Input
+
 const MAX_SELECT_NAME = 36
 
 interface InputProps {
@@ -61,17 +63,12 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
     const args = input[1]
     if (args.multiline === true) {
       return (
-        <textarea
-          style={{ height: 128, width: '100%' }}
-          className="px-1 grow nodrag text-xs"
-          value={value}
-          onChange={(ev) => onChange(ev.target.value)}
-        />
+        <TextArea style={{ height: 128, width: '100%' }} value={value} onChange={(e) => onChange(e.target.value)} />
       )
     }
     return <Input style={{ width: '100%' }} value={value} onChange={(e) => onChange(e.target.value)} />
   }
-  return <></>
+  return null
 }
 
 export default React.memo(InputComponent)

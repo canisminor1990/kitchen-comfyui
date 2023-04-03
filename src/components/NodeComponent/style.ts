@@ -3,6 +3,7 @@ import { Position } from 'reactflow'
 import styled, { css } from 'styled-components'
 
 export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
+  min-width: 240px;
   box-shadow: ${({ theme }) => theme.boxShadowTertiary};
   ${({ active, theme }) =>
     active

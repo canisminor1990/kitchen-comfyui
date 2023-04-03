@@ -18,7 +18,7 @@ const NodeSlot: React.FC<NodeSlotProps> = ({ id, label, type, position, slotType
     <Slot position={position} isRequired={isRequired ? 1 : 0}>
       <Handle id={id} type={type} position={position} />
       <h5 title={slotType} style={{ marginBottom: 2 }}>
-        {startCase(label)}
+        {startCase(label.toLowerCase())}
       </h5>
     </Slot>
   )

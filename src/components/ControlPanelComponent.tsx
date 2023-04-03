@@ -1,5 +1,6 @@
 import { GalleryContainer, NodePickerContainer, QueueContainer, WorkflowPageContainer } from '@/components'
 import { ExitFullScreenIcon } from '@radix-ui/react-icons'
+import { Button } from 'antd'
 import React, { useState } from 'react'
 
 type Tab = 'Queue' | 'Gallery' | 'Nodes' | 'Workflow'
@@ -33,14 +34,14 @@ const ControlPanelComponent: React.FC<ControlPanelComponentProps> = ({ onSubmit,
       )}
       <div className="drop-shadow-lg rounded-md bg-stone-900 border-2 border-stone-400 flex flex-col overflow-hidden">
         <PanelTabs tabs={TABS} active={activeTab} onTabChange={(tab) => setState({ minimized: false, activeTab: tab })}>
-          <button
-            className="absolute bg-teal-800 hover:bg-teal-700 p-2 left-2 mx-0.5 cursor-pointer"
+          <Button
+            type="primary"
             onClick={() => {
               void onSubmit()
             }}
           >
             Enqueue
-          </button>
+          </Button>
           <ExitFullScreenIcon
             className="h-5 w-5 mx-1 text-blue-500 self-center cursor-pointer"
             onClick={() => setState((st) => ({ ...st, minimized: !st.minimized }))}
