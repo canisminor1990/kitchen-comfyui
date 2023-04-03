@@ -1,12 +1,34 @@
 {
+  "name": "kitchen-comfyui",
+  "version": "0.0.1",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/canisminor1990/kitchen-comfyui.git"
+  },
   "author": "canisminor1990 <i@canisminor.cc>",
   "scripts": {
-    "dev": "umi dev",
     "build": "umi build",
+    "dev": "umi dev",
     "postinstall": "umi setup",
+    "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "prettier": "prettier -c --write \"**/**\"",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "type-check": "tsc -p tsconfig-check.json"
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
+    ]
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -21,18 +43,23 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-config-standard-with-typescript": "^34.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
-    "husky": "^8.0.3",
-    "prettier": "^2.8.7",
+    "@umijs/lint": "^4.0.64",
+    "commitlint": "^17",
+    "commitlint-config-gitmoji": "^2",
+    "cross-env": "^7",
+    "eslint": "^8",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^2.2.1",
+    "husky": "^8",
+    "prettier": "^2",
+    "prettier-plugin-organize-imports": "^3",
+    "prettier-plugin-packagejson": "^2",
     "query-string": "^8.1.0",
+    "react": "^18",
+    "react-dom": "^18",
     "styled-components": "^5.3.9",
     "typescript": "^5.0.0"
   }

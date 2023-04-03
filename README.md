@@ -10,7 +10,6 @@ git clone https://github.com/comfyanonymous/ComfyUI
 
 replace `ComfyUI/web` frontend with `dist` build
 
-
 ## Development
 
 place this repo anywhere, just edit `ComfyUI/server.py`, add `response.headers['Access-Control-Allow-Origin'] = '*'`
@@ -25,7 +24,7 @@ async def cache_control(request: web.Request, handler):
     return response
 ```
 
-
 ## Credits
+
 - ComfyUI - https://github.com/comfyanonymous/ComfyUI
 - comfyweb - https://github.com/jac3km4/comfyweb
