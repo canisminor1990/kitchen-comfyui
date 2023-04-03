@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <FlowContainer />
       </Content>
       <WsController />
-      <Sider>
+      <Sider style={{ background: 'transparent' }}>
         <ControlPanelContainer />
       </Sider>
     </Layout>

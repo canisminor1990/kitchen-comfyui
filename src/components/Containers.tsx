@@ -1,5 +1,5 @@
 import { useAppStore } from '@/store'
-import { type Input, type NodeId, type Widget } from '@/types'
+import { type InputData, type NodeId, type Widget } from '@/types'
 import React from 'react'
 import { type NodeProps } from 'reactflow'
 import { shallow } from 'zustand/shallow'
@@ -87,7 +87,7 @@ export const GalleryContainer: React.FC = () => {
 }
 
 export const ImageViewContainer: React.FC = () => {
-  const { image, onHideImagePreview, onPreviewImageNavigate } = useAppStore(
+  const { image, onPreviewImageNavigate } = useAppStore(
     (st) => ({
       image: st.previewedImageIndex !== undefined ? st.gallery[st.previewedImageIndex]?.image : undefined,
       onHideImagePreview: st.onHideImagePreview,
@@ -95,19 +95,13 @@ export const ImageViewContainer: React.FC = () => {
     }),
     shallow
   )
-  return (
-    <ImageViewComponent
-      image={image}
-      onHideImagePreview={onHideImagePreview}
-      onPreviewImageNavigate={onPreviewImageNavigate}
-    />
-  )
+  return <ImageViewComponent image={image} onPreviewImageNavigate={onPreviewImageNavigate} />
 }
 
 interface InputContainerProps {
   id: NodeId
   name: string
-  input: Input
+  input: InputData
 }
 
 export const InputContainer: React.FC<InputContainerProps> = ({ id, name, input }) => {
@@ -118,5 +112,5 @@ export const InputContainer: React.FC<InputContainerProps> = ({ id, name, input 
     }),
     shallow
   )
-  return <InputComponent value={value} name={name} input={input} onChange={(val) => onPropChange(id, name, val)} />
+  return <InputComponent value={value} input={input} onChange={(val) => onPropChange(id, name, val)} />
 }

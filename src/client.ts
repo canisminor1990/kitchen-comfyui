@@ -1,6 +1,7 @@
 import { getBackendUrl } from '@/config'
 import { type PersistedGraph, type PersistedNode } from '@/persistence'
-import { Input, type NodeId, type PropertyKey, type Widget, type WidgetKey } from '@/types'
+import { type NodeId, type PropertyKey, type Widget, type WidgetKey } from '@/types'
+import { checkInput } from '@/utils'
 
 interface PromptRequest {
   client_id?: string
@@ -71,7 +72,7 @@ export function createPrompt(graph: PersistedGraph, widgets: Record<string, Widg
     const fields = { ...node.value.fields }
     for (const [property, value] of Object.entries(fields)) {
       const input = widgets[node.value.widget].input.required[property]
-      if (Input.isInt(input) && input[1].randomizable === true && value === -1) {
+      if (checkInput.isInt(input) && input[1].randomizable === true && value === -1) {
         fields[property] = Math.trunc(Math.random() * Number.MAX_SAFE_INTEGER)
       }
     }

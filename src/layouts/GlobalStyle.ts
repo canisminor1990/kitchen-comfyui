@@ -2,14 +2,14 @@ import { createGlobalStyle } from 'antd-style'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    color: ${({ theme }) => theme.colorTextBase}
+    color: ${({ theme }) => theme.colorTextBase};
+    background: ${({ theme }) => theme.colorBgBase};
   }
 
   .react-flow__handle {
-    background: ${({ theme }) => theme.colorPrimary};
     width: 8px;
-    height: 10px;
-    border-radius: 3px;
+    height: 8px;
+    border-radius: 4px;
   }
 
   .react-flow__minimap-mask {

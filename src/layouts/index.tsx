@@ -1,6 +1,7 @@
 import { Layout, Segmented } from 'antd'
-import { ThemeProvider, type ThemeMode } from 'antd-style'
+import { ThemeProvider, setupStyled, type ThemeMode } from 'antd-style'
 import 'antd/dist/reset.css'
+import { ThemeContext } from 'styled-components'
 import { Outlet } from 'umi'
 import GlobalStyle from './GlobalStyle'
 import { useStore } from './useStore'
@@ -13,6 +14,7 @@ const options = [
 ]
 
 const Editor: React.FC = () => {
+  setupStyled({ ThemeContext })
   const themeMode = useStore()
 
   return (

@@ -2,6 +2,7 @@ import { ImageViewContainer, NODE_IDENTIFIER, NodeContainer } from '@/components
 import { useAppStore } from '@/store'
 import React from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, Panel } from 'reactflow'
+import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 
 const nodeTypes = { [NODE_IDENTIFIER]: NodeContainer }

@@ -6,11 +6,11 @@ import React, { useEffect } from 'react'
 
 interface Props {
   image?: ImageItem
-  onHideImagePreview: () => void
   onPreviewImageNavigate: (next: boolean) => void
 }
 
-const ImageViewComponent: React.FC<Props> = ({ image, onHideImagePreview, onPreviewImageNavigate }) => {
+const ImageViewComponent: React.FC<Props> = ({ image, onPreviewImageNavigate }) => {
+  if (!image) return null
   const keyHandler: (ev: KeyboardEvent) => void = (ev: KeyboardEvent) => {
     if (ev.key === 'ArrowRight') {
       onPreviewImageNavigate(true)
@@ -24,7 +24,7 @@ const ImageViewComponent: React.FC<Props> = ({ image, onHideImagePreview, onPrev
       document.addEventListener('keydown', keyHandler)
       return () => document.removeEventListener('keydown', keyHandler)
     }
-  })
+  }, [image])
 
   return (
     <Image
