@@ -7,3 +7,6 @@
 /src/.umi-test
 /dist
 .swc
+.idea
+yarn.lock
+.npmrc
