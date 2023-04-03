@@ -2,6 +2,7 @@
   "name": "kitchen-comfyui",
   "version": "0.0.1",
   "private": true,
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/canisminor1990/kitchen-comfyui.git"
@@ -54,13 +55,17 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^2.2.1",
     "husky": "^8",
+    "lint-staged": "^13.2.0",
     "prettier": "^2",
     "prettier-plugin-organize-imports": "^3",
     "prettier-plugin-packagejson": "^2",
     "query-string": "^8.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "semantic-release": "^19",
+    "semantic-release-config-gitmoji": "^1",
     "styled-components": "^5.3.9",
+    "stylelint": "^15.4.0",
     "typescript": "^5.0.0"
   }
 }
