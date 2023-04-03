@@ -1,115 +1,117 @@
-import type { Enable, NumberSize, Size } from 're-resizable';
-import { HandleClassName, Resizable } from 're-resizable';
-import type { CSSProperties, FC, ReactNode } from 'react';
-import { memo, useMemo } from 'react';
-import { Center } from 'react-layout-kit';
-import type { Props as RndProps } from 'react-rnd';
-import useControlledState from 'use-merge-value';
-import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
-import { getPrefixCls } from '@/components/theme';
-import { useStyle } from './style';
+import { getPrefixCls } from '@/components/theme'
+import { DownOutlined, LeftOutlined, RightOutlined, UpOutlined } from '@ant-design/icons'
+import type { Enable, NumberSize, Size } from 're-resizable'
+import { HandleClassName, Resizable } from 're-resizable'
+import type { CSSProperties, FC, ReactNode } from 'react'
+import { memo, useMemo } from 'react'
+import { Center } from 'react-layout-kit'
+import type { Props as RndProps } from 'react-rnd'
+import useControlledState from 'use-merge-value'
+import { useStyle } from './style'
+
+export type placementType = 'right' | 'left' | 'top' | 'bottom'
 
 export interface FixModePanelProps {
   /**
    * 位置，
    * 使用固定模式或者浮动窗口
    */
-  mode?: 'fixed' | 'float';
+  mode?: 'fixed' | 'float'
 
   /**
    * 固定模式下面板的朝向，默认放置在右侧
    * @default right
    */
-  placement: 'right' | 'left' | 'top' | 'bottom';
+  placement: placementType
 
   /**
    * 最小宽度
    */
-  minWidth?: number;
+  minWidth?: number
   /**
    * 最小高度
    */
-  minHeight?: number;
+  minHeight?: number
   /**
    * 控制可缩放区域
    */
-  resize?: RndProps['enableResizing'];
+  resize?: RndProps['enableResizing']
   /**
    * 面板尺寸
    *
    */
-  size?: Partial<Size>;
-  onSizeChange?: (delta: NumberSize, size?: Size) => void;
+  size?: Partial<Size>
+  onSizeChange?: (delta: NumberSize, size?: Size) => void
   /**
    * 当用户在拖拽过程中触发
    * @param delta
    * @param size
    */
-  onSizeDragging?: (delta: NumberSize, size?: Size) => void;
+  onSizeDragging?: (delta: NumberSize, size?: Size) => void
   /**
    * 是否可展开
    * @default true
    */
-  expandable?: boolean;
+  expandable?: boolean
   /**
    * 当前是否是展开态
    */
-  isExpand?: boolean;
+  isExpand?: boolean
   /**
    * 展开是否可以变更
    * @param expand
    */
-  onExpandChange?: (expand: boolean) => void;
+  onExpandChange?: (expand: boolean) => void
   /**
    * 面板位置
    * 受控模式
    */
-  position?: RndProps['position'];
+  position?: RndProps['position']
   /**
    * 面板默认尺寸
    * 固定模式下： width 320px height 100%
    * 浮动模式下：width 320px height 400px
    */
-  defaultSize?: Partial<Size>;
+  defaultSize?: Partial<Size>
   /**
    * 面板默认位置悬浮模式下有效
    * @default [100,100]
    */
-  defaultPosition?: RndProps['position'];
+  defaultPosition?: RndProps['position']
   /**
    * 位置变更回调
    */
-  onPositionChange?: (position: RndProps['position']) => void;
+  onPositionChange?: (position: RndProps['position']) => void
   /**
    * 样式
    */
-  style?: CSSProperties;
-  className?: string;
+  style?: CSSProperties
+  className?: string
   /**
    * 内容
    */
-  children: ReactNode;
+  children: ReactNode
   /**
    * 类名前缀
    */
-  prefixCls?: string;
+  prefixCls?: string
 }
 
-const DEFAULT_HEIGHT = 150;
-const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 150
+const DEFAULT_WIDTH = 400
 
-const revesePlacement = (placement: 'right' | 'left' | 'top' | 'bottom') => {
+const revesePlacement = (placement: placementType) => {
   switch (placement) {
     case 'bottom':
-      return 'top';
+      return 'top'
     case 'top':
-      return 'bottom';
+      return 'bottom'
     case 'right':
-      return 'left';
+      return 'left'
     case 'left':
-      return 'right';
+      return 'right'
   }
-};
+}
 
 export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
   ({
@@ -129,27 +131,27 @@ export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
     onExpandChange,
     className,
   }) => {
-    const prefixCls = getPrefixCls('draggable-panel', customPrefixCls);
+    const prefixCls = getPrefixCls('draggable-panel', customPrefixCls)
 
-    const isVertical = placement === 'top' || placement === 'bottom';
+    const isVertical = placement === 'top' || placement === 'bottom'
 
-    const { styles, cx } = useStyle(prefixCls);
+    const { styles, cx } = useStyle(prefixCls)
 
     const [isExpand, setIsExpand] = useControlledState(true, {
       value: expand,
       onChange: onExpandChange,
-    });
+    })
 
     // 只有配置了 resize 和 isExpand 属性后才可拖拽
-    const canResizing = resize !== false && isExpand;
+    const canResizing = resize !== false && isExpand
 
     const resizeHandleClassNames: HandleClassName = useMemo(() => {
-      if (!canResizing) return {};
+      if (!canResizing) return {}
 
       return {
         [revesePlacement(placement)]: styles[`${revesePlacement(placement)}Handle`],
-      };
-    }, [canResizing, placement]);
+      }
+    }, [canResizing, placement])
 
     const resizing = {
       top: false,
@@ -162,7 +164,7 @@ export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
       topLeft: false,
       [revesePlacement(placement)]: true,
       ...(resize as Enable),
-    };
+    }
 
     const defaultSize: Size = useMemo(() => {
       if (isVertical)
@@ -170,14 +172,14 @@ export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
           width: '100%',
           height: DEFAULT_HEIGHT,
           ...customizeDefaultSize,
-        };
+        }
 
       return {
         width: DEFAULT_WIDTH,
         height: '100%',
         ...customizeDefaultSize,
-      };
-    }, [isVertical]);
+      }
+    }, [isVertical])
 
     const sizeProps = isExpand
       ? {
@@ -191,31 +193,29 @@ export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
           minWidth: 0,
           minHeight: 0,
           size: { width: 0, height: 0 },
-        };
+        }
 
     const { Arrow, className: arrowPlacement } = useMemo(() => {
       switch (placement) {
         case 'top':
-          return { className: 'Bottom', Arrow: DownOutlined };
+          return { className: 'Bottom', Arrow: DownOutlined }
         case 'bottom':
-          return { className: 'Top', Arrow: UpOutlined };
+          return { className: 'Top', Arrow: UpOutlined }
         case 'right':
-          return { className: 'Left', Arrow: LeftOutlined };
+          return { className: 'Left', Arrow: LeftOutlined }
         case 'left':
-          return { className: 'Right', Arrow: RightOutlined };
+          return { className: 'Right', Arrow: RightOutlined }
       }
-    }, [styles, placement]);
+    }, [styles, placement])
 
     return (
-      <div
-        className={cx(styles.container, className)}
-        style={{ [`border${arrowPlacement}Width`]: 1 }}
-      >
+      <div className={cx(styles.container, className)} style={{ [`border${arrowPlacement}Width`]: 1 }}>
         {expandable && (
           <Center
+            // @ts-ignore
             className={cx(styles[`toggle${arrowPlacement}`])}
             onClick={() => {
-              setIsExpand(!isExpand);
+              setIsExpand(!isExpand)
             }}
             style={{ opacity: isExpand ? undefined : 1 }}
           >
@@ -232,19 +232,19 @@ export const FixMode: FC<FixModePanelProps> = memo<FixModePanelProps>(
               onSizeChange?.(delta, {
                 width: ref.style.width,
                 height: ref.style.height,
-              });
+              })
             }}
             onResize={(_, direction, ref, delta) => {
               onSizeDragging?.(delta, {
                 width: ref.style.width,
                 height: ref.style.height,
-              });
+              })
             }}
           >
             {children}
           </Resizable>
         }
       </div>
-    );
-  },
-);
+    )
+  }
+)

@@ -1,11 +1,11 @@
-import { StudioStylish, StudioThemeToken } from './themes';
+import { StudioStylish, StudioThemeToken } from './themes'
 
-export const STUDIO_UI_PREFIX = 'studio';
+export const STUDIO_UI_PREFIX = 'antd'
 
 export function getPrefixCls(suffixCls: string, customizePrefixCls?: string) {
-  if (customizePrefixCls) return customizePrefixCls;
+  if (customizePrefixCls) return customizePrefixCls
 
-  return suffixCls ? `${STUDIO_UI_PREFIX}-${suffixCls}` : STUDIO_UI_PREFIX;
+  return suffixCls ? `${STUDIO_UI_PREFIX}-${suffixCls}` : STUDIO_UI_PREFIX
 }
 
 declare module 'antd-style' {
@@ -16,19 +16,18 @@ declare module 'antd-style' {
   export interface CustomStylish extends StudioStylish {}
 }
 
-export { default as styled } from '@emotion/styled';
 export {
+  ThemeProvider,
   createGlobalStyle,
   createStyles,
   css,
   cx,
   injectGlobal,
   keyframes,
-  ThemeProvider,
   useAntdToken as useToken,
   type AntdToken,
   type GetAntdThemeConfig,
   type ThemeAppearance,
   type ThemeMode,
-} from 'antd-style';
-export * from './themes';
+} from 'antd-style'
+export * from './themes'

@@ -6,6 +6,28 @@ const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.colorBgBase};
   }
 
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colorBorderSecondary};
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:  ${({ theme }) => theme.colorBorder};
+  }
+
+
   .react-flow__handle {
     width: 8px;
     height: 8px;

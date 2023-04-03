@@ -1,9 +1,9 @@
-import type { ButtonProps, TooltipProps } from 'antd';
-import { Button, Tooltip } from 'antd';
-import type { CSSProperties, FC } from 'react';
-import { ConfigProvider } from '../ConfigProvider';
-import { cx, getPrefixCls, useToken } from '@/components/theme';
-import { useStyles } from './style';
+import { cx, getPrefixCls, useToken } from '@/components/theme'
+import type { ButtonProps, TooltipProps } from 'antd'
+import { Button, Tooltip } from 'antd'
+import type { CSSProperties, FC } from 'react'
+import { ConfigProvider } from '../../ConfigProvider'
+import { useStyles } from './style'
 
 /**
  * @title 动作图标属性
@@ -13,27 +13,27 @@ export interface ActionIconProps extends Omit<ButtonProps, 'title' | 'size'> {
   /**
    * @title 鼠标类型
    */
-  cursor?: CSSProperties['cursor'];
+  cursor?: CSSProperties['cursor']
   /**
    * @title 动作提示
    */
-  title?: TooltipProps['title'];
+  title?: TooltipProps['title']
   /**
    * @title 提示位置
    */
-  placement?: TooltipProps['placement'];
+  placement?: TooltipProps['placement']
   /**
    * @title 图标
    */
-  icon: ButtonProps['icon'];
+  icon: ButtonProps['icon']
   /**
    * @title 点击回调
    */
-  onClick?: ButtonProps['onClick'];
+  onClick?: ButtonProps['onClick']
   /**
    * @title 图标尺寸
    */
-  size?: 'default' | 'large' | number;
+  size?: 'default' | 'large' | number
 }
 
 const ActionIcon: FC<ActionIconProps> = ({
@@ -47,10 +47,10 @@ const ActionIcon: FC<ActionIconProps> = ({
   prefixCls: customPrefixCls,
   ...restProps
 }) => {
-  const prefixCls = getPrefixCls('actionicon', customPrefixCls);
-  const { styles } = useStyles({ size, prefixCls });
+  const prefixCls = getPrefixCls('actionicon', customPrefixCls)
+  const { styles } = useStyles({ size, prefixCls })
 
-  const token = useToken();
+  const token = useToken()
 
   const Icon = (
     <Button
@@ -62,7 +62,7 @@ const ActionIcon: FC<ActionIconProps> = ({
       {...restProps}
       onClick={onClick}
     />
-  );
+  )
 
   return (
     <ConfigProvider
@@ -89,6 +89,6 @@ const ActionIcon: FC<ActionIconProps> = ({
         </Tooltip>
       )}
     </ConfigProvider>
-  );
-};
-export default ActionIcon;
+  )
+}
+export default ActionIcon

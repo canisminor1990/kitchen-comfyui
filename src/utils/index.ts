@@ -78,6 +78,7 @@ export function addNode(state: AppState, { widget, node, position, key }: NodeIt
   const item = {
     id,
     data: widget,
+    dragHandle: '.ant-card-head',
     position: position ?? { x: 0, y: 0 },
     type: NODE_IDENTIFIER,
     zIndex: maxZ + 1,

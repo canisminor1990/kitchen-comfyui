@@ -1,7 +1,7 @@
-import { ImageViewContainer, NODE_IDENTIFIER, NodeContainer } from '@/components'
+import { NODE_IDENTIFIER, NodeContainer } from '@/components'
 import { useAppStore } from '@/store'
 import React from 'react'
-import ReactFlow, { Background, BackgroundVariant, Controls, Panel } from 'reactflow'
+import ReactFlow, { Background, BackgroundVariant, Controls } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 
@@ -37,9 +37,6 @@ const FlowContainer: React.FC = () => {
     >
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
-      <Panel position="bottom-center">
-        <ImageViewContainer />
-      </Panel>
     </ReactFlow>
   )
 }

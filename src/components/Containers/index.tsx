@@ -1,7 +1,6 @@
 export { default as ControlPanelContainer } from './ControlPanelContainer'
 export { default as FlowContainer } from './FlowContainer'
 export { default as GalleryContainer } from './GalleryContainer'
-export { default as ImageViewContainer } from './ImageViewContainer'
 export { default as InputContainer } from './InputContainer'
 export { default as NodeContainer } from './NodeContainer'
 export { default as NodePickerContainer } from './NodePickerContainer'

@@ -1,12 +1,12 @@
-import type { SelectProps as Props } from 'antd';
-import { Select as _Select } from 'antd';
-import { createStyles } from 'antd-style';
-import type { FC } from 'react';
-import { ConfigProvider } from './ConfigProvider';
+import type { SelectProps as Props } from 'antd'
+import { Select as _Select } from 'antd'
+import { createStyles } from 'antd-style'
+import type { FC } from 'react'
+import { ConfigProvider } from '../ConfigProvider'
 
 const useStyles = createStyles(({ css, stylish, prefixCls }) => {
-  const prefix = `${prefixCls}-select`;
-  const scopes = `:not(.${prefix}-disabled):not(.${prefix}-customize-input)`;
+  const prefix = `${prefixCls}-select`
+  const scopes = `:not(.${prefix}-disabled):not(.${prefix}-customize-input)`
 
   return css`
     &.${prefix} {
@@ -45,16 +45,16 @@ const useStyles = createStyles(({ css, stylish, prefixCls }) => {
         font-size: 10px;
       }
     }
-  `;
-});
+  `
+})
 
-export type SelectProps = Props;
+export type SelectProps = Props
 
 export const Select: FC<SelectProps> = (props) => {
-  const { styles, cx } = useStyles();
+  const { styles, cx } = useStyles()
   return (
     <ConfigProvider>
       <_Select {...props} className={cx(styles, props.className)} />
     </ConfigProvider>
-  );
-};
+  )
+}

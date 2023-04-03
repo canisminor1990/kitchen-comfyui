@@ -1,5 +1,5 @@
-import { theme } from 'antd';
-import type { MappingAlgorithm } from 'antd/es/config-provider/context';
+import { theme } from 'antd'
+import type { MappingAlgorithm } from 'antd/es/config-provider/context'
 
 /**
  * studio 暗色模式下算法
@@ -7,13 +7,12 @@ import type { MappingAlgorithm } from 'antd/es/config-provider/context';
  * @param mapToken
  */
 export const studioDarkAlgorithm: MappingAlgorithm = (seedToken, mapToken) => {
-  const mergeToken = theme.darkAlgorithm(seedToken, mapToken);
+  const mergeToken = theme.darkAlgorithm(seedToken, mapToken)
 
   return {
     ...mergeToken,
-
     colorBgLayout: '#20252b',
     colorBgContainer: '#282c34',
     colorBgElevated: '#32363e',
-  };
-};
+  }
+}

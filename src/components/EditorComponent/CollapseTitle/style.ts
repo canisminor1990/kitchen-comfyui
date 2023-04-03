@@ -1,5 +1,6 @@
-import { createStyles, css, cx } from '@/components/theme';
+import { createStyles, css, cx } from '@/components/theme'
 
+// @ts-ignore
 export const useStyles = createStyles(({ token, stylish }, { prefixCls, className, showPanel }) => {
   return {
     container: cx(
@@ -7,11 +8,12 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
       className,
       showPanel
         ? css`
-            padding: 6px 8px;
+            padding: 6px 8px 12px 8px;
             background: ${token.colorFillQuaternary};
             border-radius: 4px;
+            margin-bottom: 8px;
           `
-        : '',
+        : ''
     ),
 
     header: cx(
@@ -23,7 +25,7 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
             user-select: none;
             border-radius: 4px;
             ${stylish.containerBgL2}
-          `,
+          `
     ),
 
     title: cx(
@@ -38,7 +40,7 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
             user-select: none;
             ${stylish.containerBgHover}
           `
-        : '',
+        : ''
     ),
-  };
-});
+  }
+})

@@ -1,53 +1,53 @@
-import { CaretRightFilled } from '@ant-design/icons';
-import { Divider } from 'antd';
-import type { CSSProperties, FC, ReactNode } from 'react';
-import { Flexbox } from 'react-layout-kit';
-import useMergedState from 'use-merge-value';
-import { getPrefixCls } from '@/components/theme';
-import { ConfigProvider } from '../ConfigProvider';
-import { useStyles } from './style';
+import { getPrefixCls } from '@/components/theme'
+import { CaretRightFilled } from '@ant-design/icons'
+import { Divider } from 'antd'
+import type { CSSProperties, FC, ReactNode } from 'react'
+import { Flexbox } from 'react-layout-kit'
+import useMergedState from 'use-merge-value'
+import { ConfigProvider } from '../../ConfigProvider'
+import { useStyles } from './style'
 
 interface CollapseTitleProps {
   /**
    * 默认展开
    */
-  defaultExpand?: boolean;
+  defaultExpand?: boolean
   /**
    * 受控展开
    */
-  expand?: boolean;
+  expand?: boolean
   /**
    * 标题
    */
-  title?: string;
+  title?: string
   /**
    * 展开回调
    * @param expand
    * @returns
    */
-  onExpandChange?: (expand: boolean) => void;
+  onExpandChange?: (expand: boolean) => void
   /**
    * 前缀
    */
-  prefixCls?: string;
+  prefixCls?: string
   /**
    * 类名
    */
-  className?: string;
+  className?: string
   /**
    * 扩展部位渲染
    * @param expand
    * @returns
    */
-  extra?: (expand: boolean) => ReactNode;
+  extra?: (expand: boolean) => ReactNode
   /**
    * 样式
    */
-  style?: CSSProperties;
+  style?: CSSProperties
   /**
    * 内容
    */
-  children?: ReactNode;
+  children?: ReactNode
 }
 
 const CollapseTitle: FC<CollapseTitleProps> = ({
@@ -60,18 +60,18 @@ const CollapseTitle: FC<CollapseTitleProps> = ({
   className,
   extra,
 }) => {
-  const prefixCls = getPrefixCls('collapse-title', customizePrefixCls);
+  const prefixCls = getPrefixCls('collapse-title', customizePrefixCls)
 
   const [showPanel, setCollapsed] = useMergedState(defaultExpand, {
     value: expand,
     onChange: onExpandChange,
-  });
+  })
 
   const toggleCollapse = () => {
-    setCollapsed(!showPanel);
-  };
+    setCollapsed(!showPanel)
+  }
 
-  const { styles } = useStyles({ showPanel, prefixCls, className });
+  const { styles }: any = useStyles({ showPanel, prefixCls, className })
   return (
     <ConfigProvider>
       <Flexbox className={styles.container}>
@@ -102,7 +102,7 @@ const CollapseTitle: FC<CollapseTitleProps> = ({
         ) : null}
       </Flexbox>
     </ConfigProvider>
-  );
-};
+  )
+}
 
-export default CollapseTitle;
+export default CollapseTitle

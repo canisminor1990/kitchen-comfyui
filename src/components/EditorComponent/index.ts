@@ -1,7 +1,10 @@
-export * from './Input';
-export * from './InputNumber';
-export * from './Segmented';
-export * from './Select';
-export * from './Tabs';
-export * from './Tree';
-export * from './TreeSelect';
+export { default as ActionIcon } from './ActionIcon'
+export { default as CollapseTitle } from './CollapseTitle'
+export * from './DraggablePanel'
+export * from './Input'
+export * from './InputNumber'
+export * from './Segmented'
+export * from './Select'
+export * from './Tabs'
+export * from './Tree'
+export * from './TreeSelect'

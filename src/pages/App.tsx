@@ -1,22 +1,9 @@
-import { ControlPanelContainer, FlowContainer } from '@/components'
-import { Layout } from 'antd'
-import React from 'react'
-import WsController from './WsController'
+import { FlowContainer } from '@/components'
 
-const { Sider, Content } = Layout
+import React from 'react'
 
 const App: React.FC = () => {
-  return (
-    <Layout>
-      <Content>
-        <FlowContainer />
-      </Content>
-      <WsController />
-      <Sider style={{ background: 'transparent' }}>
-        <ControlPanelContainer />
-      </Sider>
-    </Layout>
-  )
+  return <FlowContainer />
 }
 
 export default App

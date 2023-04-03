@@ -1,9 +1,8 @@
+import { Input, InputNumber, Select, TextArea } from '@/components'
 import { InputData } from '@/types'
 import { checkInput } from '@/utils'
-import { Checkbox, Input, InputNumber, Select } from 'antd'
+import { Checkbox } from 'antd'
 import React from 'react'
-
-const { TextArea } = Input
 
 const MAX_SELECT_NAME = 36
 
