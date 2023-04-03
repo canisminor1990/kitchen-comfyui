@@ -1,19 +1,19 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
 import { getBackendUrl } from '@/config'
 import { retrieveLocalWorkflow, saveLocalWorkflow, writeWorkflowToFile, type PersistedGraph } from '@/persistence'
-import {
+import type {
+  GalleryItem,
   ImageItem,
+  NodeId,
+  NodeInProgress,
   NodeItem,
+  PropertyKey,
+  QueueItem,
   SDNode,
-  type GalleryItem,
-  type NodeId,
-  type NodeInProgress,
-  type PropertyKey,
-  type QueueItem,
-  type Widget,
-  type WidgetKey,
+  Widget,
+  WidgetKey,
 } from '@/types'
-import { addConnection, addNode, getQueueItems, toPersisted } from '@/utils'
+import { addConnection, addNode, getQueueItems, toPersisted, updateNode } from '@/utils'
 import exifr from 'exifr'
 import {
   applyEdgeChanges,
@@ -43,6 +43,7 @@ export interface AppState {
   onEdgesChange: OnEdgesChange
   onConnect: OnConnect
   onPropChange: OnPropChange
+  onUpdateNodes: (id: string, data: any) => void
   onAddNode: (nodeItem: NodeItem) => void
   onDeleteNode: (id: NodeId) => void
   onDuplicateNode: (id: NodeId) => void
@@ -73,6 +74,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   onNodesChange: (changes) => {
     set((st) => ({ nodes: applyNodeChanges(changes, st.nodes) }))
   },
+
   onEdgesChange: (changes) => {
     set((st) => ({ edges: applyEdgeChanges(changes, st.edges) }))
   },
@@ -95,6 +97,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   onPersistLocal: () => {
     saveLocalWorkflow(toPersisted(get()))
+  },
+  onUpdateNodes: (id, data) => {
+    set((st) => ({ nodes: updateNode(id, data, st.nodes) }))
   },
   onAddNode: (nodeItem) => {
     set((st) => addNode(st, nodeItem))

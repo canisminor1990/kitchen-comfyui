@@ -4,7 +4,7 @@ import { PersistedGraph, PersistedNode } from '@/persistence'
 import type { AppState } from '@/store'
 import { Connection, InputData, NodeId, NodeItem, Parameter, PropertyKey, QueueItem, SDNode, Widget } from '@/types'
 import { Connection as FlowConnecton } from '@reactflow/core/dist/esm/types/general'
-import { addEdge, applyNodeChanges } from 'reactflow'
+import { Node, addEdge, applyNodeChanges } from 'reactflow'
 
 export const checkInput = {
   isBool(i: InputData): i is Parameter<'BOOL'> {
@@ -66,6 +66,13 @@ export function getValidConnections(state: AppState): Connection[] {
       ? [{ source: e.source, sourceHandle: e.sourceHandle, target: e.target, targetHandle: e.targetHandle }]
       : []
   )
+}
+
+export function updateNode(id: string, data: any, nodes: Node[]) {
+  return nodes.map((n) => {
+    if (n.id === id) n.data = { ...n.data, ...data }
+    return n
+  })
 }
 export function addNode(state: AppState, { widget, node, position, key }: NodeItem): AppState {
   const nextKey = key !== undefined ? Math.max(key, state.counter + 1) : state.counter + 1

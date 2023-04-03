@@ -6,7 +6,7 @@ import { NodeProps } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 
 const NodeContainer: React.FC<NodeProps<Widget>> = (props) => {
-  const { progressBar, imagePreviews, onPreviewImage, onDuplicateNode, onDeleteNode } = useAppStore(
+  const { progressBar, imagePreviews, onPreviewImage, onDuplicateNode, onDeleteNode, onUpdateNodes } = useAppStore(
     (st) => ({
       progressBar: st.nodeInProgress?.id === props.id ? st.nodeInProgress.progress : undefined,
       imagePreviews: st.graph[props.id]?.images?.flatMap((image) => {
@@ -17,6 +17,7 @@ const NodeContainer: React.FC<NodeProps<Widget>> = (props) => {
       onPropChange: st.onPropChange,
       onDuplicateNode: st.onDuplicateNode,
       onDeleteNode: st.onDeleteNode,
+      onUpdateNodes: st.onUpdateNodes,
     }),
     shallow
   )
@@ -28,6 +29,7 @@ const NodeContainer: React.FC<NodeProps<Widget>> = (props) => {
       onPreviewImage={onPreviewImage}
       onDuplicateNode={onDuplicateNode}
       onDeleteNode={onDeleteNode}
+      onUpdateNodes={onUpdateNodes}
     />
   )
 }

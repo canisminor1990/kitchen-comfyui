@@ -1,9 +1,10 @@
+import { ActionIcon } from '@/components'
 import { ImageItem, type NodeId, type Widget } from '@/types'
 import { checkInput } from '@/utils'
-import { CopyIcon, TrashIcon } from '@radix-ui/react-icons'
+import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Progress, Space } from 'antd'
 import React from 'react'
-import { type NodeProps } from 'reactflow'
+import { NodeResizeControl, type NodeProps } from 'reactflow'
 import NodeImgPreview from './NodeImgPreview'
 import NodeInputs from './NodeInputs'
 import NodeOutpus from './NodeOutpus'
@@ -24,6 +25,7 @@ interface NodeComponentProps {
   onPreviewImage: (idx: number) => void
   onDuplicateNode: (id: NodeId) => void
   onDeleteNode: (id: NodeId) => void
+  onUpdateNodes: (id: NodeId, data: any) => void
 }
 
 const NodeComponent: React.FC<NodeComponentProps> = ({
@@ -32,6 +34,7 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   imagePreviews,
   onDuplicateNode,
   onDeleteNode,
+  onUpdateNodes,
 }) => {
   const params: any[] = []
   const inputs: any[] = []
@@ -47,21 +50,25 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
 
-  if (isSelected) console.log(node.data)
+  if (isSelected) console.log(node)
 
   return (
     <NodeCard
       size="small"
       title={node.data.name}
       active={isInProgress || isSelected ? 1 : 0}
+      style={{
+        width: node.data?.width || 'unset',
+        height: node.data?.height || 'unset',
+      }}
       hoverable
       extra={
         isInProgress
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
           : isSelected && (
               <Space>
-                <CopyIcon onClick={() => onDuplicateNode(node.id)} />
-                <TrashIcon onClick={() => onDeleteNode(node.id)} />
+                <ActionIcon icon={<CopyOutlined />} onClick={() => onDuplicateNode(node.id)} />
+                <ActionIcon icon={<DeleteOutlined />} onClick={() => onDeleteNode(node.id)} />
               </Space>
             )
       }
@@ -72,6 +79,9 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
       </SpaceGrid>
       <NodeParams data={params} nodeId={node.id} />
       <NodeImgPreview data={imagePreviews} />
+      {isSelected && (
+        <NodeResizeControl onResizeEnd={(_, { width, height }) => onUpdateNodes(node.id, { width, height })} />
+      )}
     </NodeCard>
   )
 }

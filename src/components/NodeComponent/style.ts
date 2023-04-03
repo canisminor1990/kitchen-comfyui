@@ -13,6 +13,7 @@ export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
       : ''}
   .ant-card-head {
     background: ${({ theme }) => theme.colorFillQuaternary} !important;
+    padding-right: 8px;
   }
 `
 

@@ -1,5 +1,6 @@
+import { ActionIcon } from '@/components'
 import { type QueueItem } from '@/types'
-import { TrashIcon } from '@radix-ui/react-icons'
+import { DeleteOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
@@ -23,7 +24,8 @@ const QueueComponent: React.FC<QueueComponentProps> = ({ queue, onDeleteFromQueu
           title={`Queue ${i + 1}`}
           key={i}
           extra={
-            <TrashIcon
+            <ActionIcon
+              icon={<DeleteOutlined />}
               onClick={() => {
                 void onDeleteFromQueue(it.id)
               }}
