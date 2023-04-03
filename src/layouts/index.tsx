@@ -1,14 +1,31 @@
-import { Layout } from 'antd'
-import { ThemeProvider } from 'antd-style'
+import { Layout, Segmented } from 'antd'
+import { ThemeProvider, type ThemeMode } from 'antd-style'
 import 'antd/dist/reset.css'
 import { Outlet } from 'umi'
+import GlobalStyle from './GlobalStyle'
+import { useStore } from './useStore'
 
-export default () => {
+const { Header } = Layout
+const options = [
+  { label: '自动', value: 'auto' },
+  { label: '亮色', value: 'light' },
+  { label: '暗色', value: 'dark' },
+]
+
+const Editor: React.FC = () => {
+  const themeMode = useStore()
+
   return (
-    <ThemeProvider themeMode={'auto'}>
-      <Layout>
+    <ThemeProvider themeMode={themeMode}>
+      <GlobalStyle />
+      <Layout style={{ width: '100vw', height: '100vh' }}>
+        <Header>
+          <Segmented value={themeMode} onChange={(v) => useStore.setState(v as ThemeMode)} options={options} />
+        </Header>
         <Outlet />
       </Layout>
     </ThemeProvider>
   )
 }
+
+export default Editor

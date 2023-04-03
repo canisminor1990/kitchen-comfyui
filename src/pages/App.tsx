@@ -8,7 +8,7 @@ const { Sider, Content } = Layout
 
 const App: React.FC = () => {
   return (
-    <Layout style={{ width: '100vw', height: '100vh' }}>
+    <Layout>
       <Content>
         <FlowContainer />
       </Content>
