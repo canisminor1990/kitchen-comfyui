@@ -31,10 +31,7 @@ const ControlPanelComponent: React.FC<ControlPanelComponentProps> = ({ onSubmit,
       ) : (
         <></>
       )}
-      <div
-        style={{ width: '64vw' }}
-        className="drop-shadow-lg rounded-md bg-stone-900 border-2 border-stone-400 flex flex-col overflow-hidden"
-      >
+      <div className="drop-shadow-lg rounded-md bg-stone-900 border-2 border-stone-400 flex flex-col overflow-hidden">
         <PanelTabs tabs={TABS} active={activeTab} onTabChange={(tab) => setState({ minimized: false, activeTab: tab })}>
           <button
             className="absolute bg-teal-800 hover:bg-teal-700 p-2 left-2 mx-0.5 cursor-pointer"

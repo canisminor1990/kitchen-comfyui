@@ -1,13 +1,22 @@
+import { ControlPanelContainer } from '@/components'
+import { Layout } from 'antd'
 import React from 'react'
 import FlowContainer from './FlowContainer'
 import WsController from './WsController'
 
+const { Sider, Content } = Layout
+
 const App: React.FC = () => {
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <FlowContainer />
+    <Layout style={{ width: '100vw', height: '100vh' }}>
+      <Content>
+        <FlowContainer />
+      </Content>
       <WsController />
-    </div>
+      <Sider>
+        <ControlPanelContainer />
+      </Sider>
+    </Layout>
   )
 }
 

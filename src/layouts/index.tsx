@@ -1,9 +1,14 @@
+import { Layout } from 'antd'
+import { ThemeProvider } from 'antd-style'
+import 'antd/dist/reset.css'
 import { Outlet } from 'umi'
 
-export default function Layout() {
+export default () => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <ThemeProvider themeMode={'auto'}>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </ThemeProvider>
   )
 }
