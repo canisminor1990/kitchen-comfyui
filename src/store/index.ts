@@ -1,17 +1,10 @@
-import { createPrompt, deleteFromQueue, getQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
-import { NODE_IDENTIFIER } from '@/components/NodeComponent'
+import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
 import { getBackendUrl } from '@/config'
-import {
-  retrieveLocalWorkflow,
-  saveLocalWorkflow,
-  writeWorkflowToFile,
-  type PersistedGraph,
-  type PersistedNode,
-} from '@/persistence'
+import { retrieveLocalWorkflow, saveLocalWorkflow, writeWorkflowToFile, type PersistedGraph } from '@/persistence'
 import {
   ImageItem,
+  NodeItem,
   SDNode,
-  type Connection,
   type GalleryItem,
   type NodeId,
   type NodeInProgress,
@@ -22,21 +15,18 @@ import {
 } from '@/types'
 import exifr from 'exifr'
 import {
-  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
   type Edge,
-  type Connection as FlowConnecton,
   type Node,
   type OnConnect,
   type OnEdgesChange,
   type OnNodesChange,
-  type XYPosition,
 } from 'reactflow'
 import { create } from 'zustand'
+import AppStateClient from './AppStateClient'
 
 export type OnPropChange = (node: NodeId, property: PropertyKey, value: any) => void
-
 export interface AppState {
   counter: number
   clientId?: string
@@ -53,7 +43,7 @@ export interface AppState {
   onEdgesChange: OnEdgesChange
   onConnect: OnConnect
   onPropChange: OnPropChange
-  onAddNode: (widget: Widget, node?: SDNode, pos?: XYPosition, key?: number) => void
+  onAddNode: (nodeItem: NodeItem) => void
   onDeleteNode: (id: NodeId) => void
   onDuplicateNode: (id: NodeId) => void
   onSubmit: () => Promise<void>
@@ -87,7 +77,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     set((st) => ({ edges: applyEdgeChanges(changes, st.edges) }))
   },
   onConnect: (connection) => {
-    set((st) => AppState.addConnection(st, connection))
+    set((st) => AppStateClient.addConnection(st, connection))
   },
   onPropChange: (id, key, val) => {
     set((state) => ({
@@ -104,10 +94,10 @@ export const useAppStore = create<AppState>((set, get) => ({
     }))
   },
   onPersistLocal: () => {
-    saveLocalWorkflow(AppState.toPersisted(get()))
+    saveLocalWorkflow(AppStateClient.toPersisted(get()))
   },
-  onAddNode: (widget, node, position, key) => {
-    set((st) => AppState.addNode(st, widget, node, position, key))
+  onAddNode: (nodeItem) => {
+    set((st) => AppStateClient.addNode(st, nodeItem))
   },
   onDeleteNode: (id) => {
     set(({ graph: { [id]: toDelete, ...graph }, nodes }) => ({
@@ -121,12 +111,12 @@ export const useAppStore = create<AppState>((set, get) => ({
       const node = st.nodes.find((n) => n.id === id)
       const position = node?.position
       const moved = position !== undefined ? { ...position, y: position.y + 100 } : undefined
-      return AppState.addNode(st, st.widgets[item.widget], item, moved)
+      return AppStateClient.addNode(st, { widget: st.widgets[item.widget], node: item, position: moved })
     })
   },
   onSubmit: async () => {
     const state = get()
-    const graph = AppState.toPersisted(state)
+    const graph = AppStateClient.toPersisted(state)
     const res = await sendPrompt(createPrompt(graph, state.widgets, state.clientId))
     set({ promptError: res.error })
   },
@@ -147,25 +137,30 @@ export const useAppStore = create<AppState>((set, get) => ({
       for (const [key, node] of Object.entries(workflow.data)) {
         const widget = state.widgets[node.value.widget]
         if (widget !== undefined) {
-          state = AppState.addNode(state, widget, node.value, node.position, parseInt(key))
+          state = AppStateClient.addNode(state, {
+            widget,
+            node: node.value,
+            position: node.position,
+            key: parseInt(key),
+          })
         } else {
           console.warn(`Unknown widget ${node.value.widget}`)
         }
       }
       for (const connection of workflow.connections) {
-        state = AppState.addConnection(state, connection)
+        state = AppStateClient.addConnection(state, connection)
       }
       return state
     }, true)
   },
   onSaveWorkflow: () => {
-    writeWorkflowToFile(AppState.toPersisted(get()))
+    writeWorkflowToFile(AppStateClient.toPersisted(get()))
   },
   onNewClientId: (id) => {
     set({ clientId: id })
   },
   onQueueUpdate: async () => {
-    set({ queue: await getQueueItems(get().clientId) })
+    set({ queue: await AppStateClient.getQueueItems(get().clientId) })
   },
   onNodeInProgress: (id, progress) => {
     set({ nodeInProgress: { id, progress } })
@@ -200,69 +195,3 @@ export const useAppStore = create<AppState>((set, get) => ({
     })
   },
 }))
-
-export const AppState = {
-  getValidConnections(state: AppState): Connection[] {
-    return state.edges.flatMap((e) =>
-      e.sourceHandle !== undefined && e.sourceHandle !== null && e.targetHandle !== undefined && e.targetHandle !== null
-        ? [{ source: e.source, sourceHandle: e.sourceHandle, target: e.target, targetHandle: e.targetHandle }]
-        : []
-    )
-  },
-  addNode(state: AppState, widget: Widget, node?: SDNode, position?: XYPosition, key?: number): AppState {
-    const nextKey = key !== undefined ? Math.max(key, state.counter + 1) : state.counter + 1
-
-    const id = nextKey.toString()
-    const maxZ = state.nodes
-      .map((n) => n.zIndex ?? 0)
-      .concat([0])
-      .reduce((a, b) => Math.max(a, b))
-    const item = {
-      id,
-      data: widget,
-      position: position ?? { x: 0, y: 0 },
-      type: NODE_IDENTIFIER,
-      zIndex: maxZ + 1,
-    }
-    return {
-      ...state,
-      nodes: applyNodeChanges([{ type: 'add', item }], state.nodes),
-      graph: { ...state.graph, [id]: node ?? SDNode.fromWidget(widget) },
-      counter: nextKey,
-    }
-  },
-  addConnection(state: AppState, connection: FlowConnecton): AppState {
-    return { ...state, edges: addEdge(connection, state.edges) }
-  },
-  toPersisted(state: AppState): PersistedGraph {
-    const data: Record<NodeId, PersistedNode> = {}
-    for (const node of state.nodes) {
-      const value = state.graph[node.id]
-      if (value !== undefined) {
-        data[node.id] = { value, position: node.position }
-      }
-    }
-
-    return {
-      data,
-      connections: AppState.getValidConnections(state),
-    }
-  },
-}
-
-async function getQueueItems(clientId?: string): Promise<QueueItem[]> {
-  const history = await getQueue()
-  // hacky way of getting the queue
-  const queue = history.queue_running
-    .concat(history.queue_pending)
-    .filter(([i, id, graph, client]) => client.client_id === clientId)
-    .map(([i, id, graph]) => {
-      const prompts = Object.values(graph).flatMap((node) =>
-        node.class_type === 'CLIPTextEncode' && node.inputs.text !== undefined ? [node.inputs.text] : []
-      )
-      const checkpoint = Object.values(graph).find((node) => node.class_type.startsWith('CheckpointLoader'))
-      const model = checkpoint?.inputs?.ckpt_name
-      return { id, prompts, model }
-    })
-  return queue
-}

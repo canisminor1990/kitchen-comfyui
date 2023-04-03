@@ -5,7 +5,6 @@ import queryString from 'query-string'
 import React from 'react'
 import { Handle, Position, type HandleType, type NodeProps } from 'reactflow'
 import { ImageItem, Input, type NodeId, type Widget } from '../types'
-import './NodeComponent.css'
 
 export const NODE_IDENTIFIER = 'sdNode'
 

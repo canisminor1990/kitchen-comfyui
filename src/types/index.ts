@@ -1,8 +1,16 @@
 import { StringifiableRecord } from 'query-string'
+import { XYPosition } from 'reactflow'
 
 export type WidgetKey = string
 export type PropertyKey = string
 export type NodeId = string
+
+export interface NodeItem {
+  widget: Widget
+  node?: SDNode
+  position?: XYPosition
+  key?: number
+}
 
 export interface SDNode {
   widget: WidgetKey
