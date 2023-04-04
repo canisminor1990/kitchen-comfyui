@@ -15,7 +15,7 @@ const NodeImgPreview: React.FC<NodeImgPreviewProps> = ({ data }) => {
       {data
         .map(({ image, index }) => (
           <Image
-            width={256}
+            height={'100%'}
             key={index}
             src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))}
           />

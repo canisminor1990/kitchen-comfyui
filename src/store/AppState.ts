@@ -35,6 +35,7 @@ export interface AppState {
   onAddNode: (nodeItem: NodeItem) => void
   onDeleteNode: (id: NodeId) => void
   onDuplicateNode: (id: NodeId) => void
+  getNodeFieldsData: (id: NodeId, key: string) => any
   onSubmit: () => Promise<void>
   onDeleteFromQueue: (id: number) => Promise<void>
   onInit: () => Promise<void>
@@ -45,5 +46,4 @@ export interface AppState {
   onQueueUpdate: () => Promise<void>
   onNodeInProgress: (id: NodeId, progress: number) => void
   onImageSave: (id: NodeId, images: ImageItem[]) => void
-  onPreviewImage: (id: number) => void
 }

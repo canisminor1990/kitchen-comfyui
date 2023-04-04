@@ -15,18 +15,12 @@ interface NodeParamsProps {
 
 const NodeParams: React.FC<NodeParamsProps> = ({ data, nodeId }) => {
   if (!data || data.length === 0) return null
+
   return (
     <div>
       {data.map((item) => (
         <div key={item.name}>
-          <NodeSlot
-            slotType={item.type}
-            id={item.name}
-            label={item.name}
-            type="target"
-            position={Position.Left}
-            isRequired={false}
-          />
+          <NodeSlot slotType={item.type} label={item.name} type="target" position={Position.Left} isRequired={false} />
           <InputContainer name={item.name} id={nodeId} input={item.input} />
           <div style={{ height: 4 }} />
         </div>

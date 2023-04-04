@@ -34,6 +34,16 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
   }
 
+
+
+  .react-flow__handle-connecting {
+    background: ${({ theme }) => theme.colorError} !important;
+  }
+
+  .react-flow__handle-valid {
+    background: ${({ theme }) => theme.colorSuccess} !important;
+  }
+
   .react-flow__minimap-mask {
     fill: ${({ theme }) => theme.colorBgMask};
   }

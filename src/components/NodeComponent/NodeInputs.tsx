@@ -18,7 +18,6 @@ const NodeInputs: React.FC<NodeInputsProps> = ({ data }) => {
         <NodeSlot
           key={item.name}
           slotType={item.type}
-          id={item.name}
           label={item.name}
           type="target"
           position={Position.Left}

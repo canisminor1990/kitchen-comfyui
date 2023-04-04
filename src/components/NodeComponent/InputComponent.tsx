@@ -30,16 +30,16 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
     )
   }
   if (checkInput.isBool(input)) {
-    return <Checkbox value={value} defaultChecked={input[1].default} onChange={(e) => onChange(e.target.checked)} />
+    return <Checkbox value={value} defaultChecked={input[1].default} onChange={onChange} />
   }
   if (checkInput.isInt(input)) {
     return (
       <IntegerStep
         style={{ width: '100%' }}
-        value={value !== null ? value : input[1].default}
+        value={Number(value !== null ? value : input[1].default)}
         max={Number(input[1].max)}
         min={Number(input[1].min)}
-        onChange={onChange}
+        onChange={(val) => onChange(Number(val?.target?.value ? val.target.value : val))}
       />
     )
   }
@@ -48,21 +48,19 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
       <DecimalStep
         style={{ width: '100%' }}
         step={0.01}
-        value={value !== null ? value : input[1].default}
+        value={Number(value !== null ? value : input[1].default)}
         max={Number(input[1].max)}
         min={Number(input[1].min)}
-        onChange={onChange}
+        onChange={(val) => onChange(Number(val?.target?.value ? val.target.value : val))}
       />
     )
   }
   if (checkInput.isString(input)) {
     const args = input[1]
     if (args.multiline === true) {
-      return (
-        <TextArea style={{ height: 128, width: '100%' }} value={value} onChange={(e) => onChange(e.target.value)} />
-      )
+      return <TextArea style={{ height: 128, width: '100%' }} defaultValue={value} onBlur={onChange} />
     }
-    return <Input style={{ width: '100%' }} value={value} onChange={(e) => onChange(e.target.value)} />
+    return <Input style={{ width: '100%' }} value={value} onChange={onChange} />
   }
   return null
 }

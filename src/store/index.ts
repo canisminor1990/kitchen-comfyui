@@ -83,18 +83,21 @@ export const useAppStore = create<AppState>()(
 
     onPropChange: (id, key, val) => {
       set(
-        (state) => ({
-          graph: {
-            ...state.graph,
-            [id]: {
-              ...state.graph[id],
-              fields: {
-                ...state.graph[id]?.fields,
-                [key]: val,
+        (state) => {
+          state.onUpdateNodes(id, { [key]: val })
+          return {
+            graph: {
+              ...state.graph,
+              [id]: {
+                ...state.graph[id],
+                fields: {
+                  ...state.graph[id]?.fields,
+                  [key]: val,
+                },
               },
             },
-          },
-        }),
+          }
+        },
         false,
         'onPropChange'
       )
@@ -120,6 +123,10 @@ export const useAppStore = create<AppState>()(
         false,
         'onModifyChange'
       )
+    },
+
+    getNodeFieldsData: (id, key) => {
+      return get().graph[id].fields[key]
     },
 
     /******************************************************
@@ -154,10 +161,6 @@ export const useAppStore = create<AppState>()(
         false,
         'onImageSave'
       )
-    },
-
-    onPreviewImage: (index) => {
-      set({ previewedImageIndex: index }, false, 'onPreviewImage')
     },
 
     /******************************************************

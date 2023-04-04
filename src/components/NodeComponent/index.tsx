@@ -26,10 +26,10 @@ interface NodeComponentProps {
   node: NodeProps<Widget>
   progressBar?: number
   imagePreviews?: ImagePreview[]
-  onPreviewImage: (idx: number) => void
   onDuplicateNode: (id: NodeId) => void
   onDeleteNode: (id: NodeId) => void
   onModifyChange: OnPropChange
+  getNodeFieldsData: (id: NodeId, key: string) => void
 }
 
 const NodeComponent: React.FC<NodeComponentProps> = ({
@@ -38,12 +38,19 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   imagePreviews,
   onDuplicateNode,
   onModifyChange,
+  getNodeFieldsData,
 }) => {
   const theme = useTheme()
   const [nicknameInput, setNicknameInput] = useState<boolean>(false)
+
   const params: any[] = []
   const inputs: any[] = []
   const outputs: any[] = node.data.output
+  const isInProgress = progressBar !== undefined
+  const isSelected = node.selected
+  const inputImg: any = getNodeFieldsData(node.id, 'image')
+  const name = node.data?.nickname || node.data.name
+
   for (const [property, input] of Object.entries(node.data.input.required)) {
     if (checkInput.isParameterOrList(input)) {
       params.push({ name: property, type: input[0], input })
@@ -51,11 +58,6 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
       inputs.push({ name: property, type: input[0] })
     }
   }
-
-  const isInProgress = progressBar !== undefined
-  const isSelected = node.selected
-
-  const name = node.data?.nickname || node.data.name
 
   const handleNickname = (e: any) => {
     const nickname = e.target.value
@@ -106,7 +108,20 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
         <NodeOutpus data={outputs} />
       </SpaceGrid>
       <NodeParams data={params} nodeId={node.id} />
-      <NodeImgPreview data={imagePreviews} />
+      <NodeImgPreview
+        data={
+          imagePreviews ||
+          (inputImg && [
+            {
+              image: {
+                filename: inputImg,
+                type: 'input',
+              },
+              index: 0,
+            },
+          ])
+        }
+      />
       {isSelected && <NodeResizeControl />}
     </NodeCard>
   )

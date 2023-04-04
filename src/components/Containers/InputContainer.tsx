@@ -17,7 +17,13 @@ const InputContainer: React.FC<InputContainerProps> = ({ id, name, input }) => {
     }),
     shallow
   )
-  return <InputComponent value={value} input={input} onChange={(val) => onPropChange(id, name, val)} />
+  return (
+    <InputComponent
+      value={value}
+      input={input}
+      onChange={(val) => onPropChange(id, name, val?.target?.value ? val.target.value : val)}
+    />
+  )
 }
 
 export default React.memo(InputContainer)

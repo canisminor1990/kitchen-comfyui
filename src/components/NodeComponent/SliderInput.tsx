@@ -23,18 +23,27 @@ export const IntegerStep: React.FC<IntegerStepProps> = ({ value, min, max, style
   const [inputValue, setInputValue] = useState<number>(value)
 
   const handleChange = (newValue: number | any) => {
-    if (newValue !== null) {
-      setInputValue(newValue)
-      onChange(newValue)
+    const val = Number(newValue?.target?.value ? newValue.target.value : newValue)
+    if (val !== null) {
+      setInputValue(val)
+      onChange(val)
     }
   }
 
-  if (max > 10000) return <InputNumber style={style} min={min} max={max} value={value} onChange={onChange} />
+  if (max > 10000)
+    return <InputNumber style={style} min={min} max={max} value={value} onBlur={onChange} onPressEnter={onChange} />
 
   return (
     <Row style={style}>
       <Col span={4} style={{ marginRight: 12 }}>
-        <InputNumber style={{ width: '100%' }} min={min} max={max} value={inputValue} onChange={handleChange} />
+        <InputNumber
+          style={{ width: '100%' }}
+          min={min}
+          max={max}
+          value={inputValue}
+          onBlur={handleChange}
+          onPressEnter={handleChange}
+        />
       </Col>
       <Col span={8}>
         <Slider min={min} max={max} onChange={handleChange} value={typeof inputValue === 'number' ? inputValue : 0} />
@@ -56,14 +65,25 @@ export const DecimalStep: React.FC<DecimalStepProps> = ({ value, min, max, step,
   const [inputValue, setInputValue] = useState<number>(value)
 
   const handleChange = (newValue: number | any) => {
-    if (newValue !== null) {
-      setInputValue(newValue)
-      onChange(newValue)
+    const val = Number(newValue?.target?.value ? newValue.target.value : newValue)
+    if (val !== null) {
+      setInputValue(val)
+      onChange(val)
     }
   }
 
   if (max > 10000)
-    return <InputNumber style={style} min={min} max={max} value={value} step={step} onChange={onChange} />
+    return (
+      <InputNumber
+        style={style}
+        min={min}
+        max={max}
+        value={value}
+        step={step}
+        onBlur={onChange}
+        onPressEnter={onChange}
+      />
+    )
 
   return (
     <Row style={style}>
@@ -74,7 +94,8 @@ export const DecimalStep: React.FC<DecimalStepProps> = ({ value, min, max, step,
           max={max}
           step={step}
           value={inputValue}
-          onChange={handleChange}
+          onBlur={handleChange}
+          onPressEnter={handleChange}
         />
       </Col>
       <Col span={8}>

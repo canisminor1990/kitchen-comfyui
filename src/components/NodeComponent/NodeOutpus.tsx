@@ -12,15 +12,7 @@ const NodeOutpus: React.FC<NodeOutpusProps> = ({ data }) => {
   return (
     <SpaceCol>
       {data.map((item) => (
-        <NodeSlot
-          key={item}
-          slotType={item}
-          id={item}
-          label={item}
-          type="source"
-          position={Position.Right}
-          isRequired={true}
-        />
+        <NodeSlot key={item} slotType={item} label={item} type="source" position={Position.Right} isRequired={true} />
       ))}
     </SpaceCol>
   )
