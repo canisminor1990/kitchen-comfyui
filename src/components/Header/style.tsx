@@ -1,3 +1,4 @@
+import { ForkOutlined, NodeIndexOutlined, PullRequestOutlined, ShareAltOutlined } from '@ant-design/icons'
 import { MenuProps } from 'antd'
 import styled from 'styled-components'
 
@@ -42,4 +43,18 @@ export const ThemeList = ({ onSetThemeMode }: any): MenuProps['items'] => [
   { icon: themeIcon.auto, label: 'Auto', key: 'auto', onClick: () => onSetThemeMode('auto') },
   { icon: themeIcon.light, label: 'Light', key: 'light', onClick: () => onSetThemeMode('light') },
   { icon: themeIcon.dark, label: 'Dark', key: 'dark', onClick: () => onSetThemeMode('dark') },
+]
+
+export const edgeTypeIcon = {
+  default: <NodeIndexOutlined />,
+  straight: <ShareAltOutlined />,
+  step: <PullRequestOutlined />,
+  smoothstep: <ForkOutlined />,
+}
+
+export const EdgeTypeList = ({ onEdgesType }: any): MenuProps['items'] => [
+  { icon: edgeTypeIcon.default, label: 'Bezier', key: 'default', onClick: () => onEdgesType('default') },
+  { icon: edgeTypeIcon.straight, label: 'Straight', key: 'straight', onClick: () => onEdgesType('straight') },
+  { icon: edgeTypeIcon.step, label: 'Step', key: 'step', onClick: () => onEdgesType('step') },
+  { icon: edgeTypeIcon.smoothstep, label: 'SmoothStep', key: 'smoothstep', onClick: () => onEdgesType('smoothstep') },
 ]

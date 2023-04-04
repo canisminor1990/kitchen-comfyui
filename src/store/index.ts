@@ -22,7 +22,7 @@ export const useAppStore = create<AppState>()(
     queue: [],
     gallery: [],
     themeMode: 'auto',
-    previewedImageIndex: undefined,
+    edgeType: 'default',
     nodeInProgress: undefined,
     promptError: undefined,
     clientId: undefined,
@@ -145,6 +145,33 @@ export const useAppStore = create<AppState>()(
 
     onEdgesChange: (changes) => {
       set((st) => ({ edges: applyEdgeChanges(changes, st.edges) }), false, 'onEdgesChange')
+    },
+
+    onEdgesAnimate: (animated) => {
+      set(
+        (st) => ({
+          edges: st.edges.map((e) => ({
+            ...e,
+            animated,
+          })),
+        }),
+        false,
+        'onEdgesAnimate'
+      )
+    },
+
+    onEdgesType: (type) => {
+      set(
+        (st) => ({
+          edgeType: type,
+          edges: st.edges.map((e) => ({
+            ...e,
+            type,
+          })),
+        }),
+        false,
+        'onEdgesType'
+      )
     },
 
     /******************************************************

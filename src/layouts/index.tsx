@@ -1,7 +1,7 @@
 import { ConfigProvider, ControlPanelComponent, DraggablePanel, Header } from '@/components'
-import { Layout, notification } from 'antd'
+import { Layout } from 'antd'
 import 'antd/dist/reset.css'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Outlet } from 'umi'
 import GlobalStyle from './GlobalStyle'
@@ -14,11 +14,6 @@ const EditorView = styled.div`
 `
 
 const Editor: React.FC = () => {
-  useEffect(() => {
-    notification.config({
-      getContainer: () => document.getElementById('floweditor'),
-    })
-  }, [])
   return (
     <ConfigProvider>
       <EditorView>

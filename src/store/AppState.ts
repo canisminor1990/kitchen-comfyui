@@ -1,5 +1,6 @@
 import { PersistedGraph } from '@/persistence'
 import {
+  EdgeTypes,
   GalleryItem,
   ImageItem,
   NodeId,
@@ -16,37 +17,67 @@ import { Edge, Node, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
 
 export type OnPropChange = (node: NodeId, property: PropertyKey, value: any) => void
 export interface AppState {
-  themeMode: ThemeMode
-  onSetThemeMode: (type: ThemeMode) => void
+  /******************************************************
+   ******************* initialState **********************
+   ******************************************************/
   counter: number
-  clientId?: string
   widgets: Record<WidgetKey, Widget>
   graph: Record<NodeId, SDNode>
   nodes: Node[]
   edges: Edge[]
-  nodeInProgress?: NodeInProgress
-  promptError?: string
   queue: QueueItem[]
   gallery: GalleryItem[]
-  previewedImageIndex?: number
+  themeMode: ThemeMode
+  edgeType: EdgeTypes
+  nodeInProgress?: NodeInProgress
+  promptError?: string
+  clientId?: string
+
+  /******************************************************
+   *********************** Base *************************
+   ******************************************************/
+  onSetThemeMode: (type: ThemeMode) => void
+  onInit: () => Promise<void>
+  onNewClientId: (id: string) => void
+
+  /******************************************************
+   *********************** Node *************************
+   ******************************************************/
   onNodesChange: OnNodesChange
-  onEdgesChange: OnEdgesChange
-  onConnect: OnConnect
-  onPropChange: OnPropChange
-  onModifyChange: OnPropChange
   onUpdateNodes: (id: string, data: any) => void
   onAddNode: (nodeItem: NodeItem) => void
   onDeleteNode: (id: NodeId) => void
   onDuplicateNode: (id: NodeId) => void
+  onNodeInProgress: (id: NodeId, progress: number) => void
+  onPropChange: OnPropChange
+  onModifyChange: OnPropChange
   getNodeFieldsData: (id: NodeId, key: string) => any
+  /******************************************************
+   *********************** Edges *************************
+   ******************************************************/
+  onEdgesChange: OnEdgesChange
+  onEdgesAnimate: (animated: boolean) => void
+  onEdgesType: (type: EdgeTypes) => void
+  /******************************************************
+   ********************* Connection ***********************
+   ******************************************************/
+  onConnect: OnConnect
+  /******************************************************
+   *********************** Image *************************
+   ******************************************************/
+  onImageSave: (id: NodeId, images: ImageItem[]) => void
+
+  /******************************************************
+   *********************** Queue *************************
+   ******************************************************/
   onSubmit: () => Promise<void>
   onDeleteFromQueue: (id: number) => Promise<void>
-  onInit: () => Promise<void>
+  onQueueUpdate: () => Promise<void>
+
+  /******************************************************
+   ***************** Workflow && Persist *******************
+   ******************************************************/
+  onPersistLocal: () => void
   onLoadWorkflow: (persisted: PersistedGraph) => void
   onSaveWorkflow: () => void
-  onPersistLocal: () => void
-  onNewClientId: (id: string) => void
-  onQueueUpdate: () => Promise<void>
-  onNodeInProgress: (id: NodeId, progress: number) => void
-  onImageSave: (id: NodeId, images: ImageItem[]) => void
 }

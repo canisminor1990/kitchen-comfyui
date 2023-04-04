@@ -5,7 +5,7 @@ import React, { ReactNode, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import Logo from './Logo'
 import QueueList from './QueueList'
-import { ThemeList, View, themeIcon } from './style'
+import { EdgeTypeList, ThemeList, View, edgeTypeIcon, themeIcon } from './style'
 
 interface HeaderProps {
   children?: ReactNode
@@ -14,7 +14,17 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
   const [messageApi, messageHolder] = message.useMessage()
   const [count, setCount] = useState(0)
 
-  const { themeMode, onSetThemeMode, onSubmit, queue, onDeleteFromQueue, promptError } = useAppStore(
+  const {
+    themeMode,
+    onSetThemeMode,
+    onSubmit,
+    queue,
+    onDeleteFromQueue,
+    promptError,
+    onEdgesAnimate,
+    edgeType,
+    onEdgesType,
+  } = useAppStore(
     (st) => ({
       themeMode: st.themeMode,
       onSetThemeMode: st.onSetThemeMode,
@@ -22,6 +32,9 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
       queue: st.queue,
       onDeleteFromQueue: st.onDeleteFromQueue,
       promptError: st.promptError,
+      onEdgesAnimate: st.onEdgesAnimate,
+      edgeType: st.edgeType,
+      onEdgesType: st.onEdgesType,
     }),
     shallow
   )
@@ -34,6 +47,10 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
         duration: 4,
       })
   }, [promptError, count])
+
+  useEffect(() => {
+    onEdgesAnimate(queue.length > 0)
+  }, [queue])
 
   const handleRun = () => {
     onSubmit()
@@ -49,6 +66,15 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
           <a href="https://github.com/canisminor1990/kitchen-comfyui" target="_blank" rel="noreferrer">
             <Button icon={<GithubOutlined />} />
           </a>
+          <Dropdown
+            trigger={['click']}
+            placement="bottomRight"
+            menu={{
+              items: EdgeTypeList({ onEdgesType }),
+            }}
+          >
+            <Button icon={edgeTypeIcon[edgeType]} />
+          </Dropdown>
           <Dropdown
             trigger={['click']}
             placement="bottomRight"
