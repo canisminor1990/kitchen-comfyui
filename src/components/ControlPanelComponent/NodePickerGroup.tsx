@@ -23,8 +23,16 @@ const NodePickerGroup: React.FC<NodePickerGroupProps> = ({ cat, data, onAddNode,
     <CollapseTitle title={startCase(cat)} key={cat} expand={expand} onExpandChange={setExpand}>
       <Space wrap>
         {data.map((i) => (
-          <Button key={i.name} onClick={() => onAddNode({ widget: i })}>
-            <span className="align-middle px-0.5">{startCase(i.name)}</span>
+          <Button
+            key={i.name}
+            onClick={() => onAddNode({ widget: i })}
+            draggable
+            onDragStart={(event) => {
+              event.dataTransfer.setData('application/reactflow', JSON.stringify(i))
+              event.dataTransfer.effectAllowed = 'move'
+            }}
+          >
+            {startCase(i.name)}
           </Button>
         ))}
       </Space>
