@@ -1,4 +1,4 @@
-import { createStyles, css, cx } from '@/components/theme';
+import { createStyles, css, cx } from '@/components/theme'
 
 export const useStyle = createStyles(({ token }, prefix: string) => {
   const commonHandle = css`
@@ -16,7 +16,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         background: ${token.colorPrimary};
       }
     }
-  `;
+  `
 
   const commonToggle = css`
     position: absolute;
@@ -36,11 +36,11 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
       color: ${token.colorTextSecondary};
       background: ${token.colorFillQuaternary};
     }
-  `;
+  `
 
-  const offset = 17;
-  const toggleLength = 40;
-  const toggleShort = 16;
+  const offset = 17
+  const toggleLength = 40
+  const toggleShort = 16
 
   return {
     container: cx(
@@ -55,7 +55,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
             opacity: 1;
           }
         }
-      `,
+      `
     ),
     toggleLeft: cx(
       `${prefix}-toggle`,
@@ -69,7 +69,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         margin-top: -20px;
         border-radius: 4px 0 0 4px;
         border-right-width: 0;
-      `,
+      `
     ),
     toggleRight: cx(
       `${prefix}-toggle`,
@@ -83,7 +83,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         margin-top: -20px;
         border-radius: 0 4px 4px 0;
         border-left-width: 0;
-      `,
+      `
     ),
     toggleTop: cx(
       `${prefix}-toggle`,
@@ -97,7 +97,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         margin-left: -20px;
         border-radius: 4px 4px 0 0;
         border-bottom-width: 0;
-      `,
+      `
     ),
     toggleBottom: cx(
       `${prefix}-toggle`,
@@ -111,14 +111,14 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         margin-left: -20px;
         border-radius: 0 0 4px 4px;
         border-top-width: 0;
-      `,
+      `
     ),
     fixed: cx(
       `${prefix}-fixed`,
       css`
         background: ${token.colorBgContainer};
         overflow: hidden;
-      `,
+      `
     ),
     float: cx(
       `${prefix}-float`,
@@ -128,7 +128,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
         background: ${token.colorBgElevated};
         box-shadow: ${token.boxShadowSecondary};
         z-index: 2000;
-      `,
+      `
     ),
     leftHandle: cx(
       css`
@@ -140,7 +140,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
           height: 100%;
         }
       `,
-      `${prefix}-left-handle`,
+      `${prefix}-left-handle`
     ),
     rightHandle: cx(
       css`
@@ -151,7 +151,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
           height: 100%;
         }
       `,
-      `${prefix}-right-handle`,
+      `${prefix}-right-handle`
     ),
     topHandle: cx(
       `${prefix}-top-handle`,
@@ -163,7 +163,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
           height: 2px;
           width: 100%;
         }
-      `,
+      `
     ),
     bottomHandle: cx(
       `${prefix}-bottom-handle`,
@@ -175,7 +175,7 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
           height: 2px;
           width: 100%;
         }
-      `,
+      `
     ),
-  };
-});
+  }
+})

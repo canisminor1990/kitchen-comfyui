@@ -1,2 +1,2 @@
-export * from './ConfigProvider';
-export * from './AppContainer';
+export * from './AppContainer'
+export * from './ConfigProvider'

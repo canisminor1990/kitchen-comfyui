@@ -1,13 +1,13 @@
-import { GetCustomToken } from 'antd-style';
+import { GetCustomToken } from 'antd-style'
 
 export interface StudioThemeToken {
-  focusedOutlineColor: string;
-  colorTypeBoolean: string;
-  colorTypeNumber: string;
-  colorTypeString: string;
-  colorTypeBoolArray: string;
-  colorTypeNumberArray: string;
-  colorTypeStringArray: string;
+  focusedOutlineColor: string
+  colorTypeBoolean: string
+  colorTypeNumber: string
+  colorTypeString: string
+  colorTypeBoolArray: string
+  colorTypeNumberArray: string
+  colorTypeStringArray: string
 }
 
 export const getStudioToken: GetCustomToken<StudioThemeToken> = () => ({
@@ -18,6 +18,6 @@ export const getStudioToken: GetCustomToken<StudioThemeToken> = () => ({
   colorTypeBoolArray: '#D8C152',
   colorTypeNumberArray: '#239BEF',
   colorTypeStringArray: '#62AE8D',
-});
+})
 
-export const themeToken = getStudioToken({} as any);
+export const themeToken = getStudioToken({} as any)

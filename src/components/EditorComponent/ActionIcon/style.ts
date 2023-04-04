@@ -1,4 +1,5 @@
-import { createStyles, css, cx } from '@/components/theme';
+import { createStyles, css, cx } from '@/components/theme'
+// @ts-ignore
 export const useStyles = createStyles(({ token }, { size, className, prefixCls }) => {
   const sizeBoundary =
     typeof size === 'number'
@@ -6,7 +7,7 @@ export const useStyles = createStyles(({ token }, { size, className, prefixCls }
           width: ${size}px !important;
           height: ${size}px !important;
         `
-      : '';
+      : ''
 
   const button = css`
     display: flex;
@@ -16,12 +17,12 @@ export const useStyles = createStyles(({ token }, { size, className, prefixCls }
     &:hover {
       color: ${token.colorText} !important;
     }
-  `;
+  `
 
   return {
     container: cx(prefixCls, button, sizeBoundary, className),
     tooltip: css`
       pointer-events: none;
     `,
-  };
-});
+  }
+})

@@ -1,18 +1,18 @@
-import { GetCustomStylish } from 'antd-style';
-import { transparentize } from 'polished';
+import { GetCustomStylish } from 'antd-style'
+import { transparentize } from 'polished'
 
 export interface StudioStylish {
-  defaultButton: string;
+  defaultButton: string
 
-  textInfo: string;
-  textDefault: string;
+  textInfo: string
+  textDefault: string
 
-  containerBgHover: string;
-  containerBgL2: string;
+  containerBgHover: string
+  containerBgL2: string
 
-  controlContainer: string;
-  controlContainerFocused: string;
-  backgroundBlur: string;
+  controlContainer: string
+  controlContainerFocused: string
+  backgroundBlur: string
 }
 
 /**
@@ -25,24 +25,24 @@ export const getStudioStylish: GetCustomStylish<StudioStylish> = ({ token, css }
     &:hover {
       background: ${token.colorFillQuaternary};
     }
-  `;
+  `
   const controlContainerHover = css`
     color: ${token.colorText};
     background-color: ${token.colorFillTertiary};
     border-color: transparent;
-  `;
+  `
   const controlContainerFocused = css`
     color: ${token.colorText} !important;
     background-color: ${token.colorFillQuaternary} !important;
     border-color: ${token.colorPrimary} !important;
     box-shadow: none;
-  `;
+  `
 
   const defaultButtonBase = css`
     color: ${token.colorTextSecondary};
     background: ${token.colorFillQuaternary};
     border-color: transparent;
-  `;
+  `
 
   return {
     defaultButton: css`
@@ -100,5 +100,5 @@ export const getStudioStylish: GetCustomStylish<StudioStylish> = ({ token, css }
       background: ${transparentize(0.4)(token.colorBgElevated)};
       backdrop-filter: blur(10px);
     `,
-  };
-};
+  }
+}

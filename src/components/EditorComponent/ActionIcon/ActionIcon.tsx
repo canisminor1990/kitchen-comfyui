@@ -48,7 +48,7 @@ const ActionIcon: FC<ActionIconProps> = ({
   ...restProps
 }) => {
   const prefixCls = getPrefixCls('actionicon', customPrefixCls)
-  const { styles } = useStyles({ size, prefixCls })
+  const { styles }: any = useStyles({ size, prefixCls })
 
   const token = useToken()
 

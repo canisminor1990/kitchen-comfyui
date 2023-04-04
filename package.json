@@ -12,7 +12,7 @@
     "build": "umi build",
     "dev": "umi dev",
     "postinstall": "umi setup",
-    "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\" --fix",
     "prepare": "husky install",
     "prettier": "prettier -c --write \"**/**\"",
     "setup": "umi setup",

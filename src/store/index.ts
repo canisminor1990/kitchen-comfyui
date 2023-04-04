@@ -5,6 +5,7 @@ import { applyEdgeChanges, applyNodeChanges } from 'reactflow'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { AppState } from './AppState'
+export * from './AppState'
 
 const initialState = {
   counter: 0,
