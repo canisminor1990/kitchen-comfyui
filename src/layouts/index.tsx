@@ -1,20 +1,11 @@
-import { ConfigProvider, ControlPanelContainer, DraggablePanel, Header } from '@/components'
-import { useAppStore } from '@/store'
-import { Layout, Segmented } from 'antd'
-import { type ThemeMode } from 'antd-style'
+import { ConfigProvider, ControlPanelComponent, DraggablePanel, Header } from '@/components'
+import { Layout, notification } from 'antd'
 import 'antd/dist/reset.css'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Outlet } from 'umi'
-import { shallow } from 'zustand/shallow'
 import GlobalStyle from './GlobalStyle'
 import WsController from './WsController'
-
-const options = [
-  { label: '自动', value: 'auto' },
-  { label: '亮色', value: 'light' },
-  { label: '暗色', value: 'dark' },
-]
 
 const EditorView = styled.div`
   display: flex;
@@ -23,25 +14,20 @@ const EditorView = styled.div`
 `
 
 const Editor: React.FC = () => {
-  const { themeMode, onSetThemeMode } = useAppStore(
-    (st) => ({
-      themeMode: st.themeMode,
-      onSetThemeMode: st.onSetThemeMode,
-    }),
-    shallow
-  )
-
+  useEffect(() => {
+    notification.config({
+      getContainer: () => document.getElementById('floweditor'),
+    })
+  }, [])
   return (
     <ConfigProvider>
       <EditorView>
         <Layout>
-          <Header>
-            <Segmented value={themeMode} onChange={(v) => onSetThemeMode(v as ThemeMode)} options={options} />
-          </Header>
+          <Header />
           <Outlet />
         </Layout>
         <DraggablePanel>
-          <ControlPanelContainer />
+          <ControlPanelComponent />
         </DraggablePanel>
       </EditorView>
       <GlobalStyle />

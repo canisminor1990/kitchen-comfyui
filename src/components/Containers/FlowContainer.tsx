@@ -83,6 +83,7 @@ const FlowContainer: React.FC = () => {
 
   return (
     <ReactFlow
+      id="floweditor"
       ref={reactFlowWrapper}
       nodes={nodes}
       edges={edges}
