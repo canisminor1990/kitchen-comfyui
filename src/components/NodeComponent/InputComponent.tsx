@@ -1,19 +1,32 @@
 import { Input, Select, TextArea } from '@/components'
-import { InputData } from '@/types'
+import { useAppStore } from '@/store'
+import { InputData, NodeId } from '@/types'
 import { checkInput } from '@/utils'
 import { Checkbox } from 'antd'
 import React from 'react'
+import { shallow } from 'zustand/shallow'
 import { DecimalStep, IntegerStep } from './SliderInput'
 
 const MAX_SELECT_NAME = 36
 
 interface InputProps {
-  value: any
+  id: NodeId
+  name: string
   input: InputData
-  onChange: (val: any) => void
 }
 
-const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
+const InputComponent: React.FC<InputProps> = ({ id, name, input }) => {
+  const { value, onChange } = useAppStore(
+    (st) => ({
+      value: st.graph[id]?.fields[name],
+      onChange: (val: any) => st.onPropChange(id, name, val?.target?.value ? val.target.value : val),
+    }),
+    shallow
+  )
+  /******************************************************
+   *********************** isList ************************
+   ******************************************************/
+
   if (checkInput.isList(input)) {
     return (
       <Select
@@ -29,9 +42,18 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
       />
     )
   }
+  /******************************************************
+   ********************** isBool ************************
+   ******************************************************/
+
   if (checkInput.isBool(input)) {
     return <Checkbox value={value} defaultChecked={input[1].default} onChange={onChange} />
   }
+
+  /******************************************************
+   *********************** isInt ************************
+   ******************************************************/
+
   if (checkInput.isInt(input)) {
     return (
       <IntegerStep
@@ -43,6 +65,11 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
       />
     )
   }
+
+  /******************************************************
+   ********************* isFloat ***********************
+   ******************************************************/
+
   if (checkInput.isFloat(input)) {
     return (
       <DecimalStep
@@ -55,6 +82,11 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
       />
     )
   }
+
+  /******************************************************
+   ********************* isString ***********************
+   ******************************************************/
+
   if (checkInput.isString(input)) {
     const args = input[1]
     if (args.multiline === true) {
@@ -62,6 +94,7 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
     }
     return <Input style={{ width: '100%' }} value={value} onChange={onChange} />
   }
+
   return null
 }
 

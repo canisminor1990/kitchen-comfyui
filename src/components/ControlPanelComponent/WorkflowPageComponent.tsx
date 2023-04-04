@@ -1,13 +1,18 @@
-import { readWorkflowFromFile, type PersistedGraph } from '@/persistence'
+import { readWorkflowFromFile } from '@/persistence'
+import { useAppStore } from '@/store'
 import { Button, Input } from 'antd'
 import React from 'react'
+import { shallow } from 'zustand/shallow'
 
-interface WorkflowPageComponentProps {
-  onLoadWorkflow: (persisted: PersistedGraph) => void
-  onSaveWorkflow: () => void
-}
+const WorkflowPageComponent = () => {
+  const { onLoadWorkflow, onSaveWorkflow } = useAppStore(
+    (st) => ({
+      onLoadWorkflow: st.onLoadWorkflow,
+      onSaveWorkflow: st.onSaveWorkflow,
+    }),
+    shallow
+  )
 
-const WorkflowPageComponent: React.FC<WorkflowPageComponentProps> = ({ onLoadWorkflow, onSaveWorkflow }) => {
   return (
     <div>
       <h5>Load workflow</h5>

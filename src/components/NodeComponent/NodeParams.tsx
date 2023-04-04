@@ -1,4 +1,4 @@
-import { InputContainer } from '@/components'
+import { InputComponent } from '@/components'
 import NodeSlot from '@/components/NodeComponent/NodeSlot'
 import { Flow } from '@/types'
 import React from 'react'
@@ -21,7 +21,7 @@ const NodeParams: React.FC<NodeParamsProps> = ({ data, nodeId }) => {
       {data.map((item) => (
         <div key={item.name}>
           <NodeSlot slotType={item.type} label={item.name} type="target" position={Position.Left} isRequired={false} />
-          <InputContainer name={item.name} id={nodeId} input={item.input} />
+          <InputComponent name={item.name} id={nodeId} input={item.input} />
           <div style={{ height: 4 }} />
         </div>
       ))}

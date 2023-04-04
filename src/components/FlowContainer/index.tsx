@@ -1,4 +1,4 @@
-import { NODE_IDENTIFIER, NodeContainer } from '@/components'
+import { NODE_IDENTIFIER, NodeComponent } from '@/components'
 import { useAppStore } from '@/store'
 import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
@@ -8,7 +8,7 @@ import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'rea
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 
-const nodeTypes = { [NODE_IDENTIFIER]: NodeContainer }
+const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
 const FlowContainer: React.FC = () => {
   const theme = useTheme()
@@ -117,4 +117,4 @@ const FlowContainer: React.FC = () => {
   )
 }
 
-export default FlowContainer
+export default React.memo(FlowContainer)

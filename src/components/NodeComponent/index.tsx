@@ -1,14 +1,15 @@
 import { ActionIcon, Input } from '@/components'
 import { ColorMenu, colorList } from '@/components/NodeComponent/ColorMenu'
-import { OnPropChange } from '@/store'
-import { ImageItem, type NodeId, type Widget } from '@/types'
+import { useAppStore } from '@/store'
+import { ImageItem, type Widget } from '@/types'
 import { checkInput } from '@/utils'
-import { CopyOutlined, EditOutlined, HighlightOutlined } from '@ant-design/icons'
-import { Dropdown, Progress, Space, type MenuProps } from 'antd'
+import { CopyOutlined, DeleteOutlined, EditOutlined, HighlightOutlined, MoreOutlined } from '@ant-design/icons'
+import { Dropdown, Progress, type MenuProps } from 'antd'
 import { useTheme } from 'antd-style'
 import { mix } from 'polished'
 import React, { useState } from 'react'
 import { NodeResizeControl, type NodeProps } from 'reactflow'
+import { shallow } from 'zustand/shallow'
 import NodeImgPreview from './NodeImgPreview'
 import NodeInputs from './NodeInputs'
 import NodeOutpus from './NodeOutpus'
@@ -22,27 +23,27 @@ export interface ImagePreview {
   index: number
 }
 
-interface NodeComponentProps {
-  node: NodeProps<Widget>
-  progressBar?: number
-  imagePreviews?: ImagePreview[]
-  onDuplicateNode: (id: NodeId) => void
-  onDeleteNode: (id: NodeId) => void
-  onModifyChange: OnPropChange
-  getNodeFieldsData: (id: NodeId, key: string) => void
-}
+const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
+  const { progressBar, imagePreviews, onDuplicateNode, onDeleteNode, onModifyChange, getNodeFieldsData } = useAppStore(
+    (st) => ({
+      progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
+      imagePreviews: st.graph[node.id]?.images?.map((image, index) => {
+        return {
+          image,
+          index,
+        }
+      }),
+      onPropChange: st.onPropChange,
+      onDuplicateNode: st.onDuplicateNode,
+      onDeleteNode: st.onDeleteNode,
+      onModifyChange: st.onModifyChange,
+      getNodeFieldsData: st.getNodeFieldsData,
+    }),
+    shallow
+  )
 
-const NodeComponent: React.FC<NodeComponentProps> = ({
-  node,
-  progressBar,
-  imagePreviews,
-  onDuplicateNode,
-  onModifyChange,
-  getNodeFieldsData,
-}) => {
   const theme = useTheme()
   const [nicknameInput, setNicknameInput] = useState<boolean>(false)
-
   const params: any[] = []
   const inputs: any[] = []
   const outputs: any[] = node.data.output
@@ -69,6 +70,37 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
     onModifyChange(node.id, 'color', colorList[key])
   }
 
+  const extraMenu: MenuProps['items'] = [
+    {
+      icon: <EditOutlined />,
+      label: 'Rename',
+      key: 'rename',
+      onClick: () => setNicknameInput(true),
+    },
+    {
+      icon: <HighlightOutlined />,
+      label: 'Colors',
+      key: 'colors',
+      children: ColorMenu,
+      onClick: handleNodeColor,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      icon: <CopyOutlined />,
+      label: 'Copy',
+      key: 'copy',
+      onClick: () => onDuplicateNode(node.id),
+    },
+    {
+      icon: <DeleteOutlined />,
+      label: 'Delete',
+      key: 'delete',
+      onClick: () => onDeleteNode(node.id),
+    },
+  ]
+
   return (
     <NodeCard
       size="small"
@@ -93,13 +125,9 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
         isInProgress
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
           : isSelected && (
-              <Space size={2} style={{ marginLeft: 8 }}>
-                <Dropdown menu={{ items: ColorMenu, onClick: handleNodeColor }} trigger={['click']}>
-                  <ActionIcon icon={<HighlightOutlined />} onClick={(e) => e.preventDefault()} />
-                </Dropdown>
-                <ActionIcon icon={<EditOutlined />} onClick={() => setNicknameInput(true)} />
-                <ActionIcon icon={<CopyOutlined />} onClick={() => onDuplicateNode(node.id)} />
-              </Space>
+              <Dropdown menu={{ items: extraMenu }} trigger={['click']}>
+                <ActionIcon icon={<MoreOutlined />} onClick={(e) => e.preventDefault()} />
+              </Dropdown>
             )
       }
     >

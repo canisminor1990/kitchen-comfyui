@@ -1,4 +1,4 @@
-import { GalleryContainer, NodePickerContainer, Tabs, WorkflowPageContainer } from '@/components'
+import { GalleryComponent, NodePickerComponent, Tabs, WorkflowPageComponent } from '@/components'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -17,17 +17,17 @@ const ControlPanelComponent: React.FC = () => {
           {
             label: 'Nodes',
             key: 'Nodes',
-            children: <NodePickerContainer />,
+            children: <NodePickerComponent />,
           },
           {
             label: 'Gallery',
             key: 'Gallery',
-            children: <GalleryContainer />,
+            children: <GalleryComponent />,
           },
           {
             label: 'Workflow',
             key: 'Workflow',
-            children: <WorkflowPageContainer />,
+            children: <WorkflowPageComponent />,
           },
         ]}
       />

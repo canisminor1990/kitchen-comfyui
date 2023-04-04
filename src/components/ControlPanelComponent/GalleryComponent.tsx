@@ -1,20 +1,19 @@
 import { getBackendUrl } from '@/config'
-import { type GalleryItem } from '@/types'
+import { useAppStore } from '@/store'
 import { Empty, Image } from 'antd'
 import queryString from 'query-string'
 import React from 'react'
 import styled from 'styled-components'
+import { shallow } from 'zustand/shallow'
 
 const ImgList = styled.div`
   display: flex;
   flex-wrap: wrap;
 `
 
-interface Props {
-  gallery: GalleryItem[]
-}
+const GalleryComponent: React.FC = () => {
+  const { gallery } = useAppStore((st) => ({ gallery: st.gallery }), shallow)
 
-const GalleryComponent: React.FC<Props> = ({ gallery }) => {
   return gallery.length === 0 ? (
     <Empty
       style={{ marginTop: '40vh' }}

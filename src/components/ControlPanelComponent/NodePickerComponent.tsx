@@ -1,9 +1,11 @@
 import { ActionIcon } from '@/components'
-import type { NodeItem, Widget, WidgetKey } from '@/types'
+import { useAppStore } from '@/store'
+import type { Widget } from '@/types'
 import { ArrowsAltOutlined, ShrinkOutlined } from '@ant-design/icons'
 import { Input, Space } from 'antd'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { shallow } from 'zustand/shallow'
 import NodePickerGroup from './NodePickerGroup'
 
 const { Search } = Input
@@ -21,12 +23,8 @@ const PanelBody = styled.div`
   overflow: auto;
 `
 
-interface NodePickerComponentProps {
-  widgets: Record<WidgetKey, Widget>
-  onAddNode: (nodeItem: NodeItem) => void
-}
-
-const NodePickerComponent: React.FC<NodePickerComponentProps> = ({ widgets, onAddNode }) => {
+const NodePickerComponent: React.FC = () => {
+  const { widgets, onAddNode } = useAppStore((st) => ({ widgets: st.widgets, onAddNode: st.onAddNode }), shallow)
   const [category, setCategory] = useState<Record<string, Widget[]>>({})
   const [keywords, setKeywords] = useState<string>()
   const [globalExpand, setGlobalExpand] = useState(true)
