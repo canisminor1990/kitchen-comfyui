@@ -6,6 +6,8 @@ type Position = { x: number; y: number }
 export interface PersistedNode {
   value: SDNode
   position: Position
+  width?: number
+  height?: number
 }
 
 export interface PersistedGraph {

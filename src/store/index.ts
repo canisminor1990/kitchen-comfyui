@@ -26,14 +26,13 @@ export const useAppStore = create<AppState>()(
     ...initialState,
 
     onNewClientId: (id) => {
-      set({ clientId: id })
+      set({ clientId: id }, false, 'onNewClientId')
     },
 
     onInit: async () => {
       setInterval(() => get().onPersistLocal(), 5000)
-
       const widgets = await getWidgets()
-      set({ widgets })
+      set({ widgets }, false, 'onInit')
       get().onLoadWorkflow(retrieveLocalWorkflow() ?? { data: {}, connections: [] })
     },
 
@@ -42,51 +41,85 @@ export const useAppStore = create<AppState>()(
      ******************************************************/
 
     onNodesChange: (changes) => {
-      set((st) => ({ nodes: applyNodeChanges(changes, st.nodes) }))
+      set((st) => ({ nodes: applyNodeChanges(changes, st.nodes) }), false, 'onNodesChange')
     },
 
     onUpdateNodes: (id, data) => {
-      set((st) => ({ nodes: updateNode(id, data, st.nodes) }))
+      set((st) => ({ nodes: updateNode(id, data, st.nodes) }), false, 'onUpdateNodes')
     },
 
     onAddNode: (nodeItem) => {
-      set((st) => addNode(st, nodeItem))
+      set((st) => addNode(st, nodeItem), false, 'onAddNode')
     },
 
     onDeleteNode: (id) => {
-      set(({ graph: { [id]: _toDelete }, nodes }) => ({
-        // graph, // should work but currently buggy
-        nodes: applyNodeChanges([{ type: 'remove', id }], nodes),
-      }))
+      set(
+        ({ graph: { [id]: _toDelete }, nodes }) => ({
+          // graph, // should work but currently buggy
+          nodes: applyNodeChanges([{ type: 'remove', id }], nodes),
+        }),
+        false,
+        'onDeleteNode'
+      )
     },
 
     onDuplicateNode: (id) => {
-      set((st) => {
-        const item = st.graph[id]
-        const node = st.nodes.find((n) => n.id === id)
-        const position = node?.position
-        const moved = position !== undefined ? { ...position, y: position.y + 100 } : undefined
-        return addNode(st, { widget: st.widgets[item.widget], node: item, position: moved })
-      })
+      set(
+        (st) => {
+          const item = st.graph[id]
+          const node = st.nodes.find((n) => n.id === id)
+          const position = node?.position
+          const moved = position !== undefined ? { ...position, y: position.y + 100 } : undefined
+          return addNode(st, { widget: st.widgets[item.widget], node: item, position: moved })
+        },
+        false,
+        'onDuplicateNode'
+      )
     },
 
     onNodeInProgress: (id, progress) => {
-      set({ nodeInProgress: { id, progress } })
+      set({ nodeInProgress: { id, progress } }, false, 'onNodeInProgress')
     },
 
     onPropChange: (id, key, val) => {
-      set((state) => ({
-        graph: {
-          ...state.graph,
-          [id]: {
-            ...state.graph[id],
-            fields: {
-              ...state.graph[id]?.fields,
-              [key]: val,
+      set(
+        (state) => ({
+          graph: {
+            ...state.graph,
+            [id]: {
+              ...state.graph[id],
+              fields: {
+                ...state.graph[id]?.fields,
+                [key]: val,
+              },
             },
           },
+        }),
+        false,
+        'onPropChange'
+      )
+    },
+
+    onModifyChange: (id, key, val) => {
+      set(
+        (state) => {
+          state.onUpdateNodes(id, { [key]: val })
+          return {
+            graph: {
+              ...state.graph,
+              [id]: {
+                ...state.graph[id],
+                modify: {
+                  ...state.graph[id]?.modify,
+                  [key]: val,
+                },
+              },
+            },
+          }
         },
-      }))
+        false,
+        'onModifyChange'
+      )
     },
 
     /******************************************************
@@ -94,7 +127,7 @@ export const useAppStore = create<AppState>()(
      ******************************************************/
 
     onEdgesChange: (changes) => {
-      set((st) => ({ edges: applyEdgeChanges(changes, st.edges) }))
+      set((st) => ({ edges: applyEdgeChanges(changes, st.edges) }), false, 'onEdgesChange')
     },
 
     /******************************************************
@@ -102,7 +135,7 @@ export const useAppStore = create<AppState>()(
      ******************************************************/
 
     onConnect: (connection) => {
-      set((st) => addConnection(st, connection))
+      set((st) => addConnection(st, connection), false, 'onConnect')
     },
 
     /******************************************************
@@ -110,17 +143,21 @@ export const useAppStore = create<AppState>()(
      ******************************************************/
 
     onImageSave: (id, images) => {
-      set((st) => ({
-        gallery: st.gallery.concat(images.map((image) => ({ image }))),
-        graph: {
-          ...st.graph,
-          [id]: { ...st.graph[id], images },
-        },
-      }))
+      set(
+        (st) => ({
+          gallery: st.gallery.concat(images.map((image) => ({ image }))),
+          graph: {
+            ...st.graph,
+            [id]: { ...st.graph[id], images },
+          },
+        }),
+        false,
+        'onImageSave'
+      )
     },
 
     onPreviewImage: (index) => {
-      set({ previewedImageIndex: index })
+      set({ previewedImageIndex: index }, false, 'onPreviewImage')
     },
 
     /******************************************************
@@ -131,7 +168,7 @@ export const useAppStore = create<AppState>()(
       const state = get()
       const graph = toPersisted(state)
       const res = await sendPrompt(createPrompt(graph, state.widgets, state.clientId))
-      set({ promptError: res.error })
+      set({ promptError: res.error }, false, 'onSubmit')
     },
 
     onDeleteFromQueue: async (id) => {
@@ -140,11 +177,11 @@ export const useAppStore = create<AppState>()(
     },
 
     onQueueUpdate: async () => {
-      set({ queue: await getQueueItems(get().clientId) })
+      set({ queue: await getQueueItems(get().clientId) }, false, 'onQueueUpdate')
     },
 
     /******************************************************
-     ***************** Workflow && Persist*******************
+     ***************** Workflow && Persist *******************
      ******************************************************/
 
     onPersistLocal: () => {
@@ -152,26 +189,32 @@ export const useAppStore = create<AppState>()(
     },
 
     onLoadWorkflow: (workflow) => {
-      set((st) => {
-        let state: AppState = { ...st, nodes: [], edges: [], counter: 0, graph: {} }
-        for (const [key, node] of Object.entries(workflow.data)) {
-          const widget = state.widgets[node.value.widget]
-          if (widget !== undefined) {
-            state = addNode(state, {
-              widget,
-              node: node.value,
-              position: node.position,
-              key: parseInt(key),
-            })
-          } else {
-            console.warn(`Unknown widget ${node.value.widget}`)
+      set(
+        (st) => {
+          let state: AppState = { ...st, nodes: [], edges: [], counter: 0, graph: {} }
+          for (const [key, node] of Object.entries(workflow.data)) {
+            const widget = state.widgets[node.value.widget]
+            if (widget !== undefined) {
+              state = addNode(state, {
+                widget,
+                node: node.value,
+                position: node.position,
+                width: node.width,
+                height: node.height,
+                key: parseInt(key),
+              })
+            } else {
+              console.warn(`Unknown widget ${node.value.widget}`)
+            }
           }
-        }
-        for (const connection of workflow.connections) {
-          state = addConnection(state, connection)
-        }
-        return state
-      }, true)
+          for (const connection of workflow.connections) {
+            state = addConnection(state, connection)
+          }
+          return state
+        },
+        true,
+        'onLoadWorkflow'
+      )
     },
 
     onSaveWorkflow: () => {

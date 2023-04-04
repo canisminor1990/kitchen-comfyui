@@ -9,6 +9,6 @@ export interface Widget {
   output_name: Flow[]
   category: string
   description?: string
-  width?: number
-  height?: number
+  nickname?: string
+  color?: string
 }

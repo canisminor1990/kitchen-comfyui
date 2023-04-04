@@ -10,6 +10,8 @@ export function toPersisted(state: AppState): PersistedGraph {
     const value = state.graph[node.id]
     if (value !== undefined) {
       data[node.id] = { value, position: node.position }
+      if (node.width) data[node.id].width = node.width
+      if (node.height) data[node.id].height = node.height
     }
   }
   return {

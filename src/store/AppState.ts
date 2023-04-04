@@ -30,6 +30,7 @@ export interface AppState {
   onEdgesChange: OnEdgesChange
   onConnect: OnConnect
   onPropChange: OnPropChange
+  onModifyChange: OnPropChange
   onUpdateNodes: (id: string, data: any) => void
   onAddNode: (nodeItem: NodeItem) => void
   onDeleteNode: (id: NodeId) => void

@@ -3,10 +3,15 @@ import { XYPosition } from 'reactflow'
 import { NodeId, PropertyKey, WidgetKey } from './base'
 import { Widget } from './widget'
 
+export interface SDNodeModify {
+  size?: [number, number]
+}
+
 export interface SDNode {
   widget: WidgetKey
   fields: Record<PropertyKey, any>
   images?: ImageItem[]
+  modify?: SDNodeModify
 }
 
 export interface NodeItem {
@@ -14,6 +19,8 @@ export interface NodeItem {
   node?: SDNode
   position?: XYPosition
   key?: number
+  width?: number
+  height?: number
 }
 
 // 3. SDNode 相关类型定义

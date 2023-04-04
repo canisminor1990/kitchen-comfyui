@@ -1,9 +1,13 @@
-import { ActionIcon } from '@/components'
+import { ActionIcon, Input } from '@/components'
+import { ColorMenu, colorList } from '@/components/NodeComponent/ColorMenu'
+import { OnPropChange } from '@/store'
 import { ImageItem, type NodeId, type Widget } from '@/types'
 import { checkInput } from '@/utils'
-import { CopyOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Progress, Space } from 'antd'
-import React from 'react'
+import { CopyOutlined, EditOutlined, HighlightOutlined } from '@ant-design/icons'
+import { Dropdown, Progress, Space, type MenuProps } from 'antd'
+import { useTheme } from 'antd-style'
+import { mix } from 'polished'
+import React, { useState } from 'react'
 import { NodeResizeControl, type NodeProps } from 'reactflow'
 import NodeImgPreview from './NodeImgPreview'
 import NodeInputs from './NodeInputs'
@@ -25,7 +29,7 @@ interface NodeComponentProps {
   onPreviewImage: (idx: number) => void
   onDuplicateNode: (id: NodeId) => void
   onDeleteNode: (id: NodeId) => void
-  onUpdateNodes: (id: NodeId, data: any) => void
+  onModifyChange: OnPropChange
 }
 
 const NodeComponent: React.FC<NodeComponentProps> = ({
@@ -33,9 +37,10 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   progressBar,
   imagePreviews,
   onDuplicateNode,
-  onDeleteNode,
-  onUpdateNodes,
+  onModifyChange,
 }) => {
+  const theme = useTheme()
+  const [nicknameInput, setNicknameInput] = useState<boolean>(false)
   const params: any[] = []
   const inputs: any[] = []
   const outputs: any[] = node.data.output
@@ -50,23 +55,48 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
 
+  const name = node.data?.nickname || node.data.name
+
+  const handleNickname = (e: any) => {
+    const nickname = e.target.value
+    onModifyChange(node.id, 'nickname', nickname)
+    setNicknameInput(false)
+  }
+
+  const handleNodeColor: MenuProps['onClick'] = ({ key }: any) => {
+    onModifyChange(node.id, 'color', colorList[key])
+  }
+
   return (
     <NodeCard
       size="small"
-      title={node.data.name}
+      style={node.data?.color ? { background: mix(0.8, theme.colorBgContainer, node.data.color) } : {}}
+      title={
+        nicknameInput ? (
+          <Input
+            autoFocus
+            defaultValue={name}
+            onPressEnter={handleNickname}
+            onBlur={handleNickname}
+            size={'small'}
+            style={{ margin: '4px 0', width: '100%' }}
+          />
+        ) : (
+          name
+        )
+      }
       active={isInProgress || isSelected ? 1 : 0}
-      style={{
-        width: node.data?.width || 'unset',
-        height: node.data?.height || 'unset',
-      }}
       hoverable
       extra={
         isInProgress
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
           : isSelected && (
-              <Space>
+              <Space size={2} style={{ marginLeft: 8 }}>
+                <Dropdown menu={{ items: ColorMenu, onClick: handleNodeColor }} trigger={['click']}>
+                  <ActionIcon icon={<HighlightOutlined />} onClick={(e) => e.preventDefault()} />
+                </Dropdown>
+                <ActionIcon icon={<EditOutlined />} onClick={() => setNicknameInput(true)} />
                 <ActionIcon icon={<CopyOutlined />} onClick={() => onDuplicateNode(node.id)} />
-                <ActionIcon icon={<DeleteOutlined />} onClick={() => onDeleteNode(node.id)} />
               </Space>
             )
       }
@@ -77,9 +107,7 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
       </SpaceGrid>
       <NodeParams data={params} nodeId={node.id} />
       <NodeImgPreview data={imagePreviews} />
-      {isSelected && (
-        <NodeResizeControl onResizeEnd={(_, { width, height }) => onUpdateNodes(node.id, { width, height })} />
-      )}
+      {isSelected && <NodeResizeControl />}
     </NodeCard>
   )
 }

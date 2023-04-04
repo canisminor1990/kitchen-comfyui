@@ -5,7 +5,7 @@ import { applyNodeChanges, Node } from 'reactflow'
 import { fromWidget } from './widget'
 
 // 用于添加、更新和获取节点的函数
-export function addNode(state: AppState, { widget, node, position, key }: NodeItem): AppState {
+export function addNode(state: AppState, { widget, node, position, width, height, key }: NodeItem): AppState {
   const nextKey = key !== undefined ? Math.max(key, state.counter + 1) : state.counter + 1
 
   const id = nextKey.toString()
@@ -13,14 +13,21 @@ export function addNode(state: AppState, { widget, node, position, key }: NodeIt
     .map((n) => n.zIndex ?? 0)
     .concat([0])
     .reduce((a, b) => Math.max(a, b))
-  const item = {
+  const item: Node = {
     id,
-    data: widget,
+    data: { ...widget, ...node?.modify },
     dragHandle: '.ant-card-head',
     position: position ?? { x: 0, y: 0 },
     type: NODE_IDENTIFIER,
     zIndex: maxZ + 1,
+    width,
+    height,
+    style: {
+      width,
+      height,
+    },
   }
+
   return {
     ...state,
     nodes: applyNodeChanges([{ type: 'add', item }], state.nodes),

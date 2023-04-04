@@ -1,8 +1,9 @@
-import { Input, InputNumber, Select, TextArea } from '@/components'
+import { Input, Select, TextArea } from '@/components'
 import { InputData } from '@/types'
 import { checkInput } from '@/utils'
 import { Checkbox } from 'antd'
 import React from 'react'
+import { DecimalStep, IntegerStep } from './SliderInput'
 
 const MAX_SELECT_NAME = 36
 
@@ -33,27 +34,23 @@ const InputComponent: React.FC<InputProps> = ({ value, input, onChange }) => {
   }
   if (checkInput.isInt(input)) {
     return (
-      <InputNumber
+      <IntegerStep
         style={{ width: '100%' }}
-        size="small"
-        value={value}
-        max={input[1].max}
-        min={input[1].min}
-        defaultValue={input[1].default}
+        value={value !== null ? value : input[1].default}
+        max={Number(input[1].max)}
+        min={Number(input[1].min)}
         onChange={onChange}
       />
     )
   }
   if (checkInput.isFloat(input)) {
     return (
-      <InputNumber
+      <DecimalStep
         style={{ width: '100%' }}
-        size="small"
-        step="0.01"
-        value={value}
-        max={input[1].max}
-        min={input[1].min}
-        defaultValue={input[1].default}
+        step={0.01}
+        value={value !== null ? value : input[1].default}
+        max={Number(input[1].max)}
+        min={Number(input[1].min)}
         onChange={onChange}
       />
     )
