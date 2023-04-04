@@ -11,10 +11,13 @@ import {
   Widget,
   WidgetKey,
 } from '@/types'
+import type { ThemeMode } from 'antd-style'
 import { Edge, Node, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
 
 export type OnPropChange = (node: NodeId, property: PropertyKey, value: any) => void
 export interface AppState {
+  themeMode: ThemeMode
+  onSetThemeMode: (type: ThemeMode) => void
   counter: number
   clientId?: string
   widgets: Record<WidgetKey, Widget>

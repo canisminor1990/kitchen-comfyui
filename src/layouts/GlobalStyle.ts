@@ -1,9 +1,14 @@
 import { createGlobalStyle } from 'antd-style'
+import { rgba } from 'polished'
 
 const GlobalStyle = createGlobalStyle`
   body {
     color: ${({ theme }) => theme.colorTextBase};
     background: ${({ theme }) => theme.colorBgBase};
+  }
+
+  div {
+    user-select: none;
   }
 
   /* width */
@@ -34,8 +39,6 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
   }
 
-
-
   .react-flow__handle-connecting {
     background: ${({ theme }) => theme.colorError} !important;
   }
@@ -48,8 +51,22 @@ const GlobalStyle = createGlobalStyle`
     fill: ${({ theme }) => theme.colorBgMask};
   }
 
+  .react-flow__minimap {
+    background: ${({ theme }) => rgba(theme.colorBgContainer, 0.8)};
+    backdrop-filter: blur(24px);
+    border: 1px solid ${({ theme }) => theme.colorBorderSecondary};
+    overflow: hidden;
+    border-radius: 4px;
+    height: 150px;
+    box-shadow: ${({ theme }) => theme.boxShadowTertiary};
+  }
+
   .react-flow__minimap-node {
-    fill: ${({ theme }) => theme.colorFill};
+    opacity: .5;
+  }
+
+  .react-flow__attribution {
+    display: none;
   }
 
   .react-flow__controls {

@@ -1,6 +1,7 @@
-import { useStore } from '@/layouts/useStore'
+import { useAppStore } from '@/store'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { shallow } from 'zustand/shallow'
 
 const darkLogo = 'https://gw.alipayobjects.com/zos/bmw-prod/9ecb2822-1592-4cb0-a087-ce0097fef2ca.svg'
 const lightLogo = 'https://gw.alipayobjects.com/zos/bmw-prod/e146116d-c65a-4306-a3d2-bb8d05e1c49b.svg'
@@ -18,7 +19,12 @@ interface HeaderProps {
   children?: ReactNode
 }
 const Header: React.FC<HeaderProps> = ({ children }) => {
-  const themeMode = useStore()
+  const { themeMode } = useAppStore(
+    (st) => ({
+      themeMode: st.themeMode,
+    }),
+    shallow
+  )
   return (
     <View>
       <img src={themeMode === 'light' ? lightLogo : darkLogo} alt="logo" style={{ height: 20, marginRight: 36 }} />

@@ -2,14 +2,16 @@ import { NODE_IDENTIFIER, NodeContainer } from '@/components'
 import { useAppStore } from '@/store'
 import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
+import { useTheme } from 'antd-style'
 import React, { useCallback, useRef, useState } from 'react'
-import ReactFlow, { Background, BackgroundVariant, Controls } from 'reactflow'
+import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 
 const nodeTypes = { [NODE_IDENTIFIER]: NodeContainer }
 
 const FlowContainer: React.FC = () => {
+  const theme = useTheme()
   const reactFlowWrapper = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
@@ -104,6 +106,12 @@ const FlowContainer: React.FC = () => {
     >
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
+      <MiniMap
+        nodeColor={(n) => {
+          if (n.data.color) return n.data.color
+          return theme.colorTextDescription
+        }}
+      />
     </ReactFlow>
   )
 }

@@ -1,29 +1,39 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
 import { retrieveLocalWorkflow, saveLocalWorkflow, writeWorkflowToFile } from '@/persistence'
 import { addConnection, addNode, getQueueItems, toPersisted, updateNode } from '@/utils'
+import { ThemeMode } from 'antd-style'
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { AppState } from './AppState'
 export * from './AppState'
 
-const initialState = {
-  counter: 0,
-  widgets: {},
-  graph: {},
-  nodes: [],
-  edges: [],
-  queue: [],
-  gallery: [],
-  previewedImageIndex: undefined,
-  nodeInProgress: undefined,
-  promptError: undefined,
-  clientId: undefined,
-}
-
 export const useAppStore = create<AppState>()(
   devtools((set, get) => ({
-    ...initialState,
+    /******************************************************
+     ******************* initialState **********************
+     ******************************************************/
+
+    counter: 0,
+    widgets: {},
+    graph: {},
+    nodes: [],
+    edges: [],
+    queue: [],
+    gallery: [],
+    themeMode: 'auto',
+    previewedImageIndex: undefined,
+    nodeInProgress: undefined,
+    promptError: undefined,
+    clientId: undefined,
+
+    /******************************************************
+     *********************** Base *************************
+     ******************************************************/
+
+    onSetThemeMode: (type: ThemeMode) => {
+      set({ themeMode: type }, false, 'onSetThemeMode')
+    },
 
     onNewClientId: (id) => {
       set({ clientId: id }, false, 'onNewClientId')

@@ -1,13 +1,14 @@
 import { ConfigProvider, ControlPanelContainer, DraggablePanel, Header } from '@/components'
+import { useAppStore } from '@/store'
 import { Layout, Segmented } from 'antd'
 import { type ThemeMode } from 'antd-style'
 import 'antd/dist/reset.css'
 import React from 'react'
 import styled from 'styled-components'
 import { Outlet } from 'umi'
+import { shallow } from 'zustand/shallow'
 import GlobalStyle from './GlobalStyle'
 import WsController from './WsController'
-import { useStore } from './useStore'
 
 const options = [
   { label: '自动', value: 'auto' },
@@ -22,14 +23,20 @@ const EditorView = styled.div`
 `
 
 const Editor: React.FC = () => {
-  const themeMode = useStore()
+  const { themeMode, onSetThemeMode } = useAppStore(
+    (st) => ({
+      themeMode: st.themeMode,
+      onSetThemeMode: st.onSetThemeMode,
+    }),
+    shallow
+  )
 
   return (
     <ConfigProvider>
       <EditorView>
         <Layout>
           <Header>
-            <Segmented value={themeMode} onChange={(v) => useStore.setState(v as ThemeMode)} options={options} />
+            <Segmented value={themeMode} onChange={(v) => onSetThemeMode(v as ThemeMode)} options={options} />
           </Header>
           <Outlet />
         </Layout>

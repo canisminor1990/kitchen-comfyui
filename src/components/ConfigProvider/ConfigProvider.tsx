@@ -1,10 +1,10 @@
 import { createStudioAntdTheme } from '@/components/theme'
-import { useStore } from '@/layouts/useStore'
+import { useAppStore } from '@/store'
 import { AntdToken, ThemeAppearance, ThemeProvider, setupStyled, useAntdToken, useThemeMode } from 'antd-style'
 import type { OverrideToken } from 'antd/es/theme/interface'
 import type { FC, ReactNode } from 'react'
 import { ThemeContext } from 'styled-components'
-
+import { shallow } from 'zustand/shallow'
 export const useStudioAntdTheme = (appearance: ThemeAppearance) => {
   const token = useAntdToken()
   const themeConfig = createStudioAntdTheme(appearance)
@@ -37,7 +37,12 @@ export interface ConfigProviderProps {
 
 export const ConfigProvider: FC<ConfigProviderProps> = ({ children, componentToken }) => {
   setupStyled({ ThemeContext })
-  const themeMode = useStore()
+  const { themeMode } = useAppStore(
+    (st) => ({
+      themeMode: st.themeMode,
+    }),
+    shallow
+  )
   const { appearance } = useThemeMode()
   const studioTheme = useStudioAntdTheme(appearance)
 
