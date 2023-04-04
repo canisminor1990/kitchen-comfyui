@@ -2,17 +2,18 @@
   "name": "kitchen-comfyui",
   "version": "0.0.1",
   "private": true,
-  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/canisminor1990/kitchen-comfyui.git"
   },
   "author": "canisminor1990 <i@canisminor.cc>",
+  "sideEffects": false,
   "scripts": {
     "build": "umi build",
     "dev": "umi dev",
     "postinstall": "umi setup",
     "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install",
     "prettier": "prettier -c --write \"**/**\"",
     "setup": "umi setup",
     "start": "npm run dev",

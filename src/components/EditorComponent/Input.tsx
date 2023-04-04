@@ -1,11 +1,9 @@
 import { createStyles } from '@/components/theme'
 import type { InputProps as Props } from 'antd'
 import { Input as _Input } from 'antd'
-import { TextAreaProps } from 'antd/es/input/TextArea'
+import type { TextAreaProps } from 'antd/es/input/TextArea'
 import type { FC } from 'react'
 import { ConfigProvider } from '../ConfigProvider'
-
-const _TextArea = _Input.TextArea
 
 export type InputProps = Props
 
@@ -24,6 +22,8 @@ export const Input: FC<InputProps> = ({ className, ...props }) => {
     </ConfigProvider>
   )
 }
+
+const _TextArea = _Input.TextArea
 
 export const TextArea: FC<TextAreaProps> = ({ className, ...props }) => {
   const { styles, cx } = useStyles()

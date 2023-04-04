@@ -11,8 +11,5 @@ export const studioDarkAlgorithm: MappingAlgorithm = (seedToken, mapToken) => {
 
   return {
     ...mergeToken,
-    colorBgLayout: '#20252b',
-    colorBgContainer: '#282c34',
-    colorBgElevated: '#32363e',
   }
 }
