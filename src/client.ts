@@ -1,6 +1,6 @@
 import { getBackendUrl } from '@/config'
-import { type PersistedGraph, type PersistedNode } from '@/persistence'
-import { type NodeId, type PropertyKey, type Widget, type WidgetKey } from '@/types'
+import { PersistedGraph, PersistedNode } from '@/persistence'
+import { NodeId, PropertyKey, Widget, WidgetKey } from '@/types'
 import { checkInput } from '@/utils'
 
 interface PromptRequest {
@@ -37,11 +37,13 @@ interface HistoryItem {
 }
 
 export async function getWidgetLibrary(): Promise<Record<string, Widget>> {
-  return await fetch(getBackendUrl('/object_info')).then(async (r) => await r.json())
+  const response = await fetch(getBackendUrl('/object_info'))
+  return response.json()
 }
 
 export async function getQueue(): Promise<Queue> {
-  return await fetch(getBackendUrl('/queue')).then(async (r) => await r.json())
+  const response = await fetch(getBackendUrl('/queue'))
+  return response.json()
 }
 
 export async function deleteFromQueue(id: number): Promise<void> {
@@ -52,15 +54,16 @@ export async function deleteFromQueue(id: number): Promise<void> {
 }
 
 export async function getHistory(): Promise<History> {
-  return await fetch(getBackendUrl('/history')).then(async (r) => await r.json())
+  const response = await fetch(getBackendUrl('/history'))
+  return response.json()
 }
 
 export async function sendPrompt(prompt: PromptRequest): Promise<PromptResponse> {
-  const resp = await fetch(getBackendUrl('/prompt'), {
+  const response = await fetch(getBackendUrl('/prompt'), {
     method: 'POST',
     body: JSON.stringify(prompt),
   })
-  const error = resp.status !== 200 ? await resp.text() : undefined
+  const error = response.status !== 200 ? await response.text() : undefined
   return { error }
 }
 

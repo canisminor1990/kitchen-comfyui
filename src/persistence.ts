@@ -1,9 +1,11 @@
-import { type Connection, type NodeId, type SDNode } from '@/types'
+import { Connection, NodeId, SDNode } from '@/types'
 import defaultWorkflow from './defaultWorkflow'
+
+type Position = { x: number; y: number }
 
 export interface PersistedNode {
   value: SDNode
-  position: { x: number; y: number }
+  position: Position
 }
 
 export interface PersistedGraph {
@@ -15,7 +17,7 @@ const GRAPH_KEY = 'graph'
 
 export function retrieveLocalWorkflow(): PersistedGraph | null {
   const item = localStorage.getItem(GRAPH_KEY)
-  return item === null ? defaultWorkflow : JSON.parse(item)
+  return item ? JSON.parse(item) : defaultWorkflow
 }
 
 export function saveLocalWorkflow(graph: PersistedGraph): void {
@@ -23,23 +25,28 @@ export function saveLocalWorkflow(graph: PersistedGraph): void {
 }
 
 export function readWorkflowFromFile(
-  ev: React.ChangeEvent<HTMLInputElement>,
-  cb: (workflow: PersistedGraph) => void
+  event: React.ChangeEvent<HTMLInputElement>,
+  callback: (workflow: PersistedGraph) => void
 ): void {
   const reader = new FileReader()
-  if (ev.target.files !== null) {
-    reader.readAsText(ev.target.files[0])
-    reader.addEventListener('load', (ev) => {
-      if (ev.target?.result != null && typeof ev.target.result === 'string') {
-        cb(JSON.parse(ev.target.result))
+  const file = event.target?.files?.[0]
+  if (file) {
+    reader.readAsText(file)
+    reader.addEventListener('load', (event) => {
+      const result = event.target?.result
+      if (typeof result === 'string') {
+        callback(JSON.parse(result))
       }
     })
   }
 }
 
 export function writeWorkflowToFile(workflow: PersistedGraph): void {
+  const blob = new Blob([JSON.stringify(workflow)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.download = 'workflow.json'
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(workflow)], { type: 'application/json' }))
+  a.href = url
   a.click()
+  URL.revokeObjectURL(url)
 }

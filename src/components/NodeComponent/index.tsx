@@ -50,8 +50,6 @@ const NodeComponent: React.FC<NodeComponentProps> = ({
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
 
-  if (isSelected) console.log(node)
-
   return (
     <NodeCard
       size="small"
