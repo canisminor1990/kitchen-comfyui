@@ -208,7 +208,7 @@ export const useAppStore = create<AppState>()(
       const state = get()
       const graph = toPersisted(state)
       const res = await sendPrompt(createPrompt(graph, state.widgets, state.clientId))
-      set({ promptError: res.error }, false, 'onSubmit')
+      set({ promptError: res.error, counter: state.counter + 1 }, false, 'onSubmit')
     },
 
     onDeleteFromQueue: async (id) => {
