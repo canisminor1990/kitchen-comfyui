@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Hack', 'IBM Plex Mono', 'ui-monospace', 'Consolas', monospace !important;
   }
 
+
   .react-json-view {
     background: transparent !important;
   }

@@ -1,7 +1,7 @@
-import { SpaceCol } from '@/components/NodeComponent/style'
 import React from 'react'
 import { Position } from 'reactflow'
 import NodeSlot from './NodeSlot'
+import { SpaceCol } from './style'
 
 interface NodeInputsProps {
   data: {

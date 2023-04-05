@@ -1,6 +1,6 @@
 import { useAppStore } from '@/store'
 import type { Widget } from '@/types'
-import { ArrowsAltOutlined, ShrinkOutlined } from '@ant-design/icons'
+import { AppstoreOutlined, ArrowsAltOutlined, MenuOutlined, ShrinkOutlined } from '@ant-design/icons'
 import { Button, Input, Space } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
@@ -14,6 +14,7 @@ const NodePickerComponent: React.FC = () => {
   const [category, setCategory] = useState<Record<string, Widget[]>>({})
   const [keywords, setKeywords] = useState<string>()
   const [globalExpand, setGlobalExpand] = useState(true)
+  const [cardView, setCardView] = useState(false)
 
   useEffect(() => {
     const byCategory: Record<string, Widget[]> = {}
@@ -40,13 +41,25 @@ const NodePickerComponent: React.FC = () => {
           style={{ width: '100%' }}
         />
         <Space.Compact style={{ marginLeft: 8 }}>
-          <Button icon={<ArrowsAltOutlined />} onClick={() => setGlobalExpand(true)} />
-          <Button icon={<ShrinkOutlined />} onClick={() => setGlobalExpand(false)} />
+          <Button
+            title="Switch Card/List View"
+            icon={cardView ? <AppstoreOutlined /> : <MenuOutlined />}
+            onClick={() => setCardView(!cardView)}
+          />
+          <Button title="Expand All" icon={<ArrowsAltOutlined />} onClick={() => setGlobalExpand(true)} />
+          <Button title="Collapse All" icon={<ShrinkOutlined />} onClick={() => setGlobalExpand(false)} />
         </Space.Compact>
       </PanelHeader>
       <PanelBody>
         {Object.entries(category).map(([cat, items]) => (
-          <NodePickerGroup key={cat} data={items} cat={cat} onAddNode={onAddNode} globalExpand={globalExpand} />
+          <NodePickerGroup
+            key={cat}
+            data={items}
+            cat={cat}
+            onAddNode={onAddNode}
+            globalExpand={globalExpand}
+            cardView={cardView}
+          />
         ))}
       </PanelBody>
     </>

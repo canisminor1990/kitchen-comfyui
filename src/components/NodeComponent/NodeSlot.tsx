@@ -8,7 +8,6 @@ interface NodeSlotProps {
   type: HandleType
   position: Position
   slotType?: string
-
   isRequired?: boolean
 }
 

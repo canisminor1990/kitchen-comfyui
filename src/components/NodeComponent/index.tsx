@@ -27,7 +27,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const { progressBar, imagePreviews, onDuplicateNode, onDeleteNode, onModifyChange, getNodeFieldsData } = useAppStore(
     (st) => ({
       progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
-      imagePreviews: st.graph[node.id]?.images?.map((image, index) => {
+      imagePreviews: st.graph?.[node.id]?.images?.map((image, index) => {
         return {
           image,
           index,
