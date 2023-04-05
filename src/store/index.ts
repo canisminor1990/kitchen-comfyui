@@ -1,14 +1,17 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
 import {
+  addConnection,
+  addNode,
   getLocalWorkflowFromId,
+  getQueueItems,
   retrieveTempWorkflow,
   saveLocalWorkflow,
   saveTempWorkflow,
+  toPersisted,
   updateLocalWorkflow,
+  updateNode,
   writeWorkflowToFile,
-} from '@/persistence'
-import { addConnection, addNode, getQueueItems, toPersisted, updateNode } from '@/utils'
-import { ThemeMode } from 'antd-style'
+} from '@/utils'
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
@@ -20,7 +23,7 @@ export const useAppStore = create<AppState>()(
     /******************************************************
      ******************* initialState **********************
      ******************************************************/
-
+    page: 'flow',
     counter: 0,
     widgets: {},
     graph: {},
@@ -38,7 +41,11 @@ export const useAppStore = create<AppState>()(
      *********************** Base *************************
      ******************************************************/
 
-    onSetThemeMode: (type: ThemeMode) => {
+    onSetPage: (value) => {
+      set({ page: value }, false, 'onSetPage')
+    },
+
+    onSetThemeMode: (type) => {
       set({ themeMode: type }, false, 'onSetThemeMode')
     },
 

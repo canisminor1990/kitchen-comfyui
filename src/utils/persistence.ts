@@ -1,5 +1,7 @@
+import { AppState } from '@/store'
 import { Connection, NodeId, SDNode } from '@/types'
-import defaultWorkflow from './defaultWorkflow'
+import { getValidConnections } from '@/utils/connection'
+import defaultWorkflow from '../defaultWorkflow'
 
 type Position = { x: number; y: number }
 
@@ -24,6 +26,22 @@ export interface LocalPersistedGraphs {
 
 const TEMP_KEY = 'kitchen-flow-temp'
 const LOCAL_KEY = 'kitchen-flow-local'
+
+export function toPersisted(state: AppState): PersistedGraph {
+  const data: Record<NodeId, PersistedNode> = {}
+  for (const node of state.nodes) {
+    const value = state.graph[node.id]
+    if (value !== undefined) {
+      data[node.id] = { value, position: node.position }
+      if (node.width) data[node.id].width = node.width
+      if (node.height) data[node.id].height = node.height
+    }
+  }
+  return {
+    data,
+    connections: getValidConnections(state),
+  }
+}
 
 // Temp Workflow
 export function cleanTempWorkflow(): void {

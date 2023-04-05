@@ -10,7 +10,7 @@ import { shallow } from 'zustand/shallow'
 
 const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
-const FlowContainer: React.FC = () => {
+const FlowEditor: React.FC = () => {
   const theme = useTheme()
   const reactFlowWrapper = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
@@ -83,12 +83,13 @@ const FlowContainer: React.FC = () => {
 
   return (
     <ReactFlow
-      id="floweditor"
       ref={reactFlowWrapper}
       nodes={nodes}
       edges={edges}
       fitView
       snapToGrid
+      snapGrid={[24, 24]}
+      minZoom={0.1}
       nodeTypes={nodeTypes}
       deleteKeyCode={['Delete']}
       disableKeyboardA11y={true}
@@ -117,4 +118,4 @@ const FlowContainer: React.FC = () => {
   )
 }
 
-export default React.memo(FlowContainer)
+export default React.memo(FlowEditor)

@@ -11,7 +11,15 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
   }
 
-  /* width */
+  code,.react-json-view {
+    font-family: 'Hack', 'IBM Plex Mono', 'ui-monospace', 'Consolas', monospace !important;
+  }
+
+  .react-json-view {
+    background: transparent !important;
+  }
+
+    /* width */
   ::-webkit-scrollbar {
     width: 6px;
   }

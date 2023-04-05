@@ -1,4 +1,3 @@
-import { PersistedGraph } from '@/persistence'
 import {
   EdgeTypes,
   GalleryItem,
@@ -12,6 +11,7 @@ import {
   Widget,
   WidgetKey,
 } from '@/types'
+import { PersistedGraph } from '@/utils'
 import type { ThemeMode } from 'antd-style'
 import { Edge, Node, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
 
@@ -20,6 +20,7 @@ export interface AppState {
   /******************************************************
    ******************* initialState **********************
    ******************************************************/
+  page: string
   counter: number
   widgets: Record<WidgetKey, Widget>
   graph: Record<NodeId, SDNode>
@@ -36,6 +37,7 @@ export interface AppState {
   /******************************************************
    *********************** Base *************************
    ******************************************************/
+  onSetPage: (value: string) => void
   onSetThemeMode: (type: ThemeMode) => void
   onInit: () => Promise<void>
   onNewClientId: (id: string) => void

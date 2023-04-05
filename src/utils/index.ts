@@ -1,6 +1,6 @@
 export * from './connection'
 export * from './input'
 export * from './node'
-export * from './persisted'
+export * from './persistence'
 export * from './queue'
 export * from './widget'

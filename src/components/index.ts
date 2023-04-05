@@ -4,7 +4,6 @@ export { default as GalleryComponent } from './ControlPanelComponent/GalleryComp
 export { default as NodePickerComponent } from './ControlPanelComponent/NodePickerComponent'
 export { default as WorkflowPageComponent } from './ControlPanelComponent/WorkflowPageComponent'
 export * from './EditorComponent'
-export { default as FlowContainer } from './FlowContainer'
 export { default as Header } from './Header'
 export { NODE_IDENTIFIER, default as NodeComponent } from './NodeComponent'
 export { default as InputComponent } from './NodeComponent/InputComponent'

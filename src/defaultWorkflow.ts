@@ -1,4 +1,4 @@
-import { PersistedGraph } from '@/persistence'
+import { PersistedGraph } from '@/utils'
 
 const defaultWorkflow: PersistedGraph = {
   data: {

@@ -1,7 +1,6 @@
 import { getBackendUrl } from '@/config'
-import { PersistedGraph, PersistedNode } from '@/persistence'
 import { NodeId, PropertyKey, Widget, WidgetKey } from '@/types'
-import { checkInput } from '@/utils'
+import { PersistedGraph, PersistedNode, checkInput } from '@/utils'
 
 interface PromptRequest {
   client_id?: string

@@ -1,3 +1,4 @@
+import { Segmented } from '@/components'
 import { useAppStore } from '@/store'
 import { GithubOutlined, LoadingOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Space, Spin, message } from 'antd'
@@ -10,11 +11,24 @@ import { EdgeTypeList, ThemeList, View, edgeTypeIcon, themeIcon } from './style'
 interface HeaderProps {
   children?: ReactNode
 }
+
+const pages = [
+  {
+    label: 'Flow Editor',
+    value: 'flow',
+  },
+  {
+    label: 'Data View',
+    value: 'data',
+  },
+]
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const [messageApi, messageHolder] = message.useMessage()
   const [count, setCount] = useState(0)
 
   const {
+    page,
+    onSetPage,
     themeMode,
     onSetThemeMode,
     onSubmit,
@@ -26,6 +40,8 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
     onEdgesType,
   } = useAppStore(
     (st) => ({
+      page: st.page,
+      onSetPage: st.onSetPage,
       themeMode: st.themeMode,
       onSetThemeMode: st.onSetThemeMode,
       onSubmit: st.onSubmit,
@@ -60,7 +76,8 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
   return (
     <>
       <View>
-        <Logo themeMode={themeMode} />
+        <Logo />
+        <Segmented options={pages} value={page} onChange={onSetPage} />
         <Space>
           {children}
           <a href="https://github.com/canisminor1990/kitchen-comfyui" target="_blank" rel="noreferrer">
