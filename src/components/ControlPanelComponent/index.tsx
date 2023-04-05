@@ -20,14 +20,14 @@ const ControlPanelComponent: React.FC = () => {
             children: <NodePickerComponent />,
           },
           {
-            label: 'Gallery',
-            key: 'Gallery',
-            children: <GalleryComponent />,
-          },
-          {
             label: 'Workflow',
             key: 'Workflow',
             children: <WorkflowPageComponent />,
+          },
+          {
+            label: 'Gallery',
+            key: 'Gallery',
+            children: <GalleryComponent />,
           },
         ]}
       />

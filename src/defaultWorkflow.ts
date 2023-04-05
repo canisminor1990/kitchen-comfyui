@@ -1,4 +1,6 @@
-export default {
+import { PersistedGraph } from '@/persistence'
+
+const defaultWorkflow: PersistedGraph = {
   data: {
     '1': {
       value: {
@@ -61,3 +63,5 @@ export default {
     { source: '5', sourceHandle: 'IMAGE', target: '9', targetHandle: 'images' },
   ],
 }
+
+export default defaultWorkflow

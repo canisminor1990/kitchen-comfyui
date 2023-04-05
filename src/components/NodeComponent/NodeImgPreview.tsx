@@ -1,4 +1,5 @@
 import { ImagePreview } from '@/components/NodeComponent/index'
+import { emptyImg } from '@/components/theme'
 import { getBackendUrl } from '@/config'
 import { Image } from 'antd'
 import queryString from 'query-string'
@@ -18,6 +19,7 @@ const NodeImgPreview: React.FC<NodeImgPreviewProps> = ({ data }) => {
             height={'100%'}
             key={index}
             src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))}
+            fallback={emptyImg}
           />
         ))
         .reverse()}

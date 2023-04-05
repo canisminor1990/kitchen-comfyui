@@ -4,7 +4,8 @@ import { NodeId, PropertyKey, WidgetKey } from './base'
 import { Widget } from './widget'
 
 export interface SDNodeModify {
-  size?: [number, number]
+  color?: string
+  nickname?: string
 }
 
 export interface SDNode {

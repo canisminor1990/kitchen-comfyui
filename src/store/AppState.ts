@@ -77,7 +77,11 @@ export interface AppState {
   /******************************************************
    ***************** Workflow && Persist *******************
    ******************************************************/
-  onPersistLocal: () => void
+  onPersistTemp: () => void
+  onSaveLocalWorkFlow: (title?: string) => void
+  onLoadLocalWorkflow: (id: string) => void
+  onUpdateLocalWorkFlowGraph: (id: string) => void
+  onUpdateLocalWorkFlowTitle: (id: string, title: string) => void
   onLoadWorkflow: (persisted: PersistedGraph) => void
-  onSaveWorkflow: () => void
+  onDownloadWorkflow: () => void
 }

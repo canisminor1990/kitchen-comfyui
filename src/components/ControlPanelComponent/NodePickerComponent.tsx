@@ -1,27 +1,13 @@
-import { ActionIcon } from '@/components'
 import { useAppStore } from '@/store'
 import type { Widget } from '@/types'
 import { ArrowsAltOutlined, ShrinkOutlined } from '@ant-design/icons'
-import { Input, Space } from 'antd'
+import { Button, Input, Space } from 'antd'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { shallow } from 'zustand/shallow'
 import NodePickerGroup from './NodePickerGroup'
+import { PanelBody, PanelHeader } from './style'
 
 const { Search } = Input
-
-const PanelHeader = styled.div`
-  display: flex;
-  margin-bottom: 8px;
-  > .ant-input-search {
-    margin-right: 12px;
-  }
-`
-
-const PanelBody = styled.div`
-  flex: 1;
-  overflow: auto;
-`
 
 const NodePickerComponent: React.FC = () => {
   const { widgets, onAddNode } = useAppStore((st) => ({ widgets: st.widgets, onAddNode: st.onAddNode }), shallow)
@@ -53,10 +39,10 @@ const NodePickerComponent: React.FC = () => {
           onChange={(e) => setKeywords(e.target.value)}
           style={{ width: '100%' }}
         />
-        <Space>
-          <ActionIcon icon={<ArrowsAltOutlined />} onClick={() => setGlobalExpand(true)} />
-          <ActionIcon icon={<ShrinkOutlined />} onClick={() => setGlobalExpand(false)} />
-        </Space>
+        <Space.Compact style={{ marginLeft: 8 }}>
+          <Button icon={<ArrowsAltOutlined />} onClick={() => setGlobalExpand(true)} />
+          <Button icon={<ShrinkOutlined />} onClick={() => setGlobalExpand(false)} />
+        </Space.Compact>
       </PanelHeader>
       <PanelBody>
         {Object.entries(category).map(([cat, items]) => (

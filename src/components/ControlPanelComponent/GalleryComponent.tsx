@@ -1,3 +1,4 @@
+import { emptyImg } from '@/components/theme'
 import { getBackendUrl } from '@/config'
 import { useAppStore } from '@/store'
 import { Empty, Image } from 'antd'
@@ -30,6 +31,7 @@ const GalleryComponent: React.FC = () => {
               height={125}
               key={image.filename}
               src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))}
+              fallback={emptyImg}
             />
           ))
           .reverse()}

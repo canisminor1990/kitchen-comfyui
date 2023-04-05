@@ -1,5 +1,12 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
-import { retrieveLocalWorkflow, saveLocalWorkflow, writeWorkflowToFile } from '@/persistence'
+import {
+  getLocalWorkflowFromId,
+  retrieveTempWorkflow,
+  saveLocalWorkflow,
+  saveTempWorkflow,
+  updateLocalWorkflow,
+  writeWorkflowToFile,
+} from '@/persistence'
 import { addConnection, addNode, getQueueItems, toPersisted, updateNode } from '@/utils'
 import { ThemeMode } from 'antd-style'
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow'
@@ -40,10 +47,10 @@ export const useAppStore = create<AppState>()(
     },
 
     onInit: async () => {
-      setInterval(() => get().onPersistLocal(), 5000)
+      setInterval(() => get().onPersistTemp(), 5000)
       const widgets = await getWidgets()
       set({ widgets }, false, 'onInit')
-      get().onLoadWorkflow(retrieveLocalWorkflow() ?? { data: {}, connections: [] })
+      get().onLoadWorkflow(retrieveTempWorkflow() ?? { data: {}, connections: [] })
     },
 
     /******************************************************
@@ -136,7 +143,11 @@ export const useAppStore = create<AppState>()(
     },
 
     getNodeFieldsData: (id, key) => {
-      return get().graph[id].fields[key]
+      try {
+        return get()?.graph[id]?.fields[key]
+      } catch (e) {
+        console.error(e)
+      }
     },
 
     /******************************************************
@@ -224,8 +235,25 @@ export const useAppStore = create<AppState>()(
      ***************** Workflow && Persist *******************
      ******************************************************/
 
-    onPersistLocal: () => {
-      saveLocalWorkflow(toPersisted(get()))
+    onPersistTemp: () => {
+      saveTempWorkflow(toPersisted(get()))
+    },
+
+    onSaveLocalWorkFlow: (title) => {
+      saveLocalWorkflow(toPersisted(get()), title)
+    },
+
+    onLoadLocalWorkflow: (id) => {
+      const workflow = getLocalWorkflowFromId(id)
+      if (workflow) get().onLoadWorkflow(workflow)
+    },
+
+    onUpdateLocalWorkFlowGraph: (id) => {
+      updateLocalWorkflow(id, { graph: toPersisted(get()) })
+    },
+
+    onUpdateLocalWorkFlowTitle: (id, title) => {
+      updateLocalWorkflow(id, { title })
     },
 
     onLoadWorkflow: (workflow) => {
@@ -257,7 +285,7 @@ export const useAppStore = create<AppState>()(
       )
     },
 
-    onSaveWorkflow: () => {
+    onDownloadWorkflow: () => {
       writeWorkflowToFile(toPersisted(get()))
     },
   }))
