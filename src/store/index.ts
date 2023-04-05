@@ -93,8 +93,11 @@ export const useAppStore = create<AppState>()(
           const item = st.graph[id]
           const node = st.nodes.find((n) => n.id === id)
           const position = node?.position
-          const moved = position !== undefined ? { ...position, y: position.y + 100 } : undefined
-          return addNode(st, { widget: st.widgets[item.widget], node: item, position: moved })
+          const moved = position !== undefined ? { ...position, y: position.y + (node?.height || 100) + 24 } : undefined
+          const nodeData: any = { widget: st.widgets[item.widget], node: item, position: moved }
+          if (node?.width) nodeData.width = node.width
+          if (node?.height) nodeData.height = node.height
+          return addNode(st, nodeData)
         },
         false,
         'onDuplicateNode'

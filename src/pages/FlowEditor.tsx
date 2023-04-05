@@ -3,6 +3,7 @@ import { useAppStore } from '@/store'
 import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
 import { useTheme } from 'antd-style'
+import { debounce } from 'lodash-es'
 import React, { useCallback, useRef, useState } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
@@ -12,9 +13,12 @@ const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
 const FlowEditor: React.FC = () => {
   const theme = useTheme()
-  const reactFlowWrapper = useRef(null)
+  const reactFlowWrapper: any = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
-  const [reactFlowInstance, setReactFlowInstance] = useState(null)
+  const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onInit, onAddNode } = useAppStore(
     (st) => ({
@@ -64,11 +68,9 @@ const FlowEditor: React.FC = () => {
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault()
-      // @ts-ignore
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
       const widget = JSON.parse(event.dataTransfer.getData('application/reactflow'))
       if (!widget) return
-      // @ts-ignore
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
@@ -81,6 +83,41 @@ const FlowEditor: React.FC = () => {
     [reactFlowInstance]
   )
 
+  const handleMouseMove = debounce((event: any) => {
+    try {
+      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
+      const position = reactFlowInstance.project({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      })
+      setMousePosition(position)
+    } catch {}
+  }, 500)
+
+  const handleCopy = () => {
+    const selectedNodes = nodes.filter((n) => n.selected).map((n) => n.id)
+    const selectedEdges = edges
+      .filter((e) => selectedNodes.includes(e.target) && selectedNodes.includes(e.source))
+      .map((e) => ({ source: e.source, target: e.target, sourceHandle: e.sourceHandle, targetHandle: e.targetHandle }))
+    const copyData = { nodes: selectedNodes, edges: selectedEdges }
+    navigator.clipboard.writeText(JSON.stringify(copyData))
+    console.log('[Copy]', copyData)
+  }
+
+  const handlePaste = async () => {
+    const clipboardData = await navigator.clipboard.readText()
+    const pasteData = JSON.parse(clipboardData)
+    console.log('[Paste]', pasteData)
+  }
+
+  const handleKeyDown = (event: any) => {
+    if (event.ctrlKey && event.code === 'KeyC') {
+      handleCopy()
+    } else if (event.ctrlKey && event.code === 'KeyV') {
+      handlePaste()
+    }
+  }
+
   return (
     <ReactFlow
       ref={reactFlowWrapper}
@@ -92,7 +129,10 @@ const FlowEditor: React.FC = () => {
       minZoom={0.1}
       nodeTypes={nodeTypes}
       deleteKeyCode={['Delete']}
+      multiSelectionKeyCode={['Shift']}
       disableKeyboardA11y={true}
+      onKeyDown={handleKeyDown}
+      onMouseMove={handleMouseMove}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onEdgeUpdate={onEdgeUpdate}
