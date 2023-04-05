@@ -8,7 +8,12 @@ const hotReloadConfig = {
   protocol: 'http:',
 }
 
-const config = process.env.MOCK ? hotReloadConfig : defaultConfig
+const config =
+  process.env.NODE_ENV === 'development' ? (process.env.MOCK ? defaultConfig : hotReloadConfig) : defaultConfig
+
+if (process.env.NODE_ENV === 'development') {
+  console.table({ ...config, isMock: Boolean(process.env.MOCK) })
+}
 
 export function getBackendUrl(endpoint: string): string {
   return `${config.protocol}//${config.host}${endpoint}`

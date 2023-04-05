@@ -39,7 +39,7 @@ const WsController: React.FC = () => {
   useWebSocket(`ws://${config.host}/ws`, {
     onMessage: (ev) => {
       const msg = JSON.parse(ev.data)
-      console.log('[webpack]', msg)
+      if (process.env.NODE_ENV === 'development') console.log('[webpack]', msg)
       if (WsMessage.isStatus(msg)) {
         if (msg.data.sid !== undefined && msg.data.sid !== clientId) {
           onNewClientId(msg.data.sid)
