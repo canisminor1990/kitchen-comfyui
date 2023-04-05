@@ -1,0 +1,6813 @@
+{
+  "KSampler": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "steps": [
+          "INT",
+          {
+            "default": 20,
+            "min": 1,
+            "max": 10000
+          }
+        ],
+        "cfg": [
+          "FLOAT",
+          {
+            "default": 8,
+            "min": 0,
+            "max": 100
+          }
+        ],
+        "sampler_name": [
+          [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_2m",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ]
+        ],
+        "scheduler": [["karras", "normal", "simple", "ddim_uniform"]],
+        "positive": ["CONDITIONING"],
+        "negative": ["CONDITIONING"],
+        "latent_image": ["LATENT"],
+        "denoise": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "KSampler",
+    "description": "",
+    "category": "sampling"
+  },
+  "CheckpointLoader": {
+    "input": {
+      "required": {
+        "config_name": [
+          [
+            "Design\\NovelFinal-4g.yaml",
+            "StableDiffusion\\SD-v2.0-512.yaml",
+            "StableDiffusion\\SD-v2.0-768.yaml",
+            "StableDiffusion\\SD-v2.1-512.yaml",
+            "StableDiffusion\\SD-v2.1-768.yaml",
+            "anything_v3.yaml",
+            "v1-inference.yaml",
+            "v1-inference_clip_skip_2.yaml",
+            "v1-inference_clip_skip_2_fp16.yaml",
+            "v1-inference_fp16.yaml",
+            "v1-inpainting-inference.yaml",
+            "v2-inference-v.yaml",
+            "v2-inference-v_fp32.yaml",
+            "v2-inference.yaml",
+            "v2-inference_fp32.yaml",
+            "v2-inpainting-inference.yaml"
+          ]
+        ],
+        "ckpt_name": [
+          [
+            "AOM\\AbyssOrangeMix-v1.safetensors",
+            "AOM\\AbyssOrangeMix-v2.safetensors",
+            "AOM\\AbyssOrangeMix-v3.safetensors",
+            "Anime\\Counterfeit-v2.5.safetensors",
+            "Anime\\DalcefoPainting-v2.safetensors",
+            "Anime\\Dosmix.safetensors",
+            "Anime\\Evt-v3.0.safetensors",
+            "Anime\\LaoleiStyle-v3.0.safetensors",
+            "Anime\\MiaoShouAI.safetensors",
+            "Anime\\ModernDisneyStyle.safetensors",
+            "Anime\\Ogipote5Half.safetensors",
+            "Anime\\Quan.safetensors",
+            "Anime\\Refslave-v2.safetensors",
+            "Anime\\Torino-v2.0.safetensors",
+            "Anime\\Waifu-v1.3.safetensors",
+            "Anime\\Yyuu.safetensors",
+            "Anime\\cherryBlossomMix_v10.safetensors",
+            "Anime\\meinamix_meinaV8.safetensors",
+            "Anime\\mindplayerFloralboys_mindplayerFloralboys.ckpt",
+            "Anime\\mixPro-v3.safetensors",
+            "Anime\\nyanMix_230303Absurd2.safetensors",
+            "Anime\\pastelboys2D_v10.safetensors",
+            "Anime\\pastelmix.safetensors",
+            "Anime\\pretty25DV2_pretty25DV2Pruned.safetensors",
+            "Anything\\Anything-v3.0.safetensors",
+            "Anything\\Anything-v4.0.safetensors",
+            "Anything\\Anything-v4.5.safetensors",
+            "CmShota\\CmShotaMix-Unreal.safetensors",
+            "CmShota\\CmShotaMix.safetensors",
+            "Cornflower\\Cornflower-v4.safetensors",
+            "Cornflower\\Cornflower-v5.safetensors",
+            "Cornflower\\Cornflower-v6.safetensors",
+            "Cornflower\\Cornflower-v7.safetensors",
+            "Cornflower\\Cornflower-v8.safetensors",
+            "Design\\CafeInstagram.safetensors",
+            "Design\\CheeseDaddys.safetensors",
+            "Design\\DreamShaper.safetensors",
+            "Design\\Nice.safetensors",
+            "Design\\NovelFinal-4g.safetensors",
+            "Design\\NovelInkPunk.safetensors",
+            "Design\\SciFiDiffusion-v10.safetensors",
+            "Design\\SynthWavePunk-v2.safetensors",
+            "Design\\fkingScifiV2_v21f.safetensors",
+            "GF\\3Guofeng3_v32Light.safetensors",
+            "GF\\GuoFeng-v1.safetensors",
+            "GF\\GuoFeng-v2.safetensors",
+            "GF\\GuoFeng-v3.0.safetensors",
+            "GF\\GuoFeng-v3.1.safetensors",
+            "GF\\GuoFeng-v3.2.safetensors",
+            "OpenJourney\\OpenJourney-v1.safetensors",
+            "OpenJourney\\OpenJourney-v2.safetensors",
+            "OpenJourney\\OpenJourneyRobo-v1.safetensors",
+            "Protogen\\Protogen-v22.safetensors",
+            "Protogen\\ProtogenInfinity.safetensors",
+            "Protogen\\chilloutmix_NiPrunedFp32Fix.safetensors",
+            "StableDiffusion\\SD-v1.5.safetensors",
+            "StableDiffusion\\SD-v2.0-512.safetensors",
+            "StableDiffusion\\SD-v2.0-768.safetensors",
+            "StableDiffusion\\SD-v2.1-512.safetensors",
+            "StableDiffusion\\SD-v2.1-768.safetensors"
+          ]
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP", "VAE"],
+    "output_name": ["MODEL", "CLIP", "VAE"],
+    "name": "CheckpointLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "CheckpointLoaderSimple": {
+    "input": {
+      "required": {
+        "ckpt_name": [
+          [
+            "AOM\\AbyssOrangeMix-v1.safetensors",
+            "AOM\\AbyssOrangeMix-v2.safetensors",
+            "AOM\\AbyssOrangeMix-v3.safetensors",
+            "Anime\\Counterfeit-v2.5.safetensors",
+            "Anime\\DalcefoPainting-v2.safetensors",
+            "Anime\\Dosmix.safetensors",
+            "Anime\\Evt-v3.0.safetensors",
+            "Anime\\LaoleiStyle-v3.0.safetensors",
+            "Anime\\MiaoShouAI.safetensors",
+            "Anime\\ModernDisneyStyle.safetensors",
+            "Anime\\Ogipote5Half.safetensors",
+            "Anime\\Quan.safetensors",
+            "Anime\\Refslave-v2.safetensors",
+            "Anime\\Torino-v2.0.safetensors",
+            "Anime\\Waifu-v1.3.safetensors",
+            "Anime\\Yyuu.safetensors",
+            "Anime\\cherryBlossomMix_v10.safetensors",
+            "Anime\\meinamix_meinaV8.safetensors",
+            "Anime\\mindplayerFloralboys_mindplayerFloralboys.ckpt",
+            "Anime\\mixPro-v3.safetensors",
+            "Anime\\nyanMix_230303Absurd2.safetensors",
+            "Anime\\pastelboys2D_v10.safetensors",
+            "Anime\\pastelmix.safetensors",
+            "Anime\\pretty25DV2_pretty25DV2Pruned.safetensors",
+            "Anything\\Anything-v3.0.safetensors",
+            "Anything\\Anything-v4.0.safetensors",
+            "Anything\\Anything-v4.5.safetensors",
+            "CmShota\\CmShotaMix-Unreal.safetensors",
+            "CmShota\\CmShotaMix.safetensors",
+            "Cornflower\\Cornflower-v4.safetensors",
+            "Cornflower\\Cornflower-v5.safetensors",
+            "Cornflower\\Cornflower-v6.safetensors",
+            "Cornflower\\Cornflower-v7.safetensors",
+            "Cornflower\\Cornflower-v8.safetensors",
+            "Design\\CafeInstagram.safetensors",
+            "Design\\CheeseDaddys.safetensors",
+            "Design\\DreamShaper.safetensors",
+            "Design\\Nice.safetensors",
+            "Design\\NovelFinal-4g.safetensors",
+            "Design\\NovelInkPunk.safetensors",
+            "Design\\SciFiDiffusion-v10.safetensors",
+            "Design\\SynthWavePunk-v2.safetensors",
+            "Design\\fkingScifiV2_v21f.safetensors",
+            "GF\\3Guofeng3_v32Light.safetensors",
+            "GF\\GuoFeng-v1.safetensors",
+            "GF\\GuoFeng-v2.safetensors",
+            "GF\\GuoFeng-v3.0.safetensors",
+            "GF\\GuoFeng-v3.1.safetensors",
+            "GF\\GuoFeng-v3.2.safetensors",
+            "OpenJourney\\OpenJourney-v1.safetensors",
+            "OpenJourney\\OpenJourney-v2.safetensors",
+            "OpenJourney\\OpenJourneyRobo-v1.safetensors",
+            "Protogen\\Protogen-v22.safetensors",
+            "Protogen\\ProtogenInfinity.safetensors",
+            "Protogen\\chilloutmix_NiPrunedFp32Fix.safetensors",
+            "StableDiffusion\\SD-v1.5.safetensors",
+            "StableDiffusion\\SD-v2.0-512.safetensors",
+            "StableDiffusion\\SD-v2.0-768.safetensors",
+            "StableDiffusion\\SD-v2.1-512.safetensors",
+            "StableDiffusion\\SD-v2.1-768.safetensors"
+          ]
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP", "VAE"],
+    "output_name": ["MODEL", "CLIP", "VAE"],
+    "name": "CheckpointLoaderSimple",
+    "description": "",
+    "category": "loaders"
+  },
+  "CLIPTextEncode": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "clip": ["CLIP"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "CLIPTextEncode",
+    "description": "",
+    "category": "conditioning"
+  },
+  "CLIPSetLastLayer": {
+    "input": {
+      "required": {
+        "clip": ["CLIP"],
+        "stop_at_clip_layer": [
+          "INT",
+          {
+            "default": -1,
+            "min": -24,
+            "max": -1,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["CLIP"],
+    "output_name": ["CLIP"],
+    "name": "CLIPSetLastLayer",
+    "description": "",
+    "category": "conditioning"
+  },
+  "VAEDecode": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "vae": ["VAE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "VAEDecode",
+    "description": "",
+    "category": "latent"
+  },
+  "VAEEncode": {
+    "input": {
+      "required": {
+        "pixels": ["IMAGE"],
+        "vae": ["VAE"]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "VAEEncode",
+    "description": "",
+    "category": "latent"
+  },
+  "VAEEncodeForInpaint": {
+    "input": {
+      "required": {
+        "pixels": ["IMAGE"],
+        "vae": ["VAE"],
+        "mask": ["MASK"]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "VAEEncodeForInpaint",
+    "description": "",
+    "category": "latent/inpaint"
+  },
+  "VAELoader": {
+    "input": {
+      "required": {
+        "vae_name": [
+          [
+            "[中饱和] RefSlave-vae.safetensors",
+            "[中饱和] orangemix-vae.safetensors",
+            "[超亮紫] kl-f8-anime.safetensors",
+            "[高饱和] kl-f8-anime2.safetensors",
+            "[高饱和] pastel-waifu-diffusion.vae.pt",
+            "[高饱和] vae-ft-mse-840000.safetensors"
+          ]
+        ]
+      }
+    },
+    "output": ["VAE"],
+    "output_name": ["VAE"],
+    "name": "VAELoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "EmptyLatentImage": {
+    "input": {
+      "required": {
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "batch_size": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 64
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "EmptyLatentImage",
+    "description": "",
+    "category": "latent"
+  },
+  "LatentUpscale": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentUpscale",
+    "description": "",
+    "category": "latent"
+  },
+  "SaveImage": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": "ComfyUI"
+          }
+        ]
+      },
+      "hidden": {
+        "prompt": "PROMPT",
+        "extra_pnginfo": "EXTRA_PNGINFO"
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "SaveImage",
+    "description": "",
+    "category": "image"
+  },
+  "PreviewImage": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "hidden": {
+        "prompt": "PROMPT",
+        "extra_pnginfo": "EXTRA_PNGINFO"
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "PreviewImage",
+    "description": "",
+    "category": "image"
+  },
+  "LoadImage": {
+    "input": {
+      "required": {
+        "image": [["example.png", "tmpani5z2fz1.png", "tmpani5zfz1.png"]]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "LoadImage",
+    "description": "",
+    "category": "image"
+  },
+  "LoadImageMask": {
+    "input": {
+      "required": {
+        "image": [["example.png", "tmpani5z2fz1.png", "tmpani5zfz1.png"]],
+        "channel": [["alpha", "red", "green", "blue"]]
+      }
+    },
+    "output": ["MASK"],
+    "output_name": ["MASK"],
+    "name": "LoadImageMask",
+    "description": "",
+    "category": "image"
+  },
+  "ImageScale": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 8192,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 8192,
+            "step": 1
+          }
+        ],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ImageScale",
+    "description": "",
+    "category": "image/upscaling"
+  },
+  "ImageInvert": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ImageInvert",
+    "description": "",
+    "category": "image"
+  },
+  "ImagePadForOutpaint": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "left": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "top": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "right": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "bottom": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "feathering": [
+          "INT",
+          {
+            "default": 40,
+            "min": 0,
+            "max": 8192,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "ImagePadForOutpaint",
+    "description": "",
+    "category": "image"
+  },
+  "ConditioningCombine": {
+    "input": {
+      "required": {
+        "conditioning_1": ["CONDITIONING"],
+        "conditioning_2": ["CONDITIONING"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ConditioningCombine",
+    "description": "",
+    "category": "conditioning"
+  },
+  "ConditioningSetArea": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "width": [
+          "INT",
+          {
+            "default": 64,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 64,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "x": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "strength": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ConditioningSetArea",
+    "description": "",
+    "category": "conditioning"
+  },
+  "KSamplerAdvanced": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "add_noise": [["enable", "disable"]],
+        "noise_seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "steps": [
+          "INT",
+          {
+            "default": 20,
+            "min": 1,
+            "max": 10000
+          }
+        ],
+        "cfg": [
+          "FLOAT",
+          {
+            "default": 8,
+            "min": 0,
+            "max": 100
+          }
+        ],
+        "sampler_name": [
+          [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_2m",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ]
+        ],
+        "scheduler": [["karras", "normal", "simple", "ddim_uniform"]],
+        "positive": ["CONDITIONING"],
+        "negative": ["CONDITIONING"],
+        "latent_image": ["LATENT"],
+        "start_at_step": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 10000
+          }
+        ],
+        "end_at_step": [
+          "INT",
+          {
+            "default": 10000,
+            "min": 0,
+            "max": 10000
+          }
+        ],
+        "return_with_leftover_noise": [["disable", "enable"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "KSamplerAdvanced",
+    "description": "",
+    "category": "sampling"
+  },
+  "SetLatentNoiseMask": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "mask": ["MASK"]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "SetLatentNoiseMask",
+    "description": "",
+    "category": "latent/inpaint"
+  },
+  "LatentComposite": {
+    "input": {
+      "required": {
+        "samples_to": ["LATENT"],
+        "samples_from": ["LATENT"],
+        "x": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 8
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 8
+          }
+        ],
+        "feather": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 8
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentComposite",
+    "description": "",
+    "category": "latent"
+  },
+  "LatentRotate": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "rotation": [["none", "90 degrees", "180 degrees", "270 degrees"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentRotate",
+    "description": "",
+    "category": "latent/transform"
+  },
+  "LatentFlip": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "flip_method": [["x-axis: vertically", "y-axis: horizontally"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentFlip",
+    "description": "",
+    "category": "latent/transform"
+  },
+  "LatentCrop": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "x": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 8
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 8192,
+            "step": 8
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentCrop",
+    "description": "",
+    "category": "latent/transform"
+  },
+  "LoraLoader": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "clip": ["CLIP"],
+        "lora_name": [
+          [
+            "A-原创\\catboy.safetensors",
+            "A-原创\\cmshota-mix.safetensors",
+            "B-画风\\AkihikoYoshida.safetensors",
+            "B-画风\\ArcaneStyle.safetensors",
+            "B-画风\\Cyberpunk2077TarotCard.safetensors",
+            "B-画风\\DalcefoPainting.safetensors",
+            "B-画风\\ElegantHanfuRuqunStyle.safetensors",
+            "B-画风\\FlatColor.safetensors",
+            "B-画风\\FlonixMJStyle-v2.safetensors",
+            "B-画风\\FlonixMJStyle.safetensors",
+            "B-画风\\GlassSculptures.safetensors",
+            "B-画风\\GraphicIllustration.safetensors",
+            "B-画风\\GuoFeng3.2.safetensors",
+            "B-画风\\LofiStyle.safetensors",
+            "B-画风\\LuisapDopeStyle.safetensors",
+            "B-画风\\LuisapHotlineStyle.safetensors",
+            "B-画风\\LuisapNijijourney.safetensors",
+            "B-画风\\MonumentValley.safetensors",
+            "B-画风\\Refslave.safetensors",
+            "B-画风\\SamDoesArts.safetensors",
+            "B-画风\\SokolovStyle.safetensors",
+            "B-画风\\StudioGhibliStyle.safetensors",
+            "B-画风\\StyleJelly.safetensors",
+            "B-画风\\TokiameStyle.safetensors",
+            "B-画风\\mixPro.safetensors",
+            "C-材质\\材质-Gacha-white background, bottle bottom, 1boy, mid shot, full body.safetensors",
+            "C-材质\\材质-Q版-cbzbb, cbzbb style.safetensors",
+            "C-材质\\材质-像素-pixel painful.safetensors",
+            "C-材质\\材质-原神-genshin.safetensors",
+            "C-材质\\材质-四格漫-HarukaChibiArt.safetensors",
+            "C-材质\\材质-大腿袜-thigh gap.safetensors",
+            "C-材质\\材质-奇幻-OriArtstyleDreamlike.safetensors",
+            "C-材质\\材质-小人书-sgyy,shz.safetensors",
+            "C-材质\\材质-手办风-pop up parade.safetensors",
+            "C-材质\\材质-水墨-Moxin.safetensors",
+            "C-材质\\材质-立绘-white background, full body.safetensors",
+            "C-材质\\材质-粘土人-mksks style.pt",
+            "C-材质\\材质-雕塑-marblesh, marblee.safetensors",
+            "D-表情\\表情-催眠斗鸡眼-yorime.safetensors",
+            "D-表情\\表情-吐舌鬼脸-akanbe, finger to eye, one eye closed, tongue out.safetensors",
+            "D-表情\\表情-嘟嘴生气-pouting.safetensors",
+            "D-表情\\表情-星星眼-heart, star shaped pupils.safetensors",
+            "D-表情\\表情-疯狂-crazy face, crazy eyes, crazy smile, shocked, horrified, scared, small pupils, constricted pupils.safetensors",
+            "D-表情\\表情-病娇脸-yandere trance.safetensors",
+            "D-表情\\表情-眩晕眼-spiral, swirl, hypnolast.safetensors",
+            "D-表情\\表情-眼睛-close up eyes, looking a viewer, intricate iris, 1 eye.safetensors",
+            "D-表情\\表情-空洞眼神-utsurome.safetensors",
+            "D-表情\\表情-竖瞳-slit pupils.safetensors",
+            "D-表情\\表情-腮红作附-weed eater.pt",
+            "D-表情\\表情-金十瞳-cross, power-shaped pupils.safetensors",
+            "D-表情\\表情-高潮脸-ahegao.safetensors",
+            "E-动作\\hKHK416Lora_v20.safetensors",
+            "E-动作\\动作-中指-fuck you, middle finger.safetensors",
+            "E-动作\\动作-十字禁锢-crucifixion.safetensors",
+            "E-动作\\动作-吸烟-smoking, cigarette.safetensors",
+            "E-动作\\动作-告白-love letter, pov.safetensors",
+            "E-动作\\动作-壁咚-1boy and 1boy, kabedon pov.safetensors",
+            "E-动作\\动作-手遮眼-covering eyes.safetensors",
+            "E-动作\\动作-拉衬衫-shirt, naked, tug.safetensors",
+            "E-动作\\动作-摸头杀-headpat, head rub.safetensors",
+            "E-动作\\动作-求抱抱-arms out, lying.safetensors",
+            "E-动作\\动作-肖像-portrait, hyohon.safetensors",
+            "E-动作\\动作-被壁咚-kabedon pov.safetensors",
+            "E-动作\\动作-逆转裁判-objection, pointing.safetensors",
+            "E-动作\\动作-龟派气功-kamehameha.safetensors",
+            "F-辅助\\paimonsPaintingsStyle_gstamp02000008.safetensors",
+            "F-辅助\\辅助-三视图-1024x512-solo, (simple background, white background), multiple views.safetensors",
+            "F-辅助\\辅助-三视图-832x512-three sided view,full body,simple background,multiple views,highres.safetensors",
+            "F-辅助\\辅助-单手修复-handfix.safetensors",
+            "F-辅助\\辅助-灯光-dark studio, rim lighting, two tone lighting, dimly lit, low key.safetensors",
+            "F-辅助\\辅助-线稿-monochrome ,lineart.safetensors",
+            "F-辅助\\辅助-表情包-twitchEmotes.safetensors",
+            "F-辅助\\辅助-裸足修复-barefoot.safetensors",
+            "G-人物\\EugeoLoconLora_v10.safetensors",
+            "G-人物\\KiritoLoconLora_v10.safetensors",
+            "G-人物\\albedoGenshinImpact_v10.safetensors",
+            "G-人物\\bennettGenshinImpact_v10.safetensors",
+            "G-人物\\chongyunGenshinImpact_v10.safetensors",
+            "G-人物\\chongyunGenshin_v10.safetensors",
+            "G-人物\\cynoGenshinImpact_v10.safetensors",
+            "G-人物\\gorouGenshinImpact_v10.safetensors",
+            "G-人物\\gorouGenshin_v10.safetensors",
+            "G-人物\\kaedeharaKazuhaGenshin_v10.safetensors",
+            "G-人物\\razorGenshinImpact_v10.safetensors",
+            "G-人物\\scaramoucheGenshinImpact_v10.safetensors",
+            "G-人物\\shikanoinHeizouGenshinImpact_v10.safetensors",
+            "G-人物\\ventiGenshinImpact_v10.safetensors",
+            "G-人物\\xingqiuGenshinImpact_v10.safetensors",
+            "NSFW\\penisSizeComparison_penisSizeComparison.safetensors",
+            "NSFW\\辅助-鸡鸡修复-penisfix-v2.safetensors",
+            "NSFW\\辅助-鸡鸡修复-penisfix.safetensors",
+            "Test\\cmshota\\cmshota04.safetensors",
+            "Test\\cmshota\\cmshota06.safetensors",
+            "Test\\cmshota\\cmshota08.safetensors",
+            "Test\\cmshota\\cmshota10.safetensors",
+            "Test\\cmshota\\cmshota12.safetensors",
+            "Test\\cmshota\\cmshota14.safetensors",
+            "Test\\cmshota\\cmshota16.safetensors",
+            "Test\\cmshota\\cmshota18.safetensors"
+          ]
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -10,
+            "max": 10,
+            "step": 0.01
+          }
+        ],
+        "strength_clip": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -10,
+            "max": 10,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP"],
+    "output_name": ["MODEL", "CLIP"],
+    "name": "LoraLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "CLIPLoader": {
+    "input": {
+      "required": {
+        "clip_name": [[]]
+      }
+    },
+    "output": ["CLIP"],
+    "output_name": ["CLIP"],
+    "name": "CLIPLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "CLIPVisionEncode": {
+    "input": {
+      "required": {
+        "clip_vision": ["CLIP_VISION"],
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["CLIP_VISION_OUTPUT"],
+    "output_name": ["CLIP_VISION_OUTPUT"],
+    "name": "CLIPVisionEncode",
+    "description": "",
+    "category": "conditioning/style_model"
+  },
+  "StyleModelApply": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "style_model": ["STYLE_MODEL"],
+        "clip_vision_output": ["CLIP_VISION_OUTPUT"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "StyleModelApply",
+    "description": "",
+    "category": "conditioning/style_model"
+  },
+  "ControlNetApply": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "control_net": ["CONTROL_NET"],
+        "image": ["IMAGE"],
+        "strength": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ControlNetApply",
+    "description": "",
+    "category": "conditioning"
+  },
+  "ControlNetLoader": {
+    "input": {
+      "required": {
+        "control_net_name": [
+          [
+            "control_canny-fp16.safetensors",
+            "control_depth-fp16.safetensors",
+            "control_hed-fp16.safetensors",
+            "control_mlsd-fp16.safetensors",
+            "control_normal-fp16.safetensors",
+            "control_openpose-fp16.safetensors",
+            "control_scribble-fp16.safetensors",
+            "control_seg-fp16.safetensors",
+            "t2iadapter_canny_sd14v1.pth",
+            "t2iadapter_color_sd14v1.pth",
+            "t2iadapter_depth_sd14v1.pth",
+            "t2iadapter_keypose_sd14v1.pth",
+            "t2iadapter_openpose_sd14v1.pth",
+            "t2iadapter_seg_sd14v1.pth",
+            "t2iadapter_sketch_sd14v1.pth",
+            "t2iadapter_style_sd14v1.pth"
+          ]
+        ]
+      }
+    },
+    "output": ["CONTROL_NET"],
+    "output_name": ["CONTROL_NET"],
+    "name": "ControlNetLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "DiffControlNetLoader": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "control_net_name": [
+          [
+            "control_canny-fp16.safetensors",
+            "control_depth-fp16.safetensors",
+            "control_hed-fp16.safetensors",
+            "control_mlsd-fp16.safetensors",
+            "control_normal-fp16.safetensors",
+            "control_openpose-fp16.safetensors",
+            "control_scribble-fp16.safetensors",
+            "control_seg-fp16.safetensors",
+            "t2iadapter_canny_sd14v1.pth",
+            "t2iadapter_color_sd14v1.pth",
+            "t2iadapter_depth_sd14v1.pth",
+            "t2iadapter_keypose_sd14v1.pth",
+            "t2iadapter_openpose_sd14v1.pth",
+            "t2iadapter_seg_sd14v1.pth",
+            "t2iadapter_sketch_sd14v1.pth",
+            "t2iadapter_style_sd14v1.pth"
+          ]
+        ]
+      }
+    },
+    "output": ["CONTROL_NET"],
+    "output_name": ["CONTROL_NET"],
+    "name": "DiffControlNetLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "StyleModelLoader": {
+    "input": {
+      "required": {
+        "style_model_name": [[]]
+      }
+    },
+    "output": ["STYLE_MODEL"],
+    "output_name": ["STYLE_MODEL"],
+    "name": "StyleModelLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "CLIPVisionLoader": {
+    "input": {
+      "required": {
+        "clip_name": [[]]
+      }
+    },
+    "output": ["CLIP_VISION"],
+    "output_name": ["CLIP_VISION"],
+    "name": "CLIPVisionLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "VAEDecodeTiled": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "vae": ["VAE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "VAEDecodeTiled",
+    "description": "",
+    "category": "_for_testing"
+  },
+  "VAEEncodeTiled": {
+    "input": {
+      "required": {
+        "pixels": ["IMAGE"],
+        "vae": ["VAE"]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "VAEEncodeTiled",
+    "description": "",
+    "category": "_for_testing"
+  },
+  "FilmGrain": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "intensity": [
+          "FLOAT",
+          {
+            "default": 0.2,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "scale": [
+          "FLOAT",
+          {
+            "default": 10,
+            "min": 1,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "temperature": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "vignette": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 10,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "FilmGrain",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "ColorCorrect": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "temperature": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "hue": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -90,
+            "max": 90,
+            "step": 5
+          }
+        ],
+        "brightness": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "contrast": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "saturation": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "gamma": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.2,
+            "max": 2.2,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ColorCorrect",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "KMeansQuantize": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "colors": [
+          "INT",
+          {
+            "default": 16,
+            "min": 1,
+            "max": 256,
+            "step": 1
+          }
+        ],
+        "precision": [
+          "INT",
+          {
+            "default": 10,
+            "min": 1,
+            "max": 100,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "KMeansQuantize",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "Dither": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "bits": [
+          "INT",
+          {
+            "default": 4,
+            "min": 1,
+            "max": 8,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Dither",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "PixelSort": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mask": ["IMAGE"],
+        "direction": [["horizontal", "vertical"]],
+        "span_limit": [
+          "INT",
+          {
+            "default": null,
+            "min": 0,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "sort_by": [["hue", "saturation", "value"]],
+        "order": [["forward", "backward"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "PixelSort",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "CannyEdgeDetection": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "lower_threshold": [
+          "INT",
+          {
+            "default": 100,
+            "min": 0,
+            "max": 500,
+            "step": 10
+          }
+        ],
+        "upper_threshold": [
+          "INT",
+          {
+            "default": 200,
+            "min": 0,
+            "max": 500,
+            "step": 10
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "CannyEdgeDetection",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "Sharpen": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "kernel_size": [
+          "INT",
+          {
+            "default": 5,
+            "min": 1,
+            "max": 31,
+            "step": 1
+          }
+        ],
+        "alpha": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.1,
+            "max": 5,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Sharpen",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "GaussianBlur": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "kernel_size": [
+          "INT",
+          {
+            "default": 5,
+            "min": 1,
+            "max": 31,
+            "step": 1
+          }
+        ],
+        "sigma": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.1,
+            "max": 10,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "GaussianBlur",
+    "description": "",
+    "category": "postprocessing"
+  },
+  "Blend": {
+    "input": {
+      "required": {
+        "images_1": ["IMAGE"],
+        "images_2": ["IMAGE"]
+      },
+      "optional": {
+        "blend_mode": [
+          [
+            "soft_light",
+            "lighten_only",
+            "dodge",
+            "addition",
+            "darken_only",
+            "multiply",
+            "hard_light",
+            "difference",
+            "subtract",
+            "grain_extract",
+            "grain_merge",
+            "divide",
+            "overlay",
+            "normal"
+          ]
+        ],
+        "blend_opacity": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Blend",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "CheckpointLoaderRandom": {
+    "input": {
+      "required": {
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "max": [
+          "INT",
+          {
+            "default": 10,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP", "VAE"],
+    "output_name": ["MODEL", "CLIP", "VAE"],
+    "name": "CheckpointLoaderRandom",
+    "description": "",
+    "category": "loaders"
+  },
+  "CheckpointLoaderSimpleText": {
+    "input": {
+      "required": {
+        "ckpt_name": [
+          "STRING",
+          {
+            "multiline": false,
+            "default": "StableDiffusion\\SD-v2.0-768.safetensors"
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP", "VAE"],
+    "output_name": ["MODEL", "CLIP", "VAE"],
+    "name": "CheckpointLoaderSimpleText",
+    "description": "",
+    "category": "loaders"
+  },
+  "CLIPTextEncodeWildcards": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "clip": ["CLIP"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "CLIPTextEncodeWildcards",
+    "description": "",
+    "category": "conditioning"
+  },
+  "CLIPTextEncodeWildcards2": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "clip": ["CLIP"],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "CLIPTextEncodeWildcards2",
+    "description": "",
+    "category": "conditioning"
+  },
+  "CLIPTextEncodeWildcards3": {
+    "input": {
+      "required": {
+        "clip": ["CLIP"],
+        "positive": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "negative": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING", "CONDITIONING"],
+    "output_name": ["CONDITIONING", "CONDITIONING"],
+    "name": "CLIPTextEncodeWildcards3",
+    "description": "",
+    "category": "conditioning"
+  },
+  "LoraLoaderText": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "clip": ["CLIP"],
+        "lora_name": [
+          "STRING",
+          {
+            "multiline": false,
+            "default": [
+              [
+                "A-原创\\catboy.safetensors",
+                "A-原创\\cmshota-mix.safetensors",
+                "B-画风\\AkihikoYoshida.safetensors",
+                "B-画风\\ArcaneStyle.safetensors",
+                "B-画风\\Cyberpunk2077TarotCard.safetensors",
+                "B-画风\\DalcefoPainting.safetensors",
+                "B-画风\\ElegantHanfuRuqunStyle.safetensors",
+                "B-画风\\FlatColor.safetensors",
+                "B-画风\\FlonixMJStyle-v2.safetensors",
+                "B-画风\\FlonixMJStyle.safetensors",
+                "B-画风\\GlassSculptures.safetensors",
+                "B-画风\\GraphicIllustration.safetensors",
+                "B-画风\\GuoFeng3.2.safetensors",
+                "B-画风\\LofiStyle.safetensors",
+                "B-画风\\LuisapDopeStyle.safetensors",
+                "B-画风\\LuisapHotlineStyle.safetensors",
+                "B-画风\\LuisapNijijourney.safetensors",
+                "B-画风\\MonumentValley.safetensors",
+                "B-画风\\Refslave.safetensors",
+                "B-画风\\SamDoesArts.safetensors",
+                "B-画风\\SokolovStyle.safetensors",
+                "B-画风\\StudioGhibliStyle.safetensors",
+                "B-画风\\StyleJelly.safetensors",
+                "B-画风\\TokiameStyle.safetensors",
+                "B-画风\\mixPro.safetensors",
+                "C-材质\\材质-Gacha-white background, bottle bottom, 1boy, mid shot, full body.safetensors",
+                "C-材质\\材质-Q版-cbzbb, cbzbb style.safetensors",
+                "C-材质\\材质-像素-pixel painful.safetensors",
+                "C-材质\\材质-原神-genshin.safetensors",
+                "C-材质\\材质-四格漫-HarukaChibiArt.safetensors",
+                "C-材质\\材质-大腿袜-thigh gap.safetensors",
+                "C-材质\\材质-奇幻-OriArtstyleDreamlike.safetensors",
+                "C-材质\\材质-小人书-sgyy,shz.safetensors",
+                "C-材质\\材质-手办风-pop up parade.safetensors",
+                "C-材质\\材质-水墨-Moxin.safetensors",
+                "C-材质\\材质-立绘-white background, full body.safetensors",
+                "C-材质\\材质-粘土人-mksks style.pt",
+                "C-材质\\材质-雕塑-marblesh, marblee.safetensors",
+                "D-表情\\表情-催眠斗鸡眼-yorime.safetensors",
+                "D-表情\\表情-吐舌鬼脸-akanbe, finger to eye, one eye closed, tongue out.safetensors",
+                "D-表情\\表情-嘟嘴生气-pouting.safetensors",
+                "D-表情\\表情-星星眼-heart, star shaped pupils.safetensors",
+                "D-表情\\表情-疯狂-crazy face, crazy eyes, crazy smile, shocked, horrified, scared, small pupils, constricted pupils.safetensors",
+                "D-表情\\表情-病娇脸-yandere trance.safetensors",
+                "D-表情\\表情-眩晕眼-spiral, swirl, hypnolast.safetensors",
+                "D-表情\\表情-眼睛-close up eyes, looking a viewer, intricate iris, 1 eye.safetensors",
+                "D-表情\\表情-空洞眼神-utsurome.safetensors",
+                "D-表情\\表情-竖瞳-slit pupils.safetensors",
+                "D-表情\\表情-腮红作附-weed eater.pt",
+                "D-表情\\表情-金十瞳-cross, power-shaped pupils.safetensors",
+                "D-表情\\表情-高潮脸-ahegao.safetensors",
+                "E-动作\\hKHK416Lora_v20.safetensors",
+                "E-动作\\动作-中指-fuck you, middle finger.safetensors",
+                "E-动作\\动作-十字禁锢-crucifixion.safetensors",
+                "E-动作\\动作-吸烟-smoking, cigarette.safetensors",
+                "E-动作\\动作-告白-love letter, pov.safetensors",
+                "E-动作\\动作-壁咚-1boy and 1boy, kabedon pov.safetensors",
+                "E-动作\\动作-手遮眼-covering eyes.safetensors",
+                "E-动作\\动作-拉衬衫-shirt, naked, tug.safetensors",
+                "E-动作\\动作-摸头杀-headpat, head rub.safetensors",
+                "E-动作\\动作-求抱抱-arms out, lying.safetensors",
+                "E-动作\\动作-肖像-portrait, hyohon.safetensors",
+                "E-动作\\动作-被壁咚-kabedon pov.safetensors",
+                "E-动作\\动作-逆转裁判-objection, pointing.safetensors",
+                "E-动作\\动作-龟派气功-kamehameha.safetensors",
+                "F-辅助\\paimonsPaintingsStyle_gstamp02000008.safetensors",
+                "F-辅助\\辅助-三视图-1024x512-solo, (simple background, white background), multiple views.safetensors",
+                "F-辅助\\辅助-三视图-832x512-three sided view,full body,simple background,multiple views,highres.safetensors",
+                "F-辅助\\辅助-单手修复-handfix.safetensors",
+                "F-辅助\\辅助-灯光-dark studio, rim lighting, two tone lighting, dimly lit, low key.safetensors",
+                "F-辅助\\辅助-线稿-monochrome ,lineart.safetensors",
+                "F-辅助\\辅助-表情包-twitchEmotes.safetensors",
+                "F-辅助\\辅助-裸足修复-barefoot.safetensors",
+                "G-人物\\EugeoLoconLora_v10.safetensors",
+                "G-人物\\KiritoLoconLora_v10.safetensors",
+                "G-人物\\albedoGenshinImpact_v10.safetensors",
+                "G-人物\\bennettGenshinImpact_v10.safetensors",
+                "G-人物\\chongyunGenshinImpact_v10.safetensors",
+                "G-人物\\chongyunGenshin_v10.safetensors",
+                "G-人物\\cynoGenshinImpact_v10.safetensors",
+                "G-人物\\gorouGenshinImpact_v10.safetensors",
+                "G-人物\\gorouGenshin_v10.safetensors",
+                "G-人物\\kaedeharaKazuhaGenshin_v10.safetensors",
+                "G-人物\\razorGenshinImpact_v10.safetensors",
+                "G-人物\\scaramoucheGenshinImpact_v10.safetensors",
+                "G-人物\\shikanoinHeizouGenshinImpact_v10.safetensors",
+                "G-人物\\ventiGenshinImpact_v10.safetensors",
+                "G-人物\\xingqiuGenshinImpact_v10.safetensors",
+                "NSFW\\penisSizeComparison_penisSizeComparison.safetensors",
+                "NSFW\\辅助-鸡鸡修复-penisfix-v2.safetensors",
+                "NSFW\\辅助-鸡鸡修复-penisfix.safetensors",
+                "Test\\cmshota\\cmshota04.safetensors",
+                "Test\\cmshota\\cmshota06.safetensors",
+                "Test\\cmshota\\cmshota08.safetensors",
+                "Test\\cmshota\\cmshota10.safetensors",
+                "Test\\cmshota\\cmshota12.safetensors",
+                "Test\\cmshota\\cmshota14.safetensors",
+                "Test\\cmshota\\cmshota16.safetensors",
+                "Test\\cmshota\\cmshota18.safetensors"
+              ]
+            ]
+          }
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ],
+        "strength_clip": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP"],
+    "output_name": ["MODEL", "CLIP"],
+    "name": "LoraLoaderText",
+    "description": "",
+    "category": "loaders"
+  },
+  "LoraLoaderTextRandom": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "clip": ["CLIP"],
+        "lora_name": [
+          "STRING",
+          {
+            "multiline": false,
+            "default": [
+              [
+                "A-原创\\catboy.safetensors",
+                "A-原创\\cmshota-mix.safetensors",
+                "B-画风\\AkihikoYoshida.safetensors",
+                "B-画风\\ArcaneStyle.safetensors",
+                "B-画风\\Cyberpunk2077TarotCard.safetensors",
+                "B-画风\\DalcefoPainting.safetensors",
+                "B-画风\\ElegantHanfuRuqunStyle.safetensors",
+                "B-画风\\FlatColor.safetensors",
+                "B-画风\\FlonixMJStyle-v2.safetensors",
+                "B-画风\\FlonixMJStyle.safetensors",
+                "B-画风\\GlassSculptures.safetensors",
+                "B-画风\\GraphicIllustration.safetensors",
+                "B-画风\\GuoFeng3.2.safetensors",
+                "B-画风\\LofiStyle.safetensors",
+                "B-画风\\LuisapDopeStyle.safetensors",
+                "B-画风\\LuisapHotlineStyle.safetensors",
+                "B-画风\\LuisapNijijourney.safetensors",
+                "B-画风\\MonumentValley.safetensors",
+                "B-画风\\Refslave.safetensors",
+                "B-画风\\SamDoesArts.safetensors",
+                "B-画风\\SokolovStyle.safetensors",
+                "B-画风\\StudioGhibliStyle.safetensors",
+                "B-画风\\StyleJelly.safetensors",
+                "B-画风\\TokiameStyle.safetensors",
+                "B-画风\\mixPro.safetensors",
+                "C-材质\\材质-Gacha-white background, bottle bottom, 1boy, mid shot, full body.safetensors",
+                "C-材质\\材质-Q版-cbzbb, cbzbb style.safetensors",
+                "C-材质\\材质-像素-pixel painful.safetensors",
+                "C-材质\\材质-原神-genshin.safetensors",
+                "C-材质\\材质-四格漫-HarukaChibiArt.safetensors",
+                "C-材质\\材质-大腿袜-thigh gap.safetensors",
+                "C-材质\\材质-奇幻-OriArtstyleDreamlike.safetensors",
+                "C-材质\\材质-小人书-sgyy,shz.safetensors",
+                "C-材质\\材质-手办风-pop up parade.safetensors",
+                "C-材质\\材质-水墨-Moxin.safetensors",
+                "C-材质\\材质-立绘-white background, full body.safetensors",
+                "C-材质\\材质-粘土人-mksks style.pt",
+                "C-材质\\材质-雕塑-marblesh, marblee.safetensors",
+                "D-表情\\表情-催眠斗鸡眼-yorime.safetensors",
+                "D-表情\\表情-吐舌鬼脸-akanbe, finger to eye, one eye closed, tongue out.safetensors",
+                "D-表情\\表情-嘟嘴生气-pouting.safetensors",
+                "D-表情\\表情-星星眼-heart, star shaped pupils.safetensors",
+                "D-表情\\表情-疯狂-crazy face, crazy eyes, crazy smile, shocked, horrified, scared, small pupils, constricted pupils.safetensors",
+                "D-表情\\表情-病娇脸-yandere trance.safetensors",
+                "D-表情\\表情-眩晕眼-spiral, swirl, hypnolast.safetensors",
+                "D-表情\\表情-眼睛-close up eyes, looking a viewer, intricate iris, 1 eye.safetensors",
+                "D-表情\\表情-空洞眼神-utsurome.safetensors",
+                "D-表情\\表情-竖瞳-slit pupils.safetensors",
+                "D-表情\\表情-腮红作附-weed eater.pt",
+                "D-表情\\表情-金十瞳-cross, power-shaped pupils.safetensors",
+                "D-表情\\表情-高潮脸-ahegao.safetensors",
+                "E-动作\\hKHK416Lora_v20.safetensors",
+                "E-动作\\动作-中指-fuck you, middle finger.safetensors",
+                "E-动作\\动作-十字禁锢-crucifixion.safetensors",
+                "E-动作\\动作-吸烟-smoking, cigarette.safetensors",
+                "E-动作\\动作-告白-love letter, pov.safetensors",
+                "E-动作\\动作-壁咚-1boy and 1boy, kabedon pov.safetensors",
+                "E-动作\\动作-手遮眼-covering eyes.safetensors",
+                "E-动作\\动作-拉衬衫-shirt, naked, tug.safetensors",
+                "E-动作\\动作-摸头杀-headpat, head rub.safetensors",
+                "E-动作\\动作-求抱抱-arms out, lying.safetensors",
+                "E-动作\\动作-肖像-portrait, hyohon.safetensors",
+                "E-动作\\动作-被壁咚-kabedon pov.safetensors",
+                "E-动作\\动作-逆转裁判-objection, pointing.safetensors",
+                "E-动作\\动作-龟派气功-kamehameha.safetensors",
+                "F-辅助\\paimonsPaintingsStyle_gstamp02000008.safetensors",
+                "F-辅助\\辅助-三视图-1024x512-solo, (simple background, white background), multiple views.safetensors",
+                "F-辅助\\辅助-三视图-832x512-three sided view,full body,simple background,multiple views,highres.safetensors",
+                "F-辅助\\辅助-单手修复-handfix.safetensors",
+                "F-辅助\\辅助-灯光-dark studio, rim lighting, two tone lighting, dimly lit, low key.safetensors",
+                "F-辅助\\辅助-线稿-monochrome ,lineart.safetensors",
+                "F-辅助\\辅助-表情包-twitchEmotes.safetensors",
+                "F-辅助\\辅助-裸足修复-barefoot.safetensors",
+                "G-人物\\EugeoLoconLora_v10.safetensors",
+                "G-人物\\KiritoLoconLora_v10.safetensors",
+                "G-人物\\albedoGenshinImpact_v10.safetensors",
+                "G-人物\\bennettGenshinImpact_v10.safetensors",
+                "G-人物\\chongyunGenshinImpact_v10.safetensors",
+                "G-人物\\chongyunGenshin_v10.safetensors",
+                "G-人物\\cynoGenshinImpact_v10.safetensors",
+                "G-人物\\gorouGenshinImpact_v10.safetensors",
+                "G-人物\\gorouGenshin_v10.safetensors",
+                "G-人物\\kaedeharaKazuhaGenshin_v10.safetensors",
+                "G-人物\\razorGenshinImpact_v10.safetensors",
+                "G-人物\\scaramoucheGenshinImpact_v10.safetensors",
+                "G-人物\\shikanoinHeizouGenshinImpact_v10.safetensors",
+                "G-人物\\ventiGenshinImpact_v10.safetensors",
+                "G-人物\\xingqiuGenshinImpact_v10.safetensors",
+                "NSFW\\penisSizeComparison_penisSizeComparison.safetensors",
+                "NSFW\\辅助-鸡鸡修复-penisfix-v2.safetensors",
+                "NSFW\\辅助-鸡鸡修复-penisfix.safetensors",
+                "Test\\cmshota\\cmshota04.safetensors",
+                "Test\\cmshota\\cmshota06.safetensors",
+                "Test\\cmshota\\cmshota08.safetensors",
+                "Test\\cmshota\\cmshota10.safetensors",
+                "Test\\cmshota\\cmshota12.safetensors",
+                "Test\\cmshota\\cmshota14.safetensors",
+                "Test\\cmshota\\cmshota16.safetensors",
+                "Test\\cmshota\\cmshota18.safetensors"
+              ]
+            ]
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "strength_model_min": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ],
+        "strength_model_max": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ],
+        "strength_clip_min": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ],
+        "strength_clip_max": [
+          "FLOAT",
+          {
+            "default": 1.5,
+            "min": 0,
+            "max": 10,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP"],
+    "output_name": ["MODEL", "CLIP"],
+    "name": "LoraLoaderTextRandom",
+    "description": "",
+    "category": "loaders"
+  },
+  "Random_Sampler": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "positive": ["CONDITIONING"],
+        "negative": ["CONDITIONING"],
+        "LATENT": ["LATENT"],
+        "sampler_name": [
+          [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_2m",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ]
+        ],
+        "scheduler": [["karras", "normal", "simple", "ddim_uniform"]],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "steps_min": [
+          "INT",
+          {
+            "default": 20,
+            "min": 1,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "steps_max": [
+          "INT",
+          {
+            "default": 30,
+            "min": 1,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "cfg_min": [
+          "FLOAT",
+          {
+            "default": 5,
+            "min": 0,
+            "max": 100,
+            "step": 0.5
+          }
+        ],
+        "cfg_max": [
+          "FLOAT",
+          {
+            "default": 9,
+            "min": 0,
+            "max": 100,
+            "step": 0.5
+          }
+        ],
+        "denoise_min": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0.01,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "denoise_max": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.01,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "Random_Sampler",
+    "description": "",
+    "category": "sampling"
+  },
+  "VAELoaderDecode": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "vae_name": [
+          [
+            "[中饱和] RefSlave-vae.safetensors",
+            "[中饱和] orangemix-vae.safetensors",
+            "[超亮紫] kl-f8-anime.safetensors",
+            "[高饱和] kl-f8-anime2.safetensors",
+            "[高饱和] pastel-waifu-diffusion.vae.pt",
+            "[高饱和] vae-ft-mse-840000.safetensors"
+          ]
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "VAELoaderDecode",
+    "description": "",
+    "category": "latent"
+  },
+  "SimpleSampler": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "positive": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "clip": ["CLIP"],
+        "negative": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 4096,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 4096,
+            "step": 64
+          }
+        ],
+        "batch_size": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 64
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "steps": [
+          "INT",
+          {
+            "default": 20,
+            "min": 1,
+            "max": 10000
+          }
+        ],
+        "cfg": [
+          "FLOAT",
+          {
+            "default": 8,
+            "min": 0,
+            "max": 100
+          }
+        ],
+        "sampler_name": [
+          [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_2m",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ]
+        ],
+        "scheduler": [["karras", "normal", "simple", "ddim_uniform"]],
+        "latent_image": ["LATENT"],
+        "denoise": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "SimpleSampler",
+    "description": "",
+    "category": "sampling"
+  },
+  "SaveImageSimple": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ]
+      },
+      "hidden": {
+        "prompt": "PROMPT",
+        "extra_pnginfo": "EXTRA_PNGINFO"
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "SaveImageSimple",
+    "description": "",
+    "category": "image"
+  },
+  "SaveCheckpoint": {
+    "input": {
+      "required": {
+        "name": [
+          "STRING",
+          {
+            "default": "my-model"
+          }
+        ],
+        "model": ["MODEL"],
+        "clip": ["CLIP"],
+        "vae": ["VAE"],
+        "save_as": [
+          [".ckpt", ".safetensors"],
+          {
+            "default": ".ckpt"
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "SaveCheckpoint",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "FullWeightedSum": {
+    "input": {
+      "required": {
+        "modelA": ["MODEL"],
+        "modelB": ["MODEL"],
+        "clipA": ["CLIP"],
+        "clipB": ["CLIP"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP"],
+    "output_name": ["MODEL", "CLIP"],
+    "name": "FullWeightedSum",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "ModelWeightedSum": {
+    "input": {
+      "required": {
+        "modelA": ["MODEL"],
+        "modelB": ["MODEL"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL"],
+    "output_name": ["MODEL"],
+    "name": "ModelWeightedSum",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "CLIPWeightedSum": {
+    "input": {
+      "required": {
+        "clipA": ["CLIP"],
+        "clipB": ["CLIP"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["CLIP"],
+    "output_name": ["CLIP"],
+    "name": "CLIPWeightedSum",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "FullAddDiff": {
+    "input": {
+      "required": {
+        "modelA": ["MODEL"],
+        "modelB": ["MODEL"],
+        "modelC": ["MODEL"],
+        "clipA": ["CLIP"],
+        "clipB": ["CLIP"],
+        "clipC": ["CLIP"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL", "CLIP"],
+    "output_name": ["MODEL", "CLIP"],
+    "name": "FullAddDiff",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "ModelAddDiff": {
+    "input": {
+      "required": {
+        "modelA": ["MODEL"],
+        "modelB": ["MODEL"],
+        "modelC": ["MODEL"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL"],
+    "output_name": ["MODEL"],
+    "name": "ModelAddDiff",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "CLIPAddDiff": {
+    "input": {
+      "required": {
+        "clipA": ["CLIP"],
+        "clipB": ["CLIP"],
+        "clipC": ["CLIP"],
+        "multipler": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["MODEL"],
+    "output_name": ["MODEL"],
+    "name": "CLIPAddDiff",
+    "description": "",
+    "category": "checkpoint"
+  },
+  "CannyEdgePreprocesor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "low_threshold": [
+          "INT",
+          {
+            "default": 100,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "high_threshold": [
+          "INT",
+          {
+            "default": 200,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "l2gradient": [["disable", "enable"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "CannyEdgePreprocesor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "M-LSDPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "score_threshold": [
+          "FLOAT",
+          {
+            "default": 6.283185307179586,
+            "min": 0,
+            "max": 6.283185307179586,
+            "step": 0.05
+          }
+        ],
+        "dist_threshold": [
+          "FLOAT",
+          {
+            "default": 0.05,
+            "min": 0,
+            "max": 1,
+            "step": 0.05
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "M-LSDPreprocessor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "HEDPreprocesor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "HEDPreprocesor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "ScribblePreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ScribblePreprocessor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "FakeScribblePreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "FakeScribblePreprocessor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "OpenposePreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "detect_hand": [
+          ["disable", "enable"],
+          {
+            "default": "disable"
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "OpenposePreprocessor",
+    "description": "",
+    "category": "preprocessors/pose"
+  },
+  "MiDaS-DepthMapPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "a": [
+          "FLOAT",
+          {
+            "default": 6.283185307179586,
+            "min": 0,
+            "max": 15.707963267948966,
+            "step": 0.05
+          }
+        ],
+        "bg_threshold": [
+          "FLOAT",
+          {
+            "default": 0.05,
+            "min": 0,
+            "max": 1,
+            "step": 0.05
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "MiDaS-DepthMapPreprocessor",
+    "description": "",
+    "category": "preprocessors/normal_depth_map"
+  },
+  "MiDaS-NormalMapPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "a": [
+          "FLOAT",
+          {
+            "default": 6.283185307179586,
+            "min": 0,
+            "max": 15.707963267948966,
+            "step": 0.05
+          }
+        ],
+        "bg_threshold": [
+          "FLOAT",
+          {
+            "default": 0.05,
+            "min": 0,
+            "max": 1,
+            "step": 0.05
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "MiDaS-NormalMapPreprocessor",
+    "description": "",
+    "category": "preprocessors/normal_depth_map"
+  },
+  "LeReS-DepthMapPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "rm_nearest": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.05
+          }
+        ],
+        "rm_background": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.05
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "LeReS-DepthMapPreprocessor",
+    "description": "",
+    "category": "preprocessors/normal_depth_map"
+  },
+  "SemSegPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "SemSegPreprocessor",
+    "description": "",
+    "category": "preprocessors/semseg"
+  },
+  "MediaPipePreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "detect_pose": [
+          ["enable", "disable"],
+          {
+            "default": "enable"
+          }
+        ],
+        "detect_hands": [
+          ["enable", "disable"],
+          {
+            "default": "enable"
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "MediaPipePreprocessor",
+    "description": "",
+    "category": "preprocessors/pose"
+  },
+  "BinaryPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "threshold": [
+          "INT",
+          {
+            "mix": 0,
+            "max": 255,
+            "step": 1,
+            "default": 0
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "BinaryPreprocessor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "ColorPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ColorPreprocessor",
+    "description": "",
+    "category": "preprocessors/color_style"
+  },
+  "PiDiNetPreprocessor": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "PiDiNetPreprocessor",
+    "description": "",
+    "category": "preprocessors/edge_line"
+  },
+  "Float": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Float",
+    "description": "",
+    "category": "Derfuu_Nodes/Variables"
+  },
+  "Integer": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "Integer",
+    "description": "",
+    "category": "Derfuu_Nodes/Variables"
+  },
+  "Text": {
+    "input": {
+      "required": {
+        "Text": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Text",
+    "description": "",
+    "category": "Derfuu_Nodes/Variables"
+  },
+  "Text box": {
+    "input": {
+      "required": {
+        "Text": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Text box",
+    "description": "",
+    "category": "Derfuu_Nodes/Variables"
+  },
+  "Float debug print": {
+    "input": {
+      "required": {
+        "Prefix": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ],
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Float debug print",
+    "description": "",
+    "category": "Derfuu_Nodes/Debug"
+  },
+  "Int debug print": {
+    "input": {
+      "required": {
+        "Prefix": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ],
+        "Value": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Int debug print",
+    "description": "",
+    "category": "Derfuu_Nodes/Debug"
+  },
+  "Tuple debug print": {
+    "input": {
+      "required": {
+        "Prefix": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ],
+        "Values": ["TUPLE"]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Tuple debug print",
+    "description": "",
+    "category": "Derfuu_Nodes/Debug"
+  },
+  "String debug print": {
+    "input": {
+      "required": {
+        "Prefix": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ],
+        "Text": [
+          "STRING",
+          {
+            "default": ""
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "String debug print",
+    "description": "",
+    "category": "Derfuu_Nodes/Debug"
+  },
+  "Random": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Value_B": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Random",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions"
+  },
+  "Tuple": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Value_B": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "round": [["No", "Yes", "Ceil", "Floor"]]
+      }
+    },
+    "output": ["TUPLE"],
+    "output_name": ["TUPLE"],
+    "name": "Tuple",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples"
+  },
+  "Int to tuple": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ],
+        "Value_B": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["TUPLE"],
+    "output_name": ["TUPLE"],
+    "name": "Int to tuple",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples"
+  },
+  "Tuple to floats": {
+    "input": {
+      "required": {
+        "Tuple": ["TUPLE"]
+      }
+    },
+    "output": ["FLOAT", "FLOAT"],
+    "output_name": ["FLOAT", "FLOAT"],
+    "name": "Tuple to floats",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples"
+  },
+  "Tuple to ints": {
+    "input": {
+      "required": {
+        "Tuple": ["TUPLE"]
+      }
+    },
+    "output": ["INT", "INT"],
+    "output_name": ["INT", "INT"],
+    "name": "Tuple to ints",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples"
+  },
+  "Tuple swap": {
+    "input": {
+      "required": {
+        "Tuple": ["TUPLE"]
+      }
+    },
+    "output": ["TUPLE"],
+    "output_name": ["TUPLE"],
+    "name": "Tuple swap",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples"
+  },
+  "Int to float": {
+    "input": {
+      "required": {
+        "Value": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Int to float",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions/Converters"
+  },
+  "Ceil": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "Ceil",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions/Converters"
+  },
+  "Floor": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "Floor",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions/Converters"
+  },
+  "Absolute value": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "negative_out": [[false, true]]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Absolute value",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions/Converters"
+  },
+  "Get latent size": {
+    "input": {
+      "required": {
+        "latent": ["LATENT"],
+        "original": [[false, true]]
+      }
+    },
+    "output": ["INT", "INT", "TUPLE"],
+    "output_name": ["INT", "INT", "TUPLE"],
+    "name": "Get latent size",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions"
+  },
+  "Get image size": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["INT", "INT", "TUPLE"],
+    "output_name": ["INT", "INT", "TUPLE"],
+    "name": "Get image size",
+    "description": "",
+    "category": "Derfuu_Nodes/Functions"
+  },
+  "Sum": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Value_B": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Sum",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Subtract": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Value_B": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Subtract",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Multiply": {
+    "input": {
+      "required": {
+        "Value_A": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Value_B": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Multiply",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Divide": {
+    "input": {
+      "required": {
+        "Numerator": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Denominator": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Divide",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Power": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "Exponent": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Power",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Square root": {
+    "input": {
+      "required": {
+        "Value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["FLOAT", "FLOAT"],
+    "output_name": ["FLOAT", "FLOAT"],
+    "name": "Square root",
+    "description": "",
+    "category": "Derfuu_Nodes/Math"
+  },
+  "Sinus": {
+    "input": {
+      "required": {
+        "value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "type_": [["RAD", "DEG"]],
+        "arcSin": [[false, true]]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Sinus",
+    "description": "",
+    "category": "Derfuu_Nodes/Math/Trigonometry"
+  },
+  "Cosines": {
+    "input": {
+      "required": {
+        "value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "type_": [["RAD", "DEG"]],
+        "arcCos": [[false, true]]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Cosines",
+    "description": "",
+    "category": "Derfuu_Nodes/Math/Trigonometry"
+  },
+  "Tangent": {
+    "input": {
+      "required": {
+        "value": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "type_": [["RAD", "DEG"]],
+        "arcTan": [[false, true]]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Tangent",
+    "description": "",
+    "category": "Derfuu_Nodes/Math/Trigonometry"
+  },
+  "Latent Scale by ratio": {
+    "input": {
+      "required": {
+        "latent": ["LATENT"],
+        "modifier": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "scale_method": [["nearest-exact", "bilinear", "area"]],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "Latent Scale by ratio",
+    "description": "",
+    "category": "Derfuu_Nodes/Modded nodes/Latent"
+  },
+  "Latent Scale to side": {
+    "input": {
+      "required": {
+        "latent": ["LATENT"],
+        "side_length": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ],
+        "side": [["Width", "Height"]],
+        "scale_method": [["nearest-exact", "bilinear", "area"]],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "Latent Scale to side",
+    "description": "",
+    "category": "Derfuu_Nodes/Modded nodes/Latent"
+  },
+  "Image scale by ratio": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "upscale_by": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image scale by ratio",
+    "description": "",
+    "category": "Derfuu_Nodes/Modded nodes/Image"
+  },
+  "Image scale to side": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "side_length": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ],
+        "side": [["Width", "Height"]],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image scale to side",
+    "description": "",
+    "category": "Derfuu_Nodes/Modded nodes/Image"
+  },
+  "Conditioning area scale by ratio": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "modifier": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ],
+        "strength_modifier": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "Conditioning area scale by ratio",
+    "description": "",
+    "category": "Derfuu_Nodes/Modded nodes/Conditions"
+  },
+  "ConditioningSetArea with tuples": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "size_tuple": ["TUPLE"],
+        "offset_tuple": ["TUPLE"],
+        "strength": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1.7976931348623157e308,
+            "max": 1.7976931348623157e308,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ConditioningSetArea with tuples",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples/Modded nodes/Conditioning"
+  },
+  "LatentComposite with tuples": {
+    "input": {
+      "required": {
+        "samples_to": ["LATENT"],
+        "samples_from": ["LATENT"],
+        "position_tuple": ["TUPLE"],
+        "feather": [
+          "INT",
+          {
+            "default": 1,
+            "min": -9223372036854776000,
+            "max": 9223372036854776000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentComposite with tuples",
+    "description": "",
+    "category": "Derfuu_Nodes/Tuples/Modded nodes/Latents"
+  },
+  "Chromatic Aberration": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "chromatic_strength": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Chromatic Aberration",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Displacement Map": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"],
+        "displacement_maps": ["IMAGE"]
+      },
+      "optional": {
+        "scale": [
+          "FLOAT",
+          {
+            "default": 5,
+            "min": 1,
+            "max": 500,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Displacement Map",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Flatten Colors": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "number_of_colors": [
+          "INT",
+          {
+            "default": 5,
+            "min": 1,
+            "max": 4000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Flatten Colors",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Add Text To Image": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "font_ttf": [
+          "STRING",
+          {
+            "default": "C:/Windows/Fonts/arial.ttf"
+          }
+        ],
+        "size": [
+          "INT",
+          {
+            "default": 50,
+            "min": 2,
+            "max": 1000,
+            "step": 1
+          }
+        ],
+        "x": [
+          "INT",
+          {
+            "default": 50,
+            "min": 2,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 50,
+            "min": 2,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "text": [
+          "STRING",
+          {
+            "default": "Hello World"
+          }
+        ],
+        "color": [
+          "STRING",
+          {
+            "default": "rgba(255, 255, 255, 255)"
+          }
+        ],
+        "anchor": [["Bottom Left Corner", "Center"]],
+        "rotate": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 360,
+            "step": 0.1
+          }
+        ],
+        "color_mode": [["RGB", "RGBA"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Add Text To Image",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Generate Noise Image": {
+    "input": {
+      "required": {
+        "mode": [["gaussian", "uniform", "salt_and_pepper"]],
+        "noise_scale": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 100,
+            "step": 0.01
+          }
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 10000,
+            "step": 1
+          }
+        ],
+        "batch_size": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 10000,
+            "step": 1
+          }
+        ]
+      },
+      "optional": {}
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Generate Noise Image",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Hue Rotation": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "hue_rotation": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 360,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Hue Rotation",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Apply Instagram Filter": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "instagram_filter": [
+          [
+            "_1977",
+            "aden",
+            "brannan",
+            "brooklyn",
+            "clarendon",
+            "earlybird",
+            "gingham",
+            "hudson",
+            "inkwell",
+            "kelvin",
+            "lark",
+            "lofi",
+            "maven",
+            "mayfair",
+            "moon",
+            "nashville",
+            "perpetua",
+            "reyes",
+            "rise",
+            "slumber",
+            "stinson",
+            "toaster",
+            "valencia",
+            "walden",
+            "willow",
+            "xpro2"
+          ]
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Apply Instagram Filter",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Pixel Sort": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "character_length": [
+          "INT",
+          {
+            "default": 50,
+            "min": 2,
+            "max": 1000,
+            "step": 1
+          }
+        ],
+        "randomness": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "step": 0.1
+          }
+        ],
+        "sorting_function": [["lightness", "hue", "saturation", "intensity", "minimum"]],
+        "interval_function": [["threshold", "random", "edges", "waves", "file", "file-edges", "none"]],
+        "lower_threshold": [
+          "FLOAT",
+          {
+            "default": 0.25,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "upper_threshold": [
+          "FLOAT",
+          {
+            "default": 0.8,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "angle": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 360,
+            "step": 0.1
+          }
+        ],
+        "mask_image": [
+          "IMAGE",
+          {
+            "default": null
+          }
+        ],
+        "interval_image": [
+          "IMAGE",
+          {
+            "default": null
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Pixel Sort",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Play Sound": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"],
+        "path": [
+          "STRING",
+          {
+            "default": "change_me.mp3"
+          }
+        ],
+        "volume": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      },
+      "optional": {}
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Play Sound",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Create Solid Color": {
+    "input": {
+      "required": {
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 10000,
+            "step": 64
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 10000,
+            "step": 64
+          }
+        ],
+        "color": [
+          "STRING",
+          {
+            "default": "rgba(255, 255, 255, 255)"
+          }
+        ],
+        "batch_size": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 64,
+            "step": 1
+          }
+        ],
+        "color_mode": [["RGBA", "RGB"]]
+      },
+      "optional": {}
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Create Solid Color",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "Swap Color Mode": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"]
+      },
+      "optional": {
+        "color_mode": [["default", "luminance", "single_channel", "RGB", "RGBA", "lab", "hsv", "cmyk", "ycbcr"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Swap Color Mode",
+    "description": "",
+    "category": "VextraNodes"
+  },
+  "MultiAreaConditioning": {
+    "input": {
+      "required": {
+        "conditioning0": ["CONDITIONING"],
+        "conditioning1": ["CONDITIONING"]
+      },
+      "hidden": {
+        "extra_pnginfo": "EXTRA_PNGINFO",
+        "unique_id": "UNIQUE_ID"
+      }
+    },
+    "output": ["CONDITIONING", "INT", "INT"],
+    "output_name": [null, "resolutionX", "resolutionY"],
+    "name": "MultiAreaConditioning",
+    "description": "",
+    "category": "Davemane42"
+  },
+  "ConditioningUpscale": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "scalar": [
+          "INT",
+          {
+            "default": 2,
+            "min": 1,
+            "max": 100,
+            "step": 0.5
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ConditioningUpscale",
+    "description": "",
+    "category": "Davemane42"
+  },
+  "ConditioningStretch": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"],
+        "resolutionX": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "resolutionY": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "newWidth": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ],
+        "newHeight": [
+          "INT",
+          {
+            "default": 512,
+            "min": 64,
+            "max": 8192,
+            "step": 64
+          }
+        ]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "ConditioningStretch",
+    "description": "",
+    "category": "Davemane42"
+  },
+  "ConditioningDebug": {
+    "input": {
+      "required": {
+        "conditioning": ["CONDITIONING"]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "ConditioningDebug",
+    "description": "",
+    "category": "Davemane42"
+  },
+  "ChatGPT Simple _O": {
+    "input": {
+      "required": {
+        "prompt": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "api_key_file": [
+          "STRING",
+          {
+            "file": true,
+            "default": "api_key.txt"
+          }
+        ],
+        "model": [
+          ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"],
+          {
+            "default": "gpt-3.5-turbo"
+          }
+        ]
+      },
+      "optional": {
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "ChatGPT Simple _O",
+    "description": "",
+    "category": "O >>/OpenAI >>"
+  },
+  "load_openAI _O": {
+    "input": {
+      "required": {
+        "api_key_file": [
+          "STRING",
+          {
+            "file": true,
+            "default": "api_key.txt"
+          }
+        ]
+      }
+    },
+    "output": ["OPENAI"],
+    "output_name": ["OPENAI"],
+    "name": "load_openAI _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>"
+  },
+  "Chat_Message _O": {
+    "input": {
+      "required": {
+        "role": [
+          ["user", "assistant", "system"],
+          {
+            "default": "user"
+          }
+        ],
+        "content": [
+          "STRING",
+          {
+            "multiline": true,
+            "default": "act as prompt generator ,i will give you text and you describe an image that match that text in details, answer with one response only"
+          }
+        ]
+      }
+    },
+    "output": ["OPENAI_CHAT_MESSAGES"],
+    "output_name": ["OPENAI_CHAT_MESSAGES"],
+    "name": "Chat_Message _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/ChatGPT >>"
+  },
+  "compine_chat_messages _O": {
+    "input": {
+      "required": {
+        "message1": ["OPENAI_CHAT_MESSAGES"],
+        "message2": ["OPENAI_CHAT_MESSAGES"]
+      }
+    },
+    "output": ["OPENAI_CHAT_MESSAGES"],
+    "output_name": ["OPENAI_CHAT_MESSAGES"],
+    "name": "compine_chat_messages _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/ChatGPT >>"
+  },
+  "Chat completion _O": {
+    "input": {
+      "required": {
+        "openai": ["OPENAI"],
+        "model": [
+          ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"],
+          {
+            "default": "gpt-3.5-turbo"
+          }
+        ],
+        "messages": ["OPENAI_CHAT_MESSAGES"]
+      }
+    },
+    "output": ["STRING", "OPENAI_CHAT_COMPLETION"],
+    "output_name": ["STRING", "OPENAI_CHAT_COMPLETION"],
+    "name": "Chat completion _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/ChatGPT >>"
+  },
+  "debug messages_O": {
+    "input": {
+      "required": {
+        "messages": ["OPENAI_CHAT_MESSAGES"]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "debug messages_O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/ChatGPT >>"
+  },
+  "debug Completeion _O": {
+    "input": {
+      "required": {
+        "completion": ["OPENAI_CHAT_COMPLETION"]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "debug Completeion _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/ChatGPT >>"
+  },
+  "create image _O": {
+    "input": {
+      "required": {
+        "openai": ["OPENAI"],
+        "prompt": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "number": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 10,
+            "step": 1
+          }
+        ],
+        "size": [
+          ["256x256", "512x512", "1024x1024"],
+          {
+            "default": "256x256"
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "create image _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/Image >>"
+  },
+  "variation_image _O": {
+    "input": {
+      "required": {
+        "openai": ["OPENAI"],
+        "image": ["IMAGE"],
+        "number": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 10,
+            "step": 1
+          }
+        ],
+        "size": [
+          ["256x256", "512x512", "1024x1024"],
+          {
+            "default": "256x256"
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "variation_image _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>/Image >>"
+  },
+  "LatentUpscaleFactor _O": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "WidthFactor": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "HeightFactor": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentUpscaleFactor _O",
+    "description": "",
+    "category": "O >>/latent >>"
+  },
+  "Debug Text _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Debug Text _O",
+    "description": "",
+    "category": "O >>/text >>"
+  },
+  "RandomNSP _O": {
+    "input": {
+      "required": {
+        "terminology": [
+          [
+            "fantasy-creature",
+            "gen-modifier",
+            "adj-beauty",
+            "noun-beauty",
+            "noun-fantasy",
+            "adj-horror",
+            "noun-emote",
+            "noun-horror",
+            "adj-architecture",
+            "nationality",
+            "pop-location",
+            "pop-culture",
+            "site",
+            "style",
+            "hd",
+            "aspect-ratio",
+            "3d-terms",
+            "color-palette",
+            "camera",
+            "camera-manu",
+            "f-stop",
+            "iso-stop",
+            "focal-length",
+            "photo-term",
+            "adj-general",
+            "noun-general",
+            "color",
+            "artist",
+            "identity",
+            "identity-adult",
+            "identity-young",
+            "punk",
+            "hair",
+            "bodyshape",
+            "skin-color",
+            "eyecolor",
+            "fantasy-setting",
+            "details",
+            "portrait-type",
+            "occupation",
+            "celeb",
+            "neg-weight",
+            "landscape-type",
+            "animals",
+            "gender",
+            "gender-ext",
+            "movement",
+            "body-heavy",
+            "body-light",
+            "body-fit",
+            "body-poor",
+            "body-shape",
+            "body-short",
+            "body-tall",
+            "quantity",
+            "scenario-desc",
+            "games",
+            "foods",
+            "rpg-Item",
+            "trippy",
+            "cosmic-star",
+            "cosmic-nebula",
+            "cosmic-galaxy",
+            "cosmic-terms",
+            "flower",
+            "dinosaur",
+            "natl-park",
+            "fruit",
+            "tree",
+            "wh-site",
+            "forest-type",
+            "water",
+            "fish",
+            "artist-botanical",
+            "artist-surreal",
+            "bird",
+            "movie",
+            "movie-director",
+            "comic",
+            "penciller",
+            "album-cover",
+            "band"
+          ]
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "RandomNSP _O",
+    "description": "",
+    "category": "O >>/text >>/NSP >>"
+  },
+  "Concat Text _O": {
+    "input": {
+      "required": {
+        "text1": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "separator": [
+          "STRING",
+          {
+            "multiline": false,
+            "default": ","
+          }
+        ],
+        "text2": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Concat Text _O",
+    "description": "",
+    "category": "O >>/text >>/operations >>"
+  },
+  "Trim Text _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Trim Text _O",
+    "description": "",
+    "category": "O >>/text >>/operations >>"
+  },
+  "Replace Text _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "old": [
+          "STRING",
+          {
+            "multiline": false
+          }
+        ],
+        "new": [
+          "STRING",
+          {
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Replace Text _O",
+    "description": "",
+    "category": "O >>/text >>/operations >>"
+  },
+  "Text2Image _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "font": [
+          "STRING",
+          {
+            "default": "CALIBRI.TTF",
+            "multiline": false
+          }
+        ],
+        "size": [
+          "INT",
+          {
+            "default": 36,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_R": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_G": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_B": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_A": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_R": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_G": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_B": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_A": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 128,
+            "min": 0,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 128,
+            "min": 0,
+            "step": 1
+          }
+        ],
+        "expand": [
+          ["true", "false"],
+          {
+            "default": "true"
+          }
+        ],
+        "x": [
+          "INT",
+          {
+            "default": 0,
+            "min": -100,
+            "step": 1
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 0,
+            "min": -100,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Text2Image _O",
+    "description": "",
+    "category": "O >>/text >>"
+  },
+  "ImageScaleFactor _O": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "WidthFactor": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "HeightFactor": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ImageScaleFactor _O",
+    "description": "",
+    "category": "O >>/image >>"
+  },
+  "Note _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Note _O",
+    "description": "",
+    "category": "O >>/utils >>"
+  },
+  "Text _O": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Text _O",
+    "description": "",
+    "category": "O >>/utils >>"
+  },
+  "seed _O": {
+    "input": {
+      "required": {
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "seed _O",
+    "description": "",
+    "category": "O >>/utils >>"
+  },
+  "ChatGPT _O": {
+    "input": {
+      "required": {
+        "api_key_file": [
+          "STRING",
+          {
+            "file": true,
+            "default": "api_key.txt"
+          }
+        ]
+      }
+    },
+    "output": ["OPENAI"],
+    "output_name": ["OPENAI"],
+    "name": "ChatGPT _O",
+    "description": "",
+    "category": "O >>/OpenAI >>/Advanced >>"
+  },
+  "Chat_Message_fromString _O": {
+    "input": {
+      "required": {
+        "role": [
+          ["user", "assistant", "system"],
+          {
+            "default": "user"
+          }
+        ],
+        "content": ["STR"]
+      }
+    },
+    "output": ["OPENAI_CHAT_MESSAGES"],
+    "output_name": ["OPENAI_CHAT_MESSAGES"],
+    "name": "Chat_Message_fromString _O",
+    "description": "",
+    "category": "O >>/deprecated >>/OpenAI >>/Advanced >>/ChatGPT"
+  },
+  "Chat_Completion _O": {
+    "input": {
+      "required": {
+        "openai": ["OPENAI"],
+        "model": [
+          "STRING",
+          {
+            "multiline": false,
+            "default": "gpt-3.5-turbo"
+          }
+        ],
+        "messages": ["OPENAI_CHAT_MESSAGES"]
+      }
+    },
+    "output": ["STR", "OPENAI_CHAT_COMPLETION"],
+    "output_name": ["STR", "OPENAI_CHAT_COMPLETION"],
+    "name": "Chat_Completion _O",
+    "description": "",
+    "category": "O >>/deprecated >>/OpenAI >>/Advanced >>/ChatGPT"
+  },
+  "create_image _O": {
+    "input": {
+      "required": {
+        "openai": ["OPENAI"],
+        "prompt": ["STR"],
+        "number": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 10,
+            "step": 1
+          }
+        ],
+        "size": [
+          ["256x256", "512x512", "1024x1024"],
+          {
+            "default": "256x256"
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "create_image _O",
+    "description": "",
+    "category": "O >>/deprecated >>/OpenAI >>/Advanced >>/Image"
+  },
+  "String _O": {
+    "input": {
+      "required": {
+        "string": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["STR"],
+    "output_name": ["STR"],
+    "name": "String _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>"
+  },
+  "Debug String _O": {
+    "input": {
+      "required": {
+        "string": ["STR"]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Debug String _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>"
+  },
+  "concat Strings _O": {
+    "input": {
+      "required": {
+        "string1": ["STR"],
+        "string2": ["STR"]
+      }
+    },
+    "output": ["STR"],
+    "output_name": ["STR"],
+    "name": "concat Strings _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>/operations >>"
+  },
+  "trim String _O": {
+    "input": {
+      "required": {
+        "string": ["STR"]
+      }
+    },
+    "output": ["STR"],
+    "output_name": ["STR"],
+    "name": "trim String _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>/operations >>"
+  },
+  "replace String _O": {
+    "input": {
+      "required": {
+        "string": ["STR"],
+        "old": [
+          "STRING",
+          {
+            "multiline": false
+          }
+        ],
+        "new": [
+          "STRING",
+          {
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["STR"],
+    "output_name": ["STR"],
+    "name": "replace String _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>/operations >>"
+  },
+  "replace String advanced _O": {
+    "input": {
+      "required": {
+        "string": ["STR"],
+        "old": ["STR"],
+        "new": ["STR"]
+      }
+    },
+    "output": ["STR"],
+    "output_name": ["STR"],
+    "name": "replace String advanced _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>/operations >>"
+  },
+  "string2Image _O": {
+    "input": {
+      "required": {
+        "string": ["STR"],
+        "font": [
+          "STRING",
+          {
+            "default": "CALIBRI.TTF",
+            "multiline": false
+          }
+        ],
+        "size": [
+          "INT",
+          {
+            "default": 36,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_R": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_G": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "font_B": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_R": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_G": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_B": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "string2Image _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>"
+  },
+  "CLIPStringEncode _O": {
+    "input": {
+      "required": {
+        "string": ["STR"],
+        "clip": ["CLIP"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "CLIPStringEncode _O",
+    "description": "",
+    "category": "O >>/deprecated >>/string >>"
+  },
+  "LatentUpscaleMultiply": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "upscale_method": [["nearest-exact", "bilinear", "area"]],
+        "WidthMul": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "HeightMul": [
+          "FLOAT",
+          {
+            "default": 1.25,
+            "min": 0,
+            "max": 10,
+            "step": 0.1
+          }
+        ],
+        "crop": [["disabled", "center"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "LatentUpscaleMultiply",
+    "description": "",
+    "category": "O >>/deprecated >>/latent >>"
+  },
+  "CLIPTextEncode (NSP)": {
+    "input": {
+      "required": {
+        "noodle_key": [
+          "STRING",
+          {
+            "default": "__",
+            "multiline": false
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "text": [
+          "STRING",
+          {
+            "multiline": true
+          }
+        ],
+        "clip": ["CLIP"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "CLIPTextEncode (NSP)",
+    "description": "",
+    "category": "WAS Suite/Conditioning"
+  },
+  "Constant Number": {
+    "input": {
+      "required": {
+        "number_type": [["integer", "float", "bool"]],
+        "number": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -18446744073709552000,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["NUMBER"],
+    "output_name": ["NUMBER"],
+    "name": "Constant Number",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Debug Number to Console": {
+    "input": {
+      "required": {
+        "number": ["NUMBER"],
+        "label": [
+          "STRING",
+          {
+            "default": "Debug to Console",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["NUMBER"],
+    "output_name": ["NUMBER"],
+    "name": "Debug Number to Console",
+    "description": "",
+    "category": "WAS Suite/Debug"
+  },
+  "Float to Number": {
+    "input": {
+      "required": {
+        "float_input": ["FLOAT"]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Float to Number",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Image Analyze": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["Black White Levels", "RGB Levels"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Analyze",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Blank": {
+    "input": {
+      "required": {
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 4096,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 4096,
+            "step": 1
+          }
+        ],
+        "red": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "green": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "blue": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Blank",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Blend by Mask": {
+    "input": {
+      "required": {
+        "image_a": ["IMAGE"],
+        "image_b": ["IMAGE"],
+        "mask": ["IMAGE"],
+        "blend_percentage": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Blend by Mask",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Blend": {
+    "input": {
+      "required": {
+        "image_a": ["IMAGE"],
+        "image_b": ["IMAGE"],
+        "blend_percentage": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Blend",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Blending Mode": {
+    "input": {
+      "required": {
+        "image_a": ["IMAGE"],
+        "image_b": ["IMAGE"],
+        "mode": [
+          [
+            "add",
+            "color",
+            "color_burn",
+            "color_dodge",
+            "darken",
+            "difference",
+            "exclusion",
+            "hard_light",
+            "hue",
+            "lighten",
+            "multiply",
+            "overlay",
+            "screen",
+            "soft_light"
+          ]
+        ],
+        "blend_percentage": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Blending Mode",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Bloom Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "radius": [
+          "FLOAT",
+          {
+            "default": 10,
+            "min": 0,
+            "max": 1024,
+            "step": 0.1
+          }
+        ],
+        "intensity": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Bloom Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Canny Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "enable_threshold": [["false", "true"]],
+        "threshold_low": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "threshold_high": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Canny Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Chromatic Aberration": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "red_offset": [
+          "INT",
+          {
+            "default": 2,
+            "min": -255,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "green_offset": [
+          "INT",
+          {
+            "default": -1,
+            "min": -255,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "blue_offset": [
+          "INT",
+          {
+            "default": 1,
+            "min": -255,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "intensity": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Chromatic Aberration",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Color Palette": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "colors": [
+          "INT",
+          {
+            "default": 16,
+            "min": 8,
+            "max": 256,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Color Palette",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Edge Detection Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["normal", "laplacian"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Edge Detection Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Film Grain": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "density": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.01,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "intensity": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.01,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "highlights": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0.01,
+            "max": 255,
+            "step": 0.01
+          }
+        ],
+        "supersample_factor": [
+          "INT",
+          {
+            "default": 4,
+            "min": 1,
+            "max": 8,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Film Grain",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Filter Adjustments": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "brightness": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -1,
+            "max": 1,
+            "step": 0.01
+          }
+        ],
+        "contrast": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -1,
+            "max": 2,
+            "step": 0.01
+          }
+        ],
+        "saturation": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 5,
+            "step": 0.01
+          }
+        ],
+        "sharpness": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": -5,
+            "max": 5,
+            "step": 0.01
+          }
+        ],
+        "blur": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 16,
+            "step": 1
+          }
+        ],
+        "gaussian_blur": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1024,
+            "step": 0.1
+          }
+        ],
+        "edge_enhance": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Filter Adjustments",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Flip": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["horizontal", "vertical"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Flip",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Gradient Map": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "gradient_image": ["IMAGE"],
+        "flip_left_right": [["false", "true"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Gradient Map",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Generate Gradient": {
+    "input": {
+      "required": {
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "max": 4096,
+            "min": 64,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "max": 4096,
+            "min": 64,
+            "step": 1
+          }
+        ],
+        "direction": [["horizontal", "vertical"]],
+        "tolerance": [
+          "INT",
+          {
+            "default": 0,
+            "max": 255,
+            "min": 0,
+            "step": 1
+          }
+        ],
+        "gradient_stops": [
+          "STRING",
+          {
+            "default": "0:255,0,0\n25:255,255,255\n50:0,255,0\n75:0,0,255",
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Generate Gradient",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image High Pass Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "radius": [
+          "INT",
+          {
+            "default": 10,
+            "min": 1,
+            "max": 500,
+            "step": 1
+          }
+        ],
+        "strength": [
+          "FLOAT",
+          {
+            "default": 1.5,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image High Pass Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Levels Adjustment": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "black_level": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "mid_level": [
+          "FLOAT",
+          {
+            "default": 127.5,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "white_level": [
+          "FLOAT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Levels Adjustment",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Load": {
+    "input": {
+      "required": {
+        "image_path": [
+          "STRING",
+          {
+            "default": "./ComfyUI/input/example.png",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "MASK"],
+    "output_name": ["IMAGE", "MASK"],
+    "name": "Image Load",
+    "description": "",
+    "category": "WAS Suite/IO"
+  },
+  "Image Median Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "diameter": [
+          "INT",
+          {
+            "default": 2,
+            "min": 0.1,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "sigma_color": [
+          "FLOAT",
+          {
+            "default": 10,
+            "min": -255,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "sigma_space": [
+          "FLOAT",
+          {
+            "default": 10,
+            "min": -255,
+            "max": 255,
+            "step": 0.1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Median Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Mix RGB Channels": {
+    "input": {
+      "required": {
+        "red_channel": ["IMAGE"],
+        "green_channel": ["IMAGE"],
+        "blue_channel": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Mix RGB Channels",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Monitor Effects Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["Digital Distortion", "Signal Distortion", "TV Distortion"]],
+        "amplitude": [
+          "INT",
+          {
+            "default": 5,
+            "min": 1,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "offset": [
+          "INT",
+          {
+            "default": 10,
+            "min": 1,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Monitor Effects Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Nova Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "amplitude": [
+          "FLOAT",
+          {
+            "default": 0.1,
+            "min": 0,
+            "max": 1,
+            "step": 0.001
+          }
+        ],
+        "frequency": [
+          "FLOAT",
+          {
+            "default": 3.14,
+            "min": 0,
+            "max": 100,
+            "step": 0.001
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Nova Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Padding": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "feathering": [
+          "INT",
+          {
+            "default": 120,
+            "min": 0,
+            "max": 2048,
+            "step": 1
+          }
+        ],
+        "feather_second_pass": [["true", "false"]],
+        "left_padding": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "right_padding": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "top_padding": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "bottom_padding": [
+          "INT",
+          {
+            "default": 512,
+            "min": 8,
+            "max": 48000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "IMAGE"],
+    "output_name": ["IMAGE", "IMAGE"],
+    "name": "Image Padding",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Remove Background (Alpha)": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["background", "foreground"]],
+        "threshold": [
+          "INT",
+          {
+            "default": 127,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "threshold_tolerance": [
+          "INT",
+          {
+            "default": 2,
+            "min": 1,
+            "max": 24,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Remove Background (Alpha)",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Remove Color": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "target_red": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "target_green": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "target_blue": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "replace_red": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "replace_green": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "replace_blue": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "clip_threshold": [
+          "INT",
+          {
+            "default": 10,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Remove Color",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Resize": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["rescale", "resize"]],
+        "supersample": [["true", "false"]],
+        "resampling": [["lanczos", "nearest", "bilinear", "bicubic"]],
+        "rescale_factor": [
+          "FLOAT",
+          {
+            "default": 2,
+            "min": 0.01,
+            "max": 16,
+            "step": 0.01
+          }
+        ],
+        "resize_width": [
+          "INT",
+          {
+            "default": 1024,
+            "min": 1,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "resize_height": [
+          "INT",
+          {
+            "default": 1536,
+            "min": 1,
+            "max": 48000,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Resize",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Rotate": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "mode": [["transpose", "internal"]],
+        "rotation": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 360,
+            "step": 90
+          }
+        ],
+        "sampler": [["nearest", "bilinear", "bicubic"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Rotate",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Save": {
+    "input": {
+      "required": {
+        "images": ["IMAGE"],
+        "output_path": [
+          "STRING",
+          {
+            "default": "./ComfyUI/output",
+            "multiline": false
+          }
+        ],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": "ComfyUI"
+          }
+        ],
+        "extension": [["png", "jpeg", "tiff", "gif"]],
+        "quality": [
+          "INT",
+          {
+            "default": 100,
+            "min": 1,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "overwrite_mode": [["false", "prefix_as_filename"]]
+      },
+      "hidden": {
+        "prompt": "PROMPT",
+        "extra_pnginfo": "EXTRA_PNGINFO"
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Image Save",
+    "description": "",
+    "category": "WAS Suite/IO"
+  },
+  "Image Select Channel": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "channel": [["red", "green", "blue"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Select Channel",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Select Color": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "red": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "green": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "blue": [
+          "INT",
+          {
+            "default": 255,
+            "min": 0,
+            "max": 255,
+            "step": 0.1
+          }
+        ],
+        "variance": [
+          "INT",
+          {
+            "default": 10,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Select Color",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Style Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "style": [
+          [
+            "1977",
+            "aden",
+            "brannan",
+            "brooklyn",
+            "clarendon",
+            "earlybird",
+            "fairy tale",
+            "gingham",
+            "hudson",
+            "inkwell",
+            "kelvin",
+            "lark",
+            "lofi",
+            "maven",
+            "mayfair",
+            "moon",
+            "nashville",
+            "perpetua",
+            "reyes",
+            "rise",
+            "sci-fi",
+            "slumber",
+            "stinson",
+            "toaster",
+            "valencia",
+            "walden",
+            "willow",
+            "xpro2"
+          ]
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Style Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Threshold": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "threshold": [
+          "FLOAT",
+          {
+            "default": 0.5,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Threshold",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image Transpose": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "image_overlay": ["IMAGE"],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": -48000,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": -48000,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "X": [
+          "INT",
+          {
+            "default": 0,
+            "min": -48000,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "Y": [
+          "INT",
+          {
+            "default": 0,
+            "min": -48000,
+            "max": 48000,
+            "step": 1
+          }
+        ],
+        "rotation": [
+          "INT",
+          {
+            "default": 0,
+            "min": -360,
+            "max": 360,
+            "step": 1
+          }
+        ],
+        "feathering": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 4096,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image Transpose",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image fDOF Filter": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "depth": ["IMAGE"],
+        "mode": [["mock", "gaussian", "box"]],
+        "radius": [
+          "INT",
+          {
+            "default": 8,
+            "min": 1,
+            "max": 128,
+            "step": 1
+          }
+        ],
+        "samples": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 3,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Image fDOF Filter",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Image to Latent Mask": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "channel": [["alpha", "red", "green", "blue"]]
+      }
+    },
+    "output": ["MASK"],
+    "output_name": ["MASK"],
+    "name": "Image to Latent Mask",
+    "description": "",
+    "category": "WAS Suite/Latent"
+  },
+  "Int to Number": {
+    "input": {
+      "required": {
+        "int_input": ["INT"]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "Int to Number",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "KSampler (WAS)": {
+    "input": {
+      "required": {
+        "model": ["MODEL"],
+        "seed": ["SEED"],
+        "steps": [
+          "INT",
+          {
+            "default": 20,
+            "min": 1,
+            "max": 10000
+          }
+        ],
+        "cfg": [
+          "FLOAT",
+          {
+            "default": 8,
+            "min": 0,
+            "max": 100
+          }
+        ],
+        "sampler_name": [
+          [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_2m",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ]
+        ],
+        "scheduler": [["karras", "normal", "simple", "ddim_uniform"]],
+        "positive": ["CONDITIONING"],
+        "negative": ["CONDITIONING"],
+        "latent_image": ["LATENT"],
+        "denoise": [
+          "FLOAT",
+          {
+            "default": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "KSampler (WAS)",
+    "description": "",
+    "category": "WAS Suite/Sampling"
+  },
+  "Latent Noise Injection": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "noise_std": [
+          "FLOAT",
+          {
+            "default": 0.1,
+            "min": 0,
+            "max": 1,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "Latent Noise Injection",
+    "description": "",
+    "category": "WAS Suite/Latent"
+  },
+  "Latent Upscale by Factor (WAS)": {
+    "input": {
+      "required": {
+        "samples": ["LATENT"],
+        "mode": [["bilinear", "bicubic"]],
+        "factor": [
+          "FLOAT",
+          {
+            "default": 2,
+            "min": 0.1,
+            "max": 8,
+            "step": 0.1
+          }
+        ],
+        "align": [["true", "false"]]
+      }
+    },
+    "output": ["LATENT"],
+    "output_name": ["LATENT"],
+    "name": "Latent Upscale by Factor (WAS)",
+    "description": "",
+    "category": "WAS Suite/Latent"
+  },
+  "Load Image Batch": {
+    "input": {
+      "required": {
+        "mode": [["single_image", "incremental_image"]],
+        "index": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 150000,
+            "step": 1
+          }
+        ],
+        "label": [
+          "STRING",
+          {
+            "default": "Batch 001",
+            "multiline": false
+          }
+        ],
+        "path": [
+          "STRING",
+          {
+            "default": "./ComfyUI/input/",
+            "multiline": false
+          }
+        ],
+        "pattern": [
+          "STRING",
+          {
+            "default": "*",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Load Image Batch",
+    "description": "",
+    "category": "WAS Suite/IO"
+  },
+  "Load Text File": {
+    "input": {
+      "required": {
+        "file_path": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Load Text File",
+    "description": "",
+    "category": "WAS Suite/IO"
+  },
+  "MiDaS Depth Approximation": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "use_cpu": [["false", "true"]],
+        "midas_model": [["DPT_Large", "DPT_Hybrid", "DPT_Small"]],
+        "invert_depth": [["false", "true"]]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "MiDaS Depth Approximation",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "MiDaS Mask Image": {
+    "input": {
+      "required": {
+        "image": ["IMAGE"],
+        "use_cpu": [["false", "true"]],
+        "midas_model": [["DPT_Large", "DPT_Hybrid", "DPT_Small"]],
+        "remove": [["background", "foregroud"]],
+        "threshold": [["false", "true"]],
+        "threshold_low": [
+          "FLOAT",
+          {
+            "default": 10,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "threshold_mid": [
+          "FLOAT",
+          {
+            "default": 200,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "threshold_high": [
+          "FLOAT",
+          {
+            "default": 210,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "smoothing": [
+          "FLOAT",
+          {
+            "default": 0.25,
+            "min": 0,
+            "max": 16,
+            "step": 0.01
+          }
+        ],
+        "background_red": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_green": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ],
+        "background_blue": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 255,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE", "IMAGE"],
+    "output_name": ["IMAGE", "IMAGE"],
+    "name": "MiDaS Mask Image",
+    "description": "",
+    "category": "WAS Suite/Image"
+  },
+  "Number Operation": {
+    "input": {
+      "required": {
+        "number_a": ["NUMBER"],
+        "number_b": ["NUMBER"],
+        "operation": [
+          [
+            "addition",
+            "subtraction",
+            "division",
+            "floor division",
+            "multiplication",
+            "exponentiation",
+            "modulus",
+            "greater-than",
+            "greater-than or equels",
+            "less-than",
+            "less-than or equals",
+            "equals",
+            "does not equal"
+          ]
+        ]
+      }
+    },
+    "output": ["NUMBER"],
+    "output_name": ["NUMBER"],
+    "name": "Number Operation",
+    "description": "",
+    "category": "WAS Suite/Operations"
+  },
+  "Number to Float": {
+    "input": {
+      "required": {
+        "number": ["NUMBER"]
+      }
+    },
+    "output": ["FLOAT"],
+    "output_name": ["FLOAT"],
+    "name": "Number to Float",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Number PI": {
+    "input": {
+      "required": {}
+    },
+    "output": ["NUMBER"],
+    "output_name": ["NUMBER"],
+    "name": "Number PI",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Number to Int": {
+    "input": {
+      "required": {
+        "number": ["NUMBER"]
+      }
+    },
+    "output": ["INT"],
+    "output_name": ["INT"],
+    "name": "Number to Int",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Number to Seed": {
+    "input": {
+      "required": {
+        "number": ["NUMBER"]
+      }
+    },
+    "output": ["SEED"],
+    "output_name": ["SEED"],
+    "name": "Number to Seed",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Random Number": {
+    "input": {
+      "required": {
+        "number_type": [["integer", "float", "bool"]],
+        "minimum": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -18446744073709552000,
+            "max": 18446744073709552000
+          }
+        ],
+        "maximum": [
+          "FLOAT",
+          {
+            "default": 0,
+            "min": -18446744073709552000,
+            "max": 18446744073709552000
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["NUMBER"],
+    "output_name": ["NUMBER"],
+    "name": "Random Number",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Save Text File": {
+    "input": {
+      "required": {
+        "text": ["ASCII"],
+        "path": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": false
+          }
+        ],
+        "filename": [
+          "STRING",
+          {
+            "default": "text_[time]",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": [],
+    "output_name": [],
+    "name": "Save Text File",
+    "description": "",
+    "category": "WAS Suite/IO"
+  },
+  "Seed": {
+    "input": {
+      "required": {
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["SEED"],
+    "output_name": ["SEED"],
+    "name": "Seed",
+    "description": "",
+    "category": "WAS Suite/Constant"
+  },
+  "Tensor Batch to Image": {
+    "input": {
+      "required": {
+        "images_batch": ["IMAGE"],
+        "batch_image_number": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 64,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "Tensor Batch to Image",
+    "description": "",
+    "category": "WAS Suite/Latent"
+  },
+  "Text Concatenate": {
+    "input": {
+      "required": {
+        "text_a": ["ASCII"],
+        "text_b": ["ASCII"],
+        "linebreak_addition": [["true", "false"]]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Concatenate",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text Find and Replace Input": {
+    "input": {
+      "required": {
+        "text": ["ASCII"],
+        "find": ["ASCII"],
+        "replace": ["ASCII"]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Find and Replace Input",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text Find and Replace": {
+    "input": {
+      "required": {
+        "text": ["ASCII"],
+        "find": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": false
+          }
+        ],
+        "replace": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Find and Replace",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text Multiline": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": true
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Multiline",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text Parse Noodle Soup Prompts": {
+    "input": {
+      "required": {
+        "noodle_key": [
+          "STRING",
+          {
+            "default": "__",
+            "multiline": false
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ],
+        "text": ["ASCII"]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Parse Noodle Soup Prompts",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text Random Line": {
+    "input": {
+      "required": {
+        "text": ["ASCII"],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709552000
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text Random Line",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text String": {
+    "input": {
+      "required": {
+        "text": [
+          "STRING",
+          {
+            "default": "",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text String",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text to Conditioning": {
+    "input": {
+      "required": {
+        "clip": ["CLIP"],
+        "text": ["ASCII"]
+      }
+    },
+    "output": ["CONDITIONING"],
+    "output_name": ["CONDITIONING"],
+    "name": "Text to Conditioning",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text to Console": {
+    "input": {
+      "required": {
+        "text": ["ASCII"],
+        "label": [
+          "STRING",
+          {
+            "default": "Text Output",
+            "multiline": false
+          }
+        ]
+      }
+    },
+    "output": ["ASCII"],
+    "output_name": ["ASCII"],
+    "name": "Text to Console",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "Text to String": {
+    "input": {
+      "required": {
+        "text": ["ASCII"]
+      }
+    },
+    "output": ["STRING"],
+    "output_name": ["STRING"],
+    "name": "Text to String",
+    "description": "",
+    "category": "WAS Suite/Text"
+  },
+  "UpscaleModelLoader": {
+    "input": {
+      "required": {
+        "model_name": [["4x-UltraSharp.pth"]]
+      }
+    },
+    "output": ["UPSCALE_MODEL"],
+    "output_name": ["UPSCALE_MODEL"],
+    "name": "UpscaleModelLoader",
+    "description": "",
+    "category": "loaders"
+  },
+  "ImageUpscaleWithModel": {
+    "input": {
+      "required": {
+        "upscale_model": ["UPSCALE_MODEL"],
+        "image": ["IMAGE"]
+      }
+    },
+    "output": ["IMAGE"],
+    "output_name": ["IMAGE"],
+    "name": "ImageUpscaleWithModel",
+    "description": "",
+    "category": "image/upscaling"
+  }
+}

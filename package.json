@@ -11,6 +11,7 @@
   "scripts": {
     "build": "umi build",
     "dev": "umi dev",
+    "dev:with-mock": "cross-env MOCK=true umi dev",
     "postinstall": "umi setup",
     "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\" --fix",
     "prepare": "husky install",

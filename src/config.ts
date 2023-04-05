@@ -8,7 +8,7 @@ const hotReloadConfig = {
   protocol: 'http:',
 }
 
-const config = window.location.port === '8000' ? hotReloadConfig : defaultConfig
+const config = process.env.MOCK ? hotReloadConfig : defaultConfig
 
 export function getBackendUrl(endpoint: string): string {
   return `${config.protocol}//${config.host}${endpoint}`
