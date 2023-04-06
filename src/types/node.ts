@@ -27,8 +27,8 @@ export interface NodeItem {
 // 3. SDNode 相关类型定义
 export interface ImageItem extends StringifiableRecord {
   filename: string
-  subfolder: string
-  type: string
+  subfolder?: string
+  type?: string
 }
 
 export interface SDNode {

@@ -45,7 +45,11 @@ export function toPersisted(state: AppState): PersistedGraph {
 
 // Temp Workflow
 export function cleanTempWorkflow(): void {
-  localStorage.removeItem(TEMP_KEY)
+  try {
+    localStorage.removeItem(TEMP_KEY)
+  } catch (e) {
+    console.log('[cleanTempWorkflow]', e)
+  }
 }
 
 export function retrieveTempWorkflow(): PersistedGraph | null {
@@ -54,18 +58,31 @@ export function retrieveTempWorkflow(): PersistedGraph | null {
 }
 
 export function saveTempWorkflow(graph: PersistedGraph): void {
-  localStorage.setItem(TEMP_KEY, JSON.stringify(graph))
+  try {
+    localStorage.setItem(TEMP_KEY, JSON.stringify(graph))
+  } catch (e) {
+    console.log('[saveTempWorkflow]', e)
+  }
 }
 
 // Local Workflow
 
 export function cleanLocalWorkflows(): void {
-  localStorage.removeItem(LOCAL_KEY)
+  try {
+    localStorage.removeItem(LOCAL_KEY)
+  } catch (e) {
+    console.log('[cleanLocalWorkflows]', e)
+  }
 }
 
 export function retrieveLocalWorkflows(): LocalPersistedGraphs[] {
-  const item = localStorage.getItem(LOCAL_KEY)
-  return item ? JSON.parse(item) : []
+  try {
+    const item = localStorage.getItem(LOCAL_KEY)
+    return item ? JSON.parse(item) : []
+  } catch (e) {
+    console.log('[retrieveLocalWorkflows]', e)
+    return []
+  }
 }
 
 export function getLocalWorkflowFromId(id: string): PersistedGraph | null {
@@ -75,49 +92,65 @@ export function getLocalWorkflowFromId(id: string): PersistedGraph | null {
 }
 
 export function deleteLocalWorkflowFromId(id: string) {
-  const localWorkflows = retrieveLocalWorkflows()
-    .map((workflow) => {
-      if (workflow.id !== id) return workflow
-      return false
-    })
-    .filter(Boolean)
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+  try {
+    const localWorkflows = retrieveLocalWorkflows()
+      .map((workflow) => {
+        if (workflow.id !== id) return workflow
+        return false
+      })
+      .filter(Boolean)
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+  } catch (e) {
+    console.log('[deleteLocalWorkflowFromId]', e)
+  }
 }
 
 export function saveLocalWorkflow(graph: PersistedGraph, title?: string): void {
-  const localWorkflows = retrieveLocalWorkflows()
-  const time = new Date().getTime()
-  localWorkflows.push({
-    title: title ? title : `Local-${time}`,
-    time: time,
-    id: `kitchen-${time}-${Math.floor(Math.random() * 1000000)}`,
-    graph,
-  })
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+  try {
+    const localWorkflows = retrieveLocalWorkflows()
+    const time = new Date().getTime()
+    localWorkflows.push({
+      title: title ? title : `Local-${time}`,
+      time: time,
+      id: `kitchen-${time}-${Math.floor(Math.random() * 1000000)}`,
+      graph,
+    })
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+  } catch (e) {
+    console.log('[saveLocalWorkflow]', e)
+  }
 }
 
-export function updateLocalWorkflow(id: string, modifyData: { title?: string; graph?: PersistedGraph }) {
-  const localWorkflows = retrieveLocalWorkflows().map((workflow) => {
-    if (workflow.id !== id) return workflow
-    return {
-      ...workflow,
-      ...modifyData,
-      time: new Date().getTime(),
-    }
-  })
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+export function updateLocalWorkflow(id: string, modifyData: { title?: string; graph?: PersistedGraph }): void {
+  try {
+    const localWorkflows = retrieveLocalWorkflows().map((workflow) => {
+      if (workflow.id !== id) return workflow
+      return {
+        ...workflow,
+        ...modifyData,
+        time: new Date().getTime(),
+      }
+    })
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(localWorkflows))
+  } catch (e) {
+    console.log('[updateLocalWorkflow]', e)
+  }
 }
 
 export function readWorkflowFromFile(file: File, callback: (workflow: PersistedGraph) => void): void {
-  const reader = new FileReader()
-  if (file) {
-    reader.readAsText(file)
-    reader.addEventListener('load', (event) => {
-      const result = event.target?.result
-      if (typeof result === 'string') {
-        callback(JSON.parse(result))
-      }
-    })
+  try {
+    const reader = new FileReader()
+    if (file) {
+      reader.readAsText(file)
+      reader.addEventListener('load', (event) => {
+        const result = event.target?.result
+        if (typeof result === 'string') {
+          callback(JSON.parse(result))
+        }
+      })
+    }
+  } catch (e) {
+    console.log('[readWorkflowFromFile]', e)
   }
 }
 

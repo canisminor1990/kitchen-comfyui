@@ -128,7 +128,7 @@ const FlowEditor: React.FC = () => {
       snapGrid={[24, 24]}
       minZoom={0.1}
       nodeTypes={nodeTypes}
-      deleteKeyCode={['Delete']}
+      deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
       disableKeyboardA11y={true}
       onKeyDown={handleKeyDown}

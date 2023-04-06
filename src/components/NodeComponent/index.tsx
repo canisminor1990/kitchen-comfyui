@@ -24,20 +24,30 @@ export interface ImagePreview {
 }
 
 const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
-  const { progressBar, imagePreviews, onDuplicateNode, onDeleteNode, onModifyChange, getNodeFieldsData } = useAppStore(
+  const { progressBar, imagePreviews, onDuplicateNode, onDeleteNode, onModifyChange, inputImgPreviews } = useAppStore(
     (st) => ({
       progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
-      imagePreviews: st.graph?.[node.id]?.images?.map((image, index) => {
-        return {
-          image,
-          index,
-        }
-      }),
+      imagePreviews: st.graph?.[node.id]?.images
+        ?.map((image, index) => {
+          return {
+            image,
+            index,
+          }
+        })
+        .filter(Boolean),
+      inputImgPreviews: [
+        {
+          image: {
+            filename: st.getNodeFieldsData(node.id, 'image'),
+            type: 'input',
+          },
+          index: 0,
+        },
+      ].filter((i) => i.image.filename),
       onPropChange: st.onPropChange,
       onDuplicateNode: st.onDuplicateNode,
       onDeleteNode: st.onDeleteNode,
       onModifyChange: st.onModifyChange,
-      getNodeFieldsData: st.getNodeFieldsData,
     }),
     shallow
   )
@@ -49,7 +59,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const outputs: any[] = node.data.output
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
-  const inputImg: any = getNodeFieldsData(node.id, 'image')
+
   const name = node.data?.nickname || node.data.name
 
   for (const [property, input] of Object.entries(node.data.input.required)) {
@@ -136,20 +146,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
         <NodeOutpus data={outputs} />
       </SpaceGrid>
       <NodeParams data={params} nodeId={node.id} />
-      <NodeImgPreview
-        data={
-          imagePreviews ||
-          (inputImg && [
-            {
-              image: {
-                filename: inputImg,
-                type: 'input',
-              },
-              index: 0,
-            },
-          ])
-        }
-      />
+      <NodeImgPreview data={imagePreviews || inputImgPreviews} />
       {isSelected && <NodeResizeControl />}
     </NodeCard>
   )

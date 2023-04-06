@@ -1,4 +1,4 @@
-import { Input, Select, TextArea } from '@/components'
+import { Input, TextArea } from '@/components'
 import { useAppStore } from '@/store'
 import { InputData, NodeId } from '@/types'
 import { checkInput } from '@/utils'
@@ -6,6 +6,7 @@ import { Checkbox } from 'antd'
 import { debounce } from 'lodash-es'
 import React from 'react'
 import { shallow } from 'zustand/shallow'
+import SelectUploadInput from './SelectUploadInput'
 import SliderInput from './SliderInput'
 
 interface InputProps {
@@ -27,55 +28,7 @@ const InputComponent: React.FC<InputProps> = ({ id, name, input }) => {
    ******************************************************/
 
   if (checkInput.isList(input)) {
-    const data = input[0]
-    let options: any = []
-    const newData: any = {}
-    const flatDat: any = []
-    data.forEach((o) => {
-      if (o.includes('\\')) {
-        const group = o.split('\\')[0]
-        const name = o.split('\\')[1]
-        if (!newData[group]) newData[group] = []
-        newData[group].push({
-          value: o,
-          label: name,
-        })
-      } else {
-        flatDat.push({
-          value: o,
-          label: o,
-        })
-      }
-    })
-
-    if (flatDat) options = flatDat
-    if (newData)
-      options = [
-        ...options,
-        ...Object.entries(newData).map(([key, value]) => ({
-          label: key,
-          options: value,
-        })),
-      ]
-
-    return (
-      <Select
-        showSearch
-        placeholder="Search to Select"
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          String(option?.label ?? '')
-            .toLowerCase()
-            .includes(input.toLowerCase())
-        }
-        style={{ width: '100%' }}
-        size="small"
-        value={value}
-        defaultValue={input[0][0]}
-        onChange={onChange}
-        options={options}
-      />
-    )
+    return <SelectUploadInput value={value} name={name} input={input} onChange={onChange} />
   }
   /******************************************************
    ********************** isBool ************************

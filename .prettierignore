@@ -21,3 +21,5 @@ yarn-error.log
 .idea
 .husky
 .npmrc
+.env
+.env.local

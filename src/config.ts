@@ -4,7 +4,7 @@ const defaultConfig = {
 }
 
 const hotReloadConfig = {
-  host: 'localhost:8188',
+  host: process.env.REACT_APP_API_URL,
   protocol: 'http:',
 }
 
@@ -12,7 +12,7 @@ const config =
   process.env.NODE_ENV === 'development' ? (process.env.MOCK ? defaultConfig : hotReloadConfig) : defaultConfig
 
 if (process.env.NODE_ENV === 'development') {
-  console.table({ ...config, isMock: Boolean(process.env.MOCK) })
+  console.table({ host: config.host, isMock: Boolean(process.env.MOCK) })
 }
 
 export function getBackendUrl(endpoint: string): string {
