@@ -1,0 +1,629 @@
+{
+  "2055590873792": {
+    "prompt": [
+      0,
+      2055590873792,
+      {
+        "1": {
+          "class_type": "CheckpointLoaderSimple",
+          "inputs": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" }
+        },
+        "2": { "class_type": "CLIPTextEncode", "inputs": { "text": "beautiful mountain scenery", "clip": ["1", 1] } },
+        "3": { "class_type": "CLIPTextEncode", "inputs": { "text": "bad had", "clip": ["1", 1] } },
+        "4": {
+          "class_type": "KSampler",
+          "inputs": {
+            "seed": 1569153831216078800,
+            "steps": 24,
+            "cfg": 8.0,
+            "sampler_name": "dpm_2",
+            "scheduler": "normal",
+            "denoise": 0.99,
+            "model": ["1", 0],
+            "negative": ["3", 0],
+            "positive": ["2", 0],
+            "latent_image": ["7", 0]
+          }
+        },
+        "5": { "class_type": "VAEDecode", "inputs": { "vae": ["1", 2], "samples": ["4", 0] } },
+        "7": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+        "10": { "class_type": "LoadImage", "inputs": { "image": "Avatar (4).jpg" } },
+        "4aed91bd-b5ce-4900-a9c5-4f15e13e2832": {
+          "class_type": "PreviewImage",
+          "inputs": { "images": ["9f670bed-9337-4f08-8c23-d99ed58d0590", 0] }
+        },
+        "9f670bed-9337-4f08-8c23-d99ed58d0590": { "class_type": "VAEDecode", "inputs": {} },
+        "3361585320526": { "class_type": "PreviewImage", "inputs": { "images": ["5", 0] } }
+      },
+      {
+        "extra_pnginfo": {
+          "workflow": {
+            "connections": [
+              { "source": "1", "sourceHandle": "MODEL", "target": "4", "targetHandle": "model" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "2", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "3", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "VAE", "target": "5", "targetHandle": "vae" },
+              { "source": "3", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "negative" },
+              { "source": "2", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "positive" },
+              { "source": "7", "sourceHandle": "LATENT", "target": "4", "targetHandle": "latent_image" },
+              { "source": "4", "sourceHandle": "LATENT", "target": "5", "targetHandle": "samples" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "1680792378487", "targetHandle": "images" },
+              { "source": 1680792927858, "sourceHandle": "IMAGE", "target": 3361585306340, "targetHandle": "images" },
+              { "source": 1680792942042, "sourceHandle": "IMAGE", "target": 3361585320524, "targetHandle": "images" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "3361585320526", "targetHandle": "images" },
+              {
+                "source": "9f670bed-9337-4f08-8c23-d99ed58d0590",
+                "sourceHandle": "IMAGE",
+                "target": "4aed91bd-b5ce-4900-a9c5-4f15e13e2832",
+                "targetHandle": "images"
+              }
+            ],
+            "data": {
+              "1": {
+                "position": { "x": -168, "y": -552 },
+                "value": {
+                  "widget": "CheckpointLoaderSimple",
+                  "fields": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" },
+                  "modify": { "color": "#fadb14" }
+                }
+              },
+              "2": {
+                "position": { "x": -168, "y": -384 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "beautiful mountain scenery", "clip": ["1", 1] },
+                  "modify": { "color": "#52c41a" }
+                }
+              },
+              "3": {
+                "position": { "x": -168, "y": -144 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "bad had", "clip": ["1", 1] },
+                  "modify": { "color": "#f5222d" }
+                }
+              },
+              "4": {
+                "position": { "x": 168, "y": -552 },
+                "value": {
+                  "widget": "KSampler",
+                  "fields": {
+                    "seed": 1569153831216078800,
+                    "steps": 24,
+                    "cfg": 8,
+                    "sampler_name": "dpm_2",
+                    "scheduler": "normal",
+                    "denoise": 0.99,
+                    "model": ["1", 0],
+                    "negative": ["3", 0],
+                    "positive": ["2", 0],
+                    "latent_image": ["7", 0]
+                  }
+                }
+              },
+              "5": {
+                "position": { "x": 264, "y": 192 },
+                "value": { "widget": "VAEDecode", "fields": { "vae": ["1", 2], "samples": ["4", 0] } }
+              },
+              "7": {
+                "position": { "x": -168, "y": 96 },
+                "value": { "widget": "EmptyLatentImage", "fields": { "width": 512, "height": 512, "batch_size": 1 } }
+              },
+              "10": {
+                "position": { "x": -912, "y": -552 },
+                "value": { "widget": "LoadImage", "fields": { "image": "Avatar (4).jpg" } }
+              },
+              "4aed91bd-b5ce-4900-a9c5-4f15e13e2832": {
+                "position": { "x": 936, "y": 288 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["9f670bed-9337-4f08-8c23-d99ed58d0590", 0] },
+                  "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }]
+                }
+              },
+              "9f670bed-9337-4f08-8c23-d99ed58d0590": {
+                "position": { "x": 564, "y": 771 },
+                "value": { "widget": "VAEDecode", "fields": {} }
+              },
+              "3361585320526": {
+                "position": { "x": 552, "y": -552 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["5", 0] },
+                  "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }]
+                }
+              }
+            }
+          }
+        },
+        "client_id": "7a8f9e0597784f01acf92cd34b1e294f"
+      }
+    ],
+    "outputs": {
+      "3361585320526": { "images": [{ "filename": "ComfyUI_00001_.png", "subfolder": "", "type": "temp" }] }
+    }
+  },
+  "2055589189568": {
+    "prompt": [
+      1,
+      2055589189568,
+      {
+        "1": {
+          "class_type": "CheckpointLoaderSimple",
+          "inputs": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" }
+        },
+        "2": { "class_type": "CLIPTextEncode", "inputs": { "text": "beautiful mountain scenery", "clip": ["1", 1] } },
+        "3": { "class_type": "CLIPTextEncode", "inputs": { "text": "bad had", "clip": ["1", 1] } },
+        "4": {
+          "class_type": "KSampler",
+          "inputs": {
+            "seed": 9405749157198880000,
+            "steps": 24,
+            "cfg": 8.0,
+            "sampler_name": "dpm_2",
+            "scheduler": "normal",
+            "denoise": 0.99,
+            "model": ["1", 0],
+            "negative": ["3", 0],
+            "positive": ["2", 0],
+            "latent_image": ["7", 0]
+          }
+        },
+        "5": { "class_type": "VAEDecode", "inputs": { "vae": ["1", 2], "samples": ["4", 0] } },
+        "7": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+        "10": { "class_type": "LoadImage", "inputs": { "image": "Avatar (4).jpg" } },
+        "4aed91bd-b5ce-4900-a9c5-4f15e13e2832": {
+          "class_type": "PreviewImage",
+          "inputs": { "images": ["9f670bed-9337-4f08-8c23-d99ed58d0590", 0] }
+        },
+        "9f670bed-9337-4f08-8c23-d99ed58d0590": { "class_type": "VAEDecode", "inputs": {} },
+        "3361585320526": { "class_type": "PreviewImage", "inputs": { "images": ["5", 0] } }
+      },
+      {
+        "extra_pnginfo": {
+          "workflow": {
+            "connections": [
+              { "source": "1", "sourceHandle": "MODEL", "target": "4", "targetHandle": "model" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "2", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "3", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "VAE", "target": "5", "targetHandle": "vae" },
+              { "source": "3", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "negative" },
+              { "source": "2", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "positive" },
+              { "source": "7", "sourceHandle": "LATENT", "target": "4", "targetHandle": "latent_image" },
+              { "source": "4", "sourceHandle": "LATENT", "target": "5", "targetHandle": "samples" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "1680792378487", "targetHandle": "images" },
+              { "source": 1680792927858, "sourceHandle": "IMAGE", "target": 3361585306340, "targetHandle": "images" },
+              { "source": 1680792942042, "sourceHandle": "IMAGE", "target": 3361585320524, "targetHandle": "images" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "3361585320526", "targetHandle": "images" },
+              {
+                "source": "9f670bed-9337-4f08-8c23-d99ed58d0590",
+                "sourceHandle": "IMAGE",
+                "target": "4aed91bd-b5ce-4900-a9c5-4f15e13e2832",
+                "targetHandle": "images"
+              }
+            ],
+            "data": {
+              "1": {
+                "position": { "x": -168, "y": -552 },
+                "value": {
+                  "widget": "CheckpointLoaderSimple",
+                  "fields": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" },
+                  "modify": { "color": "#fadb14" }
+                }
+              },
+              "2": {
+                "position": { "x": -168, "y": -384 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "beautiful mountain scenery", "clip": ["1", 1] },
+                  "modify": { "color": "#52c41a" }
+                }
+              },
+              "3": {
+                "position": { "x": -168, "y": -144 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "bad had", "clip": ["1", 1] },
+                  "modify": { "color": "#f5222d" }
+                }
+              },
+              "4": {
+                "position": { "x": 168, "y": -552 },
+                "value": {
+                  "widget": "KSampler",
+                  "fields": {
+                    "seed": 9405749157198880000,
+                    "steps": 24,
+                    "cfg": 8,
+                    "sampler_name": "dpm_2",
+                    "scheduler": "normal",
+                    "denoise": 0.99,
+                    "model": ["1", 0],
+                    "negative": ["3", 0],
+                    "positive": ["2", 0],
+                    "latent_image": ["7", 0]
+                  }
+                }
+              },
+              "5": {
+                "position": { "x": 264, "y": 192 },
+                "value": { "widget": "VAEDecode", "fields": { "vae": ["1", 2], "samples": ["4", 0] } }
+              },
+              "7": {
+                "position": { "x": -168, "y": 96 },
+                "value": { "widget": "EmptyLatentImage", "fields": { "width": 512, "height": 512, "batch_size": 1 } }
+              },
+              "10": {
+                "position": { "x": -912, "y": -552 },
+                "value": { "widget": "LoadImage", "fields": { "image": "Avatar (4).jpg" } }
+              },
+              "4aed91bd-b5ce-4900-a9c5-4f15e13e2832": {
+                "position": { "x": 936, "y": 288 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["9f670bed-9337-4f08-8c23-d99ed58d0590", 0] },
+                  "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }]
+                }
+              },
+              "9f670bed-9337-4f08-8c23-d99ed58d0590": {
+                "position": { "x": 564, "y": 771 },
+                "value": { "widget": "VAEDecode", "fields": {} }
+              },
+              "3361585320526": {
+                "position": { "x": 552, "y": -552 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["5", 0] },
+                  "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }]
+                }
+              }
+            }
+          }
+        },
+        "client_id": "7a8f9e0597784f01acf92cd34b1e294f"
+      }
+    ],
+    "outputs": {
+      "3361585320526": { "images": [{ "filename": "ComfyUI_00002_.png", "subfolder": "", "type": "temp" }] }
+    }
+  },
+  "2056460647936": {
+    "prompt": [
+      3,
+      2056460647936,
+      {
+        "1": {
+          "class_type": "CheckpointLoaderSimple",
+          "inputs": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" }
+        },
+        "2": { "class_type": "CLIPTextEncode", "inputs": { "text": "beautiful mountain scenery", "clip": ["1", 1] } },
+        "3": { "class_type": "CLIPTextEncode", "inputs": { "text": "bad had", "clip": ["1", 1] } },
+        "4": {
+          "class_type": "KSampler",
+          "inputs": {
+            "seed": 13237751545059185000,
+            "steps": 24,
+            "cfg": 8.0,
+            "sampler_name": "dpm_2",
+            "scheduler": "normal",
+            "denoise": 0.99,
+            "positive": ["2", 0],
+            "model": ["1", 0],
+            "latent_image": ["7", 0],
+            "negative": ["3", 0]
+          }
+        },
+        "5": { "class_type": "VAEDecode", "inputs": { "samples": ["4", 0], "vae": ["1", 2] } },
+        "7": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+        "3361585320526": { "class_type": "PreviewImage", "inputs": { "images": ["5", 0] } }
+      },
+      {
+        "extra_pnginfo": {
+          "workflow": {
+            "connections": [
+              { "source": "4", "sourceHandle": "LATENT", "target": "5", "targetHandle": "samples" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "3361585320526", "targetHandle": "images" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "2", "targetHandle": "clip" },
+              { "source": "2", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "positive" },
+              { "source": "1", "sourceHandle": "MODEL", "target": "4", "targetHandle": "model" },
+              { "source": "7", "sourceHandle": "LATENT", "target": "4", "targetHandle": "latent_image" },
+              { "source": "3", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "negative" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "3", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "VAE", "target": "5", "targetHandle": "vae" }
+            ],
+            "data": {
+              "1": {
+                "position": { "x": -768, "y": -552 },
+                "value": {
+                  "widget": "CheckpointLoaderSimple",
+                  "fields": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" },
+                  "modify": { "color": "#fadb14" }
+                }
+              },
+              "2": {
+                "position": { "x": -216, "y": -384 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "beautiful mountain scenery", "clip": ["1", 1] },
+                  "modify": { "color": "#52c41a" }
+                }
+              },
+              "3": {
+                "position": { "x": -216, "y": -144 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "bad had", "clip": ["1", 1] },
+                  "modify": { "color": "#f5222d" }
+                }
+              },
+              "4": {
+                "position": { "x": 168, "y": -552 },
+                "value": {
+                  "widget": "KSampler",
+                  "fields": {
+                    "seed": 13237751545059185000,
+                    "steps": 24,
+                    "cfg": 8,
+                    "sampler_name": "dpm_2",
+                    "scheduler": "normal",
+                    "denoise": 0.99,
+                    "positive": ["2", 0],
+                    "model": ["1", 0],
+                    "latent_image": ["7", 0],
+                    "negative": ["3", 0]
+                  }
+                }
+              },
+              "5": {
+                "position": { "x": 360, "y": 192 },
+                "value": { "widget": "VAEDecode", "fields": { "samples": ["4", 0], "vae": ["1", 2] } }
+              },
+              "7": {
+                "position": { "x": -216, "y": 96 },
+                "value": { "widget": "EmptyLatentImage", "fields": { "width": 512, "height": 512, "batch_size": 1 } }
+              },
+              "3361585320526": {
+                "position": { "x": 552, "y": -552 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["5", 0] },
+                  "images": [{ "filename": "ComfyUI_00002_.png", "subfolder": "", "type": "temp" }]
+                }
+              }
+            }
+          }
+        },
+        "client_id": "e93bc983f1e649b3b1cb509ae52101b2"
+      }
+    ],
+    "outputs": {
+      "3361585320526": { "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }] }
+    }
+  },
+  "2056255280704": {
+    "prompt": [
+      4,
+      2056255280704,
+      {
+        "1": {
+          "class_type": "CheckpointLoaderSimple",
+          "inputs": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" }
+        },
+        "2": { "class_type": "CLIPTextEncode", "inputs": { "text": "beautiful mountain scenery", "clip": ["1", 1] } },
+        "3": { "class_type": "CLIPTextEncode", "inputs": { "text": "bad had", "clip": ["1", 1] } },
+        "4": {
+          "class_type": "KSampler",
+          "inputs": {
+            "seed": 15409276622468858000,
+            "steps": 24,
+            "cfg": 8.0,
+            "sampler_name": "dpm_2",
+            "scheduler": "normal",
+            "denoise": 0.99,
+            "positive": ["2", 0],
+            "model": ["1", 0],
+            "latent_image": ["7", 0],
+            "negative": ["3", 0]
+          }
+        },
+        "5": { "class_type": "VAEDecode", "inputs": { "samples": ["4", 0], "vae": ["1", 2] } },
+        "7": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+        "3361585320526": { "class_type": "PreviewImage", "inputs": { "images": ["5", 0] } }
+      },
+      {
+        "extra_pnginfo": {
+          "workflow": {
+            "connections": [
+              { "source": "4", "sourceHandle": "LATENT", "target": "5", "targetHandle": "samples" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "3361585320526", "targetHandle": "images" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "2", "targetHandle": "clip" },
+              { "source": "2", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "positive" },
+              { "source": "1", "sourceHandle": "MODEL", "target": "4", "targetHandle": "model" },
+              { "source": "7", "sourceHandle": "LATENT", "target": "4", "targetHandle": "latent_image" },
+              { "source": "3", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "negative" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "3", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "VAE", "target": "5", "targetHandle": "vae" }
+            ],
+            "data": {
+              "1": {
+                "position": { "x": -768, "y": -552 },
+                "value": {
+                  "widget": "CheckpointLoaderSimple",
+                  "fields": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" },
+                  "modify": { "color": "#fadb14" }
+                }
+              },
+              "2": {
+                "position": { "x": -216, "y": -384 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "beautiful mountain scenery", "clip": ["1", 1] },
+                  "modify": { "color": "#52c41a" }
+                }
+              },
+              "3": {
+                "position": { "x": -216, "y": -144 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "bad had", "clip": ["1", 1] },
+                  "modify": { "color": "#f5222d" }
+                }
+              },
+              "4": {
+                "position": { "x": 168, "y": -552 },
+                "value": {
+                  "widget": "KSampler",
+                  "fields": {
+                    "seed": 15409276622468858000,
+                    "steps": 24,
+                    "cfg": 8,
+                    "sampler_name": "dpm_2",
+                    "scheduler": "normal",
+                    "denoise": 0.99,
+                    "positive": ["2", 0],
+                    "model": ["1", 0],
+                    "latent_image": ["7", 0],
+                    "negative": ["3", 0]
+                  }
+                }
+              },
+              "5": {
+                "position": { "x": 360, "y": 192 },
+                "value": { "widget": "VAEDecode", "fields": { "samples": ["4", 0], "vae": ["1", 2] } }
+              },
+              "7": {
+                "position": { "x": -216, "y": 96 },
+                "value": { "widget": "EmptyLatentImage", "fields": { "width": 512, "height": 512, "batch_size": 1 } }
+              },
+              "3361585320526": {
+                "position": { "x": 552, "y": -552 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["5", 0] },
+                  "images": [{ "filename": "ComfyUI_00003_.png", "subfolder": "", "type": "temp" }]
+                }
+              }
+            }
+          }
+        },
+        "client_id": "e93bc983f1e649b3b1cb509ae52101b2"
+      }
+    ],
+    "outputs": {
+      "3361585320526": { "images": [{ "filename": "ComfyUI_00004_.png", "subfolder": "", "type": "temp" }] }
+    }
+  },
+  "2056424217728": {
+    "prompt": [
+      5,
+      2056424217728,
+      {
+        "1": {
+          "class_type": "CheckpointLoaderSimple",
+          "inputs": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" }
+        },
+        "2": { "class_type": "CLIPTextEncode", "inputs": { "text": "beautiful mountain scenery", "clip": ["1", 1] } },
+        "3": { "class_type": "CLIPTextEncode", "inputs": { "text": "bad had", "clip": ["1", 1] } },
+        "4": {
+          "class_type": "KSampler",
+          "inputs": {
+            "seed": 3455917445250289700,
+            "steps": 24,
+            "cfg": 8.0,
+            "sampler_name": "dpm_2",
+            "scheduler": "normal",
+            "denoise": 0.99,
+            "positive": ["2", 0],
+            "model": ["1", 0],
+            "latent_image": ["7", 0],
+            "negative": ["3", 0]
+          }
+        },
+        "5": { "class_type": "VAEDecode", "inputs": { "samples": ["4", 0], "vae": ["1", 2] } },
+        "7": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+        "3361585320526": { "class_type": "PreviewImage", "inputs": { "images": ["5", 0] } }
+      },
+      {
+        "extra_pnginfo": {
+          "workflow": {
+            "connections": [
+              { "source": "4", "sourceHandle": "LATENT", "target": "5", "targetHandle": "samples" },
+              { "source": "5", "sourceHandle": "IMAGE", "target": "3361585320526", "targetHandle": "images" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "2", "targetHandle": "clip" },
+              { "source": "2", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "positive" },
+              { "source": "1", "sourceHandle": "MODEL", "target": "4", "targetHandle": "model" },
+              { "source": "7", "sourceHandle": "LATENT", "target": "4", "targetHandle": "latent_image" },
+              { "source": "3", "sourceHandle": "CONDITIONING", "target": "4", "targetHandle": "negative" },
+              { "source": "1", "sourceHandle": "CLIP", "target": "3", "targetHandle": "clip" },
+              { "source": "1", "sourceHandle": "VAE", "target": "5", "targetHandle": "vae" }
+            ],
+            "data": {
+              "1": {
+                "position": { "x": -768, "y": -552 },
+                "value": {
+                  "widget": "CheckpointLoaderSimple",
+                  "fields": { "ckpt_name": "CmShota\\CmShotaMix-Unreal.safetensors" },
+                  "modify": { "color": "#fadb14" }
+                }
+              },
+              "2": {
+                "position": { "x": -216, "y": -384 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "beautiful mountain scenery", "clip": ["1", 1] },
+                  "modify": { "color": "#52c41a" }
+                }
+              },
+              "3": {
+                "position": { "x": -216, "y": -144 },
+                "value": {
+                  "widget": "CLIPTextEncode",
+                  "fields": { "text": "bad had", "clip": ["1", 1] },
+                  "modify": { "color": "#f5222d" }
+                }
+              },
+              "4": {
+                "position": { "x": 168, "y": -552 },
+                "value": {
+                  "widget": "KSampler",
+                  "fields": {
+                    "seed": 3455917445250289700,
+                    "steps": 24,
+                    "cfg": 8,
+                    "sampler_name": "dpm_2",
+                    "scheduler": "normal",
+                    "denoise": 0.99,
+                    "positive": ["2", 0],
+                    "model": ["1", 0],
+                    "latent_image": ["7", 0],
+                    "negative": ["3", 0]
+                  }
+                }
+              },
+              "5": {
+                "position": { "x": 360, "y": 192 },
+                "value": { "widget": "VAEDecode", "fields": { "samples": ["4", 0], "vae": ["1", 2] } }
+              },
+              "7": {
+                "position": { "x": -216, "y": 96 },
+                "value": { "widget": "EmptyLatentImage", "fields": { "width": 512, "height": 512, "batch_size": 1 } }
+              },
+              "3361585320526": {
+                "position": { "x": 552, "y": -552 },
+                "value": {
+                  "widget": "PreviewImage",
+                  "fields": { "images": ["5", 0] },
+                  "images": [{ "filename": "ComfyUI_00004_.png", "subfolder": "", "type": "temp" }]
+                }
+              }
+            }
+          }
+        },
+        "client_id": "e93bc983f1e649b3b1cb509ae52101b2"
+      }
+    ],
+    "outputs": {
+      "3361585320526": { "images": [{ "filename": "ComfyUI_00005_.png", "subfolder": "", "type": "temp" }] }
+    }
+  }
+}

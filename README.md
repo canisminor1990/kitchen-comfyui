@@ -33,6 +33,8 @@ replace `ComfyUI/web` frontend with `dist` build
 
 place this repo anywhere, just edit `ComfyUI/server.py`, add `cors_handler`
 
+> check [assets/modify-server.py](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/modify-server.py)
+
 ```py
 @web.middleware
 async def cors_handler(request: web.Request, handler):
