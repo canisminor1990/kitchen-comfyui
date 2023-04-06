@@ -53,6 +53,11 @@ export const useAppStore = create<AppState>()(
       set({ clientId: id }, false, 'onNewClientId')
     },
 
+    onRefresh: async () => {
+      const widgets = await getWidgets()
+      set({ widgets }, false, 'onRefresh')
+    },
+
     onInit: async () => {
       setInterval(() => get().onPersistTemp(), 5000)
       const widgets = await getWidgets()

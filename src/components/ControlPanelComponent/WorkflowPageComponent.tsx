@@ -110,7 +110,7 @@ const WorkflowPageComponent = () => {
         <Space.Compact style={{ marginLeft: 8 }}>
           <Button title="New" icon={<FileAddOutlined />} onClick={handleNew} />
           <Button title="Download" icon={<DownloadOutlined />} onClick={onDownloadWorkflow} />
-          <Upload maxCount={1} itemRender={() => null} beforeUpload={handleUpload}>
+          <Upload accept=".json" maxCount={1} itemRender={() => null} beforeUpload={handleUpload}>
             <Button title="Upload" icon={<UploadOutlined />} />
           </Upload>
         </Space.Compact>

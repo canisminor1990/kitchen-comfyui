@@ -39,6 +39,8 @@ export interface AppState {
    ******************************************************/
   onSetPage: (value: string) => void
   onSetThemeMode: (type: ThemeMode) => void
+
+  onRefresh: () => Promise<void>
   onInit: () => Promise<void>
   onNewClientId: (id: string) => void
 

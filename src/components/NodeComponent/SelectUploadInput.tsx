@@ -1,8 +1,10 @@
 import { Select } from '@/components'
 import { getBackendUrl } from '@/config'
+import { useAppStore } from '@/store'
 import { FileImageTwoTone } from '@ant-design/icons'
 import { Space, Upload } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 
 interface SelectUploadInputProps {
   value: string
@@ -12,36 +14,54 @@ interface SelectUploadInputProps {
 }
 
 const SelectUploadInput: React.FC<SelectUploadInputProps> = ({ value, input, onChange, name }) => {
-  const data = input[0]
-  let options: any = []
-  const newData: any = {}
-  const flatDat: any = []
-  data.forEach((o) => {
-    if (o.includes('\\')) {
-      const group = o.split('\\')[0]
-      const name = o.split('\\')[1]
-      if (!newData[group]) newData[group] = []
-      newData[group].push({
-        value: o,
-        label: name,
-      })
-    } else {
-      flatDat.push({
-        value: o,
-        label: o,
-      })
-    }
-  })
+  const [options, setOptions] = useState()
 
-  if (flatDat) options = flatDat
-  if (newData)
-    options = [
-      ...options,
-      ...Object.entries(newData).map(([key, value]) => ({
-        label: key,
-        options: value,
-      })),
-    ]
+  const { onRefresh, widgets } = useAppStore(
+    (st) => ({
+      onRefresh: st.onRefresh,
+      widgets: st.widgets,
+    }),
+    shallow
+  )
+
+  useEffect(() => {
+    let data: any
+    if (name === 'image') {
+      data = widgets.LoadImage.input.required.image[0]
+    } else {
+      data = input[0]
+    }
+    let opt: any = []
+    const newData: any = {}
+    const flatDat: any = []
+    data.forEach((o: any) => {
+      if (o.includes('\\')) {
+        const group = o.split('\\')[0]
+        const name = o.split('\\')[1]
+        if (!newData[group]) newData[group] = []
+        newData[group].push({
+          value: o,
+          label: name,
+        })
+      } else {
+        flatDat.push({
+          value: o,
+          label: o,
+        })
+      }
+    })
+
+    if (flatDat) opt = flatDat
+    if (newData)
+      opt = [
+        ...opt,
+        ...Object.entries(newData).map(([key, value]) => ({
+          label: key,
+          options: value,
+        })),
+      ]
+    setOptions(opt)
+  }, [input, widgets])
 
   return (
     <>
@@ -62,7 +82,18 @@ const SelectUploadInput: React.FC<SelectUploadInputProps> = ({ value, input, onC
         options={options}
       />
       {name === 'image' && (
-        <Upload.Dragger style={{ margin: '8px 0' }} action={() => getBackendUrl('/upload/image')} maxCount={1}>
+        <Upload.Dragger
+          accept=".png, .jpg, .jpeg, .webp"
+          style={{ margin: '8px 0' }}
+          itemRender={() => null}
+          name="image"
+          action={() => getBackendUrl('/upload/image')}
+          maxCount={1}
+          onChange={(info) => {
+            if (info.file.status === 'done') onRefresh()
+            onChange(info.file.name)
+          }}
+        >
           <Space>
             <FileImageTwoTone />
             Click or drag img to upload
