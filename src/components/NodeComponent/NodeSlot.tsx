@@ -32,7 +32,8 @@ const NodeSlot: React.FC<NodeSlotProps> = ({ label, type, position, slotType, is
         isValidConnection={(e) => {
           try {
             // @ts-ignore
-            const targetType = nodes.find((n) => n.id === e.target)?.data.input.required[e.targetHandle][0]
+            let targetType = nodes.find((n) => n.id === e.target)?.data.input.required[e.targetHandle][0]
+            if (isArray(targetType)) targetType = 'STRING'
             const sourceType = e.sourceHandle
             return targetType === sourceType
           } catch {
