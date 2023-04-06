@@ -5,7 +5,15 @@ import { addEdge } from 'reactflow'
 
 // 用于添加和获取连接的函数
 export function addConnection(state: AppState, connection: FlowConnection): AppState {
-  return { ...state, edges: addEdge(connection, state.edges) }
+  return {
+    ...state,
+    edges: addEdge(
+      connection,
+      state.edges.filter(
+        (item) => !(item.targetHandle === connection.targetHandle && item.target === connection.target)
+      )
+    ),
+  }
 }
 
 export function getValidConnections(state: AppState): Connection[] {
