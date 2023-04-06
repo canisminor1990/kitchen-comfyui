@@ -1,5 +1,24 @@
 # Kitchen ComfyUI
 
+## TODO List
+
+- 键盘快捷键
+  - [x] **Copy/Paste:** <kbd>Ctrl</kbd> + <kbd>C</kbd>/<kbd>V</kbd>
+  - [x] **Multi Selection:** <kbd>Shift</kbd>
+  - [ ] **Undo/Redo**: <kbd>Ctrl</kbd> + <kbd>Z</kbd>/<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
+- 图片节点
+  - [x] 图片节点上传适配
+  - [ ] 拖拽图片自动上传并生成节点
+- 编组
+  - [ ] 框选节点编组
+  - [ ] 编组相关基础功能
+  - [ ] 局部 Flow 转换为组件
+- 节点
+  - [ ] 中继节点，支持一个到多个变量中继
+  - [ ] WIFI 无线节点，输出节点/接受节点
+  - [ ] 开关节点，控制流程是否往下
+  - [ ] ...
+
 ## Installation
 
 clone ComfyUI follow the README.md installing there
@@ -12,16 +31,23 @@ replace `ComfyUI/web` frontend with `dist` build
 
 ## Development
 
-place this repo anywhere, just edit `ComfyUI/server.py`, add `response.headers['Access-Control-Allow-Origin'] = '*'`
+place this repo anywhere, just edit `ComfyUI/server.py`, add `cors_handler`
 
 ```py
 @web.middleware
-async def cache_control(request: web.Request, handler):
-    response: web.Response = await handler(request)
+async def cors_handler(request: web.Request, handler):
+    response = await handler(request)
     response.headers['Access-Control-Allow-Origin'] = '*'
-    if request.path.endswith('.js') or request.path.endswith('.css'):
-        response.headers.setdefault('Cache-Control', 'no-cache')
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, x-requested-with'
     return response
+```
+
+```py
+class PromptServer():
+......
+    self.app = web.Application(client_max_size=20971520, middlewares=[cache_control, cors_handler])
+......
 ```
 
 ## Credits
