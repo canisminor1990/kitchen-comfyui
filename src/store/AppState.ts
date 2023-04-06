@@ -55,7 +55,9 @@ export interface AppState {
   onNodeInProgress: (id: NodeId, progress: number) => void
   onPropChange: OnPropChange
   onModifyChange: OnPropChange
-  getNodeFieldsData: (id: NodeId, key: string) => any
+  onGetNodeFieldsData: (id: NodeId, key: string) => any
+  onCopyNode: () => PersistedGraph
+  onPasteNode: (workflow: PersistedGraph, postion: { x: number; y: number }) => void
   /******************************************************
    *********************** Edges *************************
    ******************************************************/

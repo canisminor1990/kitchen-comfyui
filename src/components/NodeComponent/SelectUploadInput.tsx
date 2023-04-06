@@ -65,6 +65,26 @@ const SelectUploadInput: React.FC<SelectUploadInputProps> = ({ value, input, onC
 
   return (
     <>
+      {name === 'image' && (
+        <Upload.Dragger
+          accept=".png, .jpg, .jpeg, .webp"
+          style={{ margin: '8px 0' }}
+          itemRender={() => null}
+          name="image"
+          action={() => getBackendUrl('/upload/image')}
+          maxCount={1}
+          onChange={(info) => {
+            if (info.file.status === 'done') onRefresh()
+            const name = info.file.response?.name
+            if (name) onChange(name)
+          }}
+        >
+          <Space>
+            <FileImageTwoTone />
+            Click or drag img to upload
+          </Space>
+        </Upload.Dragger>
+      )}
       <Select
         showSearch
         placeholder="Search to Select"
@@ -81,25 +101,6 @@ const SelectUploadInput: React.FC<SelectUploadInputProps> = ({ value, input, onC
         onChange={onChange}
         options={options}
       />
-      {name === 'image' && (
-        <Upload.Dragger
-          accept=".png, .jpg, .jpeg, .webp"
-          style={{ margin: '8px 0' }}
-          itemRender={() => null}
-          name="image"
-          action={() => getBackendUrl('/upload/image')}
-          maxCount={1}
-          onChange={(info) => {
-            if (info.file.status === 'done') onRefresh()
-            onChange(info.file.name)
-          }}
-        >
-          <Space>
-            <FileImageTwoTone />
-            Click or drag img to upload
-          </Space>
-        </Upload.Dragger>
-      )}
     </>
   )
 }

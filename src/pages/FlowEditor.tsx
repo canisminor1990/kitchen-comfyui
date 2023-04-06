@@ -1,10 +1,10 @@
 import { NODE_IDENTIFIER, NodeComponent } from '@/components'
 import { useAppStore } from '@/store'
+import { getPostion, getPostionCenter } from '@/utils'
 import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
 import { useTheme } from 'antd-style'
-import { debounce } from 'lodash-es'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -13,25 +13,24 @@ const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
 const FlowEditor: React.FC = () => {
   const theme = useTheme()
-  const reactFlowWrapper: any = useRef(null)
+  const reactFlowRef: any = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onInit, onAddNode } = useAppStore(
-    (st) => ({
-      nodes: st.nodes,
-      edges: st.edges,
-      onNodesChange: st.onNodesChange,
-      onEdgesChange: st.onEdgesChange,
-      onConnect: st.onConnect,
-      onInit: st.onInit,
-      onAddNode: st.onAddNode,
-    }),
-    shallow
-  )
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onInit, onAddNode, onCopyNode, onPasteNode } =
+    useAppStore(
+      (st) => ({
+        nodes: st.nodes,
+        edges: st.edges,
+        onNodesChange: st.onNodesChange,
+        onEdgesChange: st.onEdgesChange,
+        onConnect: st.onConnect,
+        onInit: st.onInit,
+        onAddNode: st.onAddNode,
+        onCopyNode: st.onCopyNode,
+        onPasteNode: st.onPasteNode,
+      }),
+      shallow
+    )
 
   const onEdgeUpdateStart = useCallback(() => {
     edgeUpdateSuccessful.current = false
@@ -68,13 +67,9 @@ const FlowEditor: React.FC = () => {
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault()
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
       const widget = JSON.parse(event.dataTransfer.getData('application/reactflow'))
       if (!widget) return
-      const position = reactFlowInstance.project({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      })
+      const position = getPostion(event.clientX, event.clientY, reactFlowRef, reactFlowInstance)
       onAddNode({
         widget,
         position,
@@ -83,44 +78,45 @@ const FlowEditor: React.FC = () => {
     [reactFlowInstance]
   )
 
-  const handleMouseMove = debounce((event: any) => {
-    try {
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
-      const position = reactFlowInstance.project({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      })
-      setMousePosition(position)
-    } catch {}
-  }, 500)
-
-  const handleCopy = () => {
-    const selectedNodes = nodes.filter((n) => n.selected).map((n) => n.id)
-    const selectedEdges = edges
-      .filter((e) => selectedNodes.includes(e.target) && selectedNodes.includes(e.source))
-      .map((e) => ({ source: e.source, target: e.target, sourceHandle: e.sourceHandle, targetHandle: e.targetHandle }))
-    const copyData = { nodes: selectedNodes, edges: selectedEdges }
+  const handleCopy = useCallback(() => {
+    const copyData = onCopyNode()
     navigator.clipboard.writeText(JSON.stringify(copyData))
     console.log('[Copy]', copyData)
-  }
+  }, [])
 
-  const handlePaste = async () => {
-    const clipboardData = await navigator.clipboard.readText()
-    const pasteData = JSON.parse(clipboardData)
-    console.log('[Paste]', pasteData)
-  }
-
-  const handleKeyDown = (event: any) => {
-    if (event.ctrlKey && event.code === 'KeyC') {
-      handleCopy()
-    } else if (event.ctrlKey && event.code === 'KeyV') {
-      handlePaste()
+  const handlePaste = useCallback(async (instance: any) => {
+    try {
+      const clipboardData = await navigator.clipboard.readText()
+      const pasteData = JSON.parse(clipboardData)
+      const postion = getPostionCenter(reactFlowRef, instance)
+      if (pasteData) onPasteNode(pasteData, postion)
+      console.log('[Paste]', pasteData, postion)
+    } catch (e) {
+      console.log('[Paste]', e)
     }
-  }
+  }, [])
+
+  const handleKeyDown = useCallback(
+    (event: any) => {
+      if (event.ctrlKey && event.code === 'KeyC') {
+        handleCopy()
+      } else if (event.ctrlKey && event.code === 'KeyV') {
+        handlePaste(reactFlowInstance)
+      }
+    },
+    [reactFlowInstance]
+  )
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [reactFlowInstance])
 
   return (
     <ReactFlow
-      ref={reactFlowWrapper}
+      ref={reactFlowRef}
       nodes={nodes}
       edges={edges}
       fitView
@@ -131,8 +127,6 @@ const FlowEditor: React.FC = () => {
       deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
       disableKeyboardA11y={true}
-      onKeyDown={handleKeyDown}
-      onMouseMove={handleMouseMove}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onEdgeUpdate={onEdgeUpdate}

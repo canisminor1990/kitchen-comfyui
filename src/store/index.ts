@@ -1,9 +1,11 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
+import { Connection } from '@/types'
 import {
   addConnection,
   addNode,
   getLocalWorkflowFromId,
   getQueueItems,
+  getTopLeftPoint,
   retrieveTempWorkflow,
   saveLocalWorkflow,
   saveTempWorkflow,
@@ -157,12 +159,71 @@ export const useAppStore = create<AppState>()(
       )
     },
 
-    getNodeFieldsData: (id, key) => {
+    onGetNodeFieldsData: (id, key) => {
       try {
         return get()?.graph[id]?.fields[key]
       } catch (e) {
         console.error(e)
       }
+    },
+
+    onCopyNode: () => {
+      const selectedNodes = get()
+        .nodes.filter((n) => n.selected)
+        .map((n) => n.id)
+      const workflow = toPersisted(get())
+      const workflowData: any = {}
+      selectedNodes.forEach((id) => {
+        workflowData[id] = workflow.data[id]
+      })
+      workflow.data = workflowData
+      workflow.connections = workflow.connections.filter(
+        (e) => selectedNodes.includes(e.target) && selectedNodes.includes(e.source)
+      )
+      return workflow
+    },
+
+    onPasteNode: (workflow, position) => {
+      const time = new Date().getTime()
+      const basePositon = getTopLeftPoint(Object.values(workflow.data).map((item) => item.position))
+      set(
+        (st) => {
+          let state: AppState = st
+          for (const [key, node] of Object.entries(workflow.data)) {
+            const widget = state.widgets[node.value.widget]
+            if (widget !== undefined) {
+              state = addNode(
+                state,
+                {
+                  widget,
+                  node: node.value,
+                  position: {
+                    x: Math.floor(node.position.x - basePositon.x + position.x),
+                    y: Math.floor(node.position.y - basePositon.y + position.y),
+                  },
+                  width: node.width,
+                  height: node.height,
+                  key: parseInt(key) + time,
+                },
+                true
+              )
+            } else {
+              console.warn(`Unknown widget ${node.value.widget}`)
+            }
+          }
+          for (const connection of workflow.connections) {
+            const newConnection: Connection = {
+              ...connection,
+              source: String(parseInt(connection.source) + time),
+              target: String(parseInt(connection.target) + time),
+            }
+            state = addConnection(state, newConnection)
+          }
+          return state
+        },
+        true,
+        'onPasteNode'
+      )
     },
 
     /******************************************************

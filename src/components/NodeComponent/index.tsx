@@ -38,7 +38,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
       inputImgPreviews: [
         {
           image: {
-            filename: st.getNodeFieldsData(node.id, 'image'),
+            filename: st.onGetNodeFieldsData(node.id, 'image'),
             type: 'input',
           },
           index: 0,
@@ -59,7 +59,6 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const outputs: any[] = node.data.output
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
-
   const name = node.data?.nickname || node.data.name
 
   for (const [property, input] of Object.entries(node.data.input.required)) {
