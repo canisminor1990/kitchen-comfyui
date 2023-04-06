@@ -19,7 +19,7 @@ export interface NodeItem {
   widget: Widget
   node?: SDNode
   position?: XYPosition
-  key?: number
+  key?: string
   width?: number
   height?: number
 }

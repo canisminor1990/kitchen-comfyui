@@ -1,6 +1,6 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
-import { Connection } from '@/types'
 import {
+  PersistedGraph,
   addConnection,
   addNode,
   getLocalWorkflowFromId,
@@ -15,6 +15,7 @@ import {
   writeWorkflowToFile,
 } from '@/utils'
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow'
+import { v4 as uuid } from 'uuid'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { AppState } from './AppState'
@@ -184,12 +185,42 @@ export const useAppStore = create<AppState>()(
     },
 
     onPasteNode: (workflow, position) => {
-      const time = new Date().getTime()
       const basePositon = getTopLeftPoint(Object.values(workflow.data).map((item) => item.position))
+      const idMap: { [id: string]: string } = {} // 存储原始节点 id 和新节点 id 的映射关系
+      const newWorkflow: PersistedGraph = {
+        data: {},
+        connections: [],
+      }
+
+      // 复制节点并更新 id
+      Object.entries(workflow.data).forEach(([id, node]) => {
+        const newNode = {
+          ...node,
+          position: {
+            x: Math.floor(node.position.x - basePositon.x + position.x),
+            y: Math.floor(node.position.y - basePositon.y + position.y),
+          },
+          key: uuid(), // 使用 uuid 生成新的唯一标识符
+        }
+        newWorkflow.data[newNode.key] = newNode
+        idMap[id] = newNode.key // 记录原始节点 id 和新节点 id 的映射关系
+      })
+
+      // 更新 connection 中的 source 和 target
+      workflow.connections.forEach((conn) => {
+        const newConn = {
+          ...conn,
+          source: idMap[conn.source],
+          target: idMap[conn.target],
+        }
+        newWorkflow.connections.push(newConn)
+      })
+
+      // 将新的 workflow 合并到状态管理器中
       set(
         (st) => {
           let state: AppState = st
-          for (const [key, node] of Object.entries(workflow.data)) {
+          for (const [key, node] of Object.entries(newWorkflow.data)) {
             const widget = state.widgets[node.value.widget]
             if (widget !== undefined) {
               state = addNode(
@@ -197,13 +228,10 @@ export const useAppStore = create<AppState>()(
                 {
                   widget,
                   node: node.value,
-                  position: {
-                    x: Math.floor(node.position.x - basePositon.x + position.x),
-                    y: Math.floor(node.position.y - basePositon.y + position.y),
-                  },
+                  position: node.position,
                   width: node.width,
                   height: node.height,
-                  key: parseInt(key) + time,
+                  key,
                 },
                 true
               )
@@ -211,13 +239,8 @@ export const useAppStore = create<AppState>()(
               console.warn(`Unknown widget ${node.value.widget}`)
             }
           }
-          for (const connection of workflow.connections) {
-            const newConnection: Connection = {
-              ...connection,
-              source: String(parseInt(connection.source) + time),
-              target: String(parseInt(connection.target) + time),
-            }
-            state = addConnection(state, newConnection)
+          for (const connection of newWorkflow.connections) {
+            state = addConnection(state, connection)
           }
           return state
         },
@@ -345,7 +368,7 @@ export const useAppStore = create<AppState>()(
                 position: node.position,
                 width: node.width,
                 height: node.height,
-                key: parseInt(key),
+                key: key,
               })
             } else {
               console.warn(`Unknown widget ${node.value.widget}`)
