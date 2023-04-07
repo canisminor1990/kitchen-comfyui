@@ -29,6 +29,7 @@ const FlowEditor: React.FC = () => {
     onCopyNode,
     onPasteNode,
     onSetNodesGroup,
+    onDeleteNode,
   } = useAppStore(
     (st) => ({
       nodes: st.nodes,
@@ -41,6 +42,7 @@ const FlowEditor: React.FC = () => {
       onCopyNode: st.onCopyNode,
       onPasteNode: st.onPasteNode,
       onSetNodesGroup: st.onSetNodesGroup,
+      onDeleteNode: st.onDeleteNode,
     }),
     shallow
   )
@@ -128,6 +130,8 @@ const FlowEditor: React.FC = () => {
         handleCopy()
       } else if (ctrlKey && event.code === 'KeyV') {
         handlePaste(reactFlowInstance)
+      } else if (event.code === 'Delete' || event.code === 'Backspace') {
+        reactFlowInstance.getNodes().forEach((n: any) => n.selected && onDeleteNode(n.id))
       }
     },
     [reactFlowInstance]
@@ -150,8 +154,8 @@ const FlowEditor: React.FC = () => {
       snapGrid={[20, 20]}
       minZoom={0.05}
       nodeTypes={nodeTypes}
-      deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
+      deleteKeyCode={[]}
       panOnScroll={!isWindows}
       zoomOnScroll={isWindows}
       disableKeyboardA11y={true}
@@ -161,7 +165,8 @@ const FlowEditor: React.FC = () => {
       onEdgeUpdateStart={onEdgeUpdateStart}
       onEdgeUpdateEnd={onEdgeUpdateEnd}
       onConnect={onConnect}
-      onNodeDrag={onNodeDrag}
+      onNodeDragStop={onNodeDrag}
+      onNodeDragStart={onNodeDrag}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onInit={(e: any) => {

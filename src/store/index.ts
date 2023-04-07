@@ -100,6 +100,19 @@ export const useAppStore = create<AppState>()(
       }))
     },
 
+    onDetachNodesGroup: (childIds, groupNode) => {
+      set((st) => ({
+        nodes: st.nodes.map((n) => {
+          if (childIds.includes(n.id)) {
+            n.parentNode = undefined
+            n.position.x = n.position.x + groupNode.position.x
+            n.position.y = n.position.y + groupNode.position.y
+          }
+          return n
+        }),
+      }))
+    },
+
     onNodesChange: (changes) => {
       set((st) => ({ nodes: applyNodeChanges(changes, st.nodes) }), false, 'onNodesChange')
     },
@@ -113,10 +126,13 @@ export const useAppStore = create<AppState>()(
     },
 
     onDeleteNode: (id) => {
+      let nodes = get().nodes
+      const node: any = nodes.find((n) => n.id === id)
+      const childIds = nodes.filter((n) => n.parentNode === id).map((n) => n.id)
+      get().onDetachNodesGroup(childIds, node)
       set(
-        ({ graph: { [id]: _toDelete }, nodes }) => ({
-          // graph, // should work but currently buggy
-          nodes: applyNodeChanges([{ type: 'remove', id }], nodes),
+        (st) => ({
+          nodes: applyNodeChanges([{ type: 'remove', id }], st.nodes),
         }),
         false,
         'onDeleteNode'

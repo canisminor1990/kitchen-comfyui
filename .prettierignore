@@ -9,6 +9,7 @@
 *.jpg
 *.webp
 *.toml
+*.py
 docker
 .editorconfig
 Dockerfile*
