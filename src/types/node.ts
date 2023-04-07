@@ -22,6 +22,7 @@ export interface NodeItem {
   key?: string
   width?: number
   height?: number
+  parentNode?: string
 }
 
 // 3. SDNode 相关类型定义

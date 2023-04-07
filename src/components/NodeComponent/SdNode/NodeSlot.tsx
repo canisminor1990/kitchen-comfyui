@@ -3,7 +3,7 @@ import { isArray, startCase } from 'lodash-es'
 import React from 'react'
 import { Handle, HandleType, Position } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import { Slot } from './style'
+import { Slot } from '../style'
 
 interface NodeSlotProps {
   label: string

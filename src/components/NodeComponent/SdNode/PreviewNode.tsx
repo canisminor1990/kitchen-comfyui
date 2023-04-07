@@ -3,7 +3,7 @@ import { checkInput } from '@/utils'
 import { startCase } from 'lodash-es'
 import React from 'react'
 import styled from 'styled-components'
-import { NodeCard, SpaceCol, SpaceGrid } from './style'
+import { NodeCard, SpaceCol, SpaceGrid } from '../style'
 
 const Slot = styled.div<{ isRequired: 1 | 0 }>`
   background: ${({ isRequired, theme }) => (isRequired ? theme.colorPrimary : theme.colorBorder)};

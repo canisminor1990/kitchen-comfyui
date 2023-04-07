@@ -1,7 +1,7 @@
 import React from 'react'
 import { Position } from 'reactflow'
+import { SpaceCol } from '../style'
 import NodeSlot from './NodeSlot'
-import { SpaceCol } from './style'
 
 interface NodeOutpusProps {
   data: string[]

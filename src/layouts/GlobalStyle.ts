@@ -15,6 +15,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Hack', 'IBM Plex Mono', 'ui-monospace', 'Consolas', monospace !important;
   }
 
+  .react-flow__node[type="group"] {
+    z-index: -1 !important;
+    pointer-events: none !important;
+  }
+
 
   .react-json-view {
     background: transparent !important;

@@ -1,5 +1,5 @@
 import { InputComponent } from '@/components'
-import NodeSlot from '@/components/NodeComponent/NodeSlot'
+import NodeSlot from '@/components/NodeComponent/SdNode/NodeSlot'
 import { Flow } from '@/types'
 import React from 'react'
 import { Position } from 'reactflow'

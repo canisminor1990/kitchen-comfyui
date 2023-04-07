@@ -1,4 +1,5 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
+import { Widget, WidgetKey } from '@/types'
 import {
   PersistedGraph,
   addConnection,
@@ -20,6 +21,16 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { AppState } from './AppState'
 export * from './AppState'
+
+const defaultWidgets: Record<WidgetKey, Widget> = {
+  Group: {
+    input: { required: {} },
+    output: [],
+    output_name: [],
+    name: 'Group',
+    category: 'Utils',
+  },
+}
 
 export const useAppStore = create<AppState>()(
   devtools((set, get) => ({
@@ -58,19 +69,36 @@ export const useAppStore = create<AppState>()(
 
     onRefresh: async () => {
       const widgets = await getWidgets()
-      set({ widgets }, false, 'onRefresh')
+      set({ widgets: { ...widgets, ...defaultWidgets } }, false, 'onRefresh')
     },
 
     onInit: async () => {
       setInterval(() => get().onPersistTemp(), 5000)
       const widgets = await getWidgets()
-      set({ widgets }, false, 'onInit')
+      set({ widgets: { ...widgets, ...defaultWidgets } }, false, 'onInit')
       get().onLoadWorkflow(retrieveTempWorkflow() ?? { data: {}, connections: [] })
     },
 
     /******************************************************
      *********************** Node *************************
      ******************************************************/
+    onSetNodesGroup: (childIds, groupNode) => {
+      set((st) => ({
+        nodes: st.nodes.map((n) => {
+          if (childIds.includes(n.id)) {
+            if (n.parentNode === groupNode.id) return n
+            n.parentNode = groupNode.id
+            n.position.x = n.position.x - groupNode.position.x
+            n.position.y = n.position.y - groupNode.position.y
+          } else if (n.parentNode === groupNode.id) {
+            n.parentNode = undefined
+            n.position.x = n.position.x + groupNode.position.x
+            n.position.y = n.position.y + groupNode.position.y
+          }
+          return n
+        }),
+      }))
+    },
 
     onNodesChange: (changes) => {
       set((st) => ({ nodes: applyNodeChanges(changes, st.nodes) }), false, 'onNodesChange')
@@ -185,6 +213,7 @@ export const useAppStore = create<AppState>()(
     },
 
     onPasteNode: (workflow, position) => {
+      const nodes = get().nodes
       const basePositon = getTopLeftPoint(Object.values(workflow.data).map((item) => item.position))
       const idMap: { [id: string]: string } = {} // 存储原始节点 id 和新节点 id 的映射关系
       const newWorkflow: PersistedGraph = {
@@ -202,8 +231,25 @@ export const useAppStore = create<AppState>()(
           },
           key: uuid(), // 使用 uuid 生成新的唯一标识符
         }
+        if (node.parentNode) {
+          if (!Object.keys(workflow.data).includes(node.parentNode)) {
+            newNode.parentNode = undefined
+            const groupNode = nodes.find((n) => n.id === node.parentNode)
+            if (groupNode) {
+              newNode.position.x = newNode.position.x + groupNode.position.x
+              newNode.position.y = newNode.position.y + groupNode.position.y
+            }
+          } else {
+            newNode.position = node.position
+          }
+        }
         newWorkflow.data[newNode.key] = newNode
         idMap[id] = newNode.key // 记录原始节点 id 和新节点 id 的映射关系
+      })
+
+      Object.keys(newWorkflow.data).forEach((key) => {
+        const parentNodeId = newWorkflow.data[key]?.parentNode
+        if (parentNodeId) newWorkflow.data[key].parentNode = idMap[parentNodeId]
       })
 
       // 更新 connection 中的 source 和 target
@@ -231,6 +277,7 @@ export const useAppStore = create<AppState>()(
                   position: node.position,
                   width: node.width,
                   height: node.height,
+                  parentNode: node.parentNode,
                   key,
                 },
                 true
@@ -368,6 +415,7 @@ export const useAppStore = create<AppState>()(
                 width: node.width,
                 height: node.height,
                 key: key,
+                parentNode: node.parentNode,
               })
             } else {
               console.warn(`Unknown widget ${node.value.widget}`)

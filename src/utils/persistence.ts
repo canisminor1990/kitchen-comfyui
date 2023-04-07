@@ -10,6 +10,7 @@ export interface PersistedNode {
   position: Position
   width?: number
   height?: number
+  parentNode?: string
 }
 
 export interface PersistedGraph {
@@ -35,6 +36,7 @@ export function toPersisted(state: AppState): PersistedGraph {
       data[node.id] = { value, position: node.position }
       if (node.width) data[node.id].width = node.width
       if (node.height) data[node.id].height = node.height
+      if (node.parentNode) data[node.id].parentNode = node.parentNode
     }
   }
   return {

@@ -2,19 +2,15 @@ import { ActionIcon, Input } from '@/components'
 import { ColorMenu, colorList } from '@/components/NodeComponent/ColorMenu'
 import { useAppStore } from '@/store'
 import { ImageItem, type Widget } from '@/types'
-import { checkInput } from '@/utils'
 import { CopyOutlined, DeleteOutlined, EditOutlined, HighlightOutlined, MoreOutlined } from '@ant-design/icons'
 import { Dropdown, Progress, type MenuProps } from 'antd'
 import { useTheme } from 'antd-style'
-import { mix } from 'polished'
-import React, { useState } from 'react'
+import { mix, rgba } from 'polished'
+import React, { useEffect, useRef, useState } from 'react'
 import { NodeResizeControl, type NodeProps } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import NodeImgPreview from './NodeImgPreview'
-import NodeInputs from './NodeInputs'
-import NodeOutpus from './NodeOutpus'
-import NodeParams from './NodeParams'
-import { NodeCard, SpaceGrid } from './style'
+import SdNode from './SdNode'
+import { GroupCard, NodeCard } from './style'
 
 export const NODE_IDENTIFIER = 'sdNode'
 
@@ -24,26 +20,10 @@ export interface ImagePreview {
 }
 
 const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
-  const { progressBar, imagePreviews, onDuplicateNode, onDeleteNode, onModifyChange, inputImgPreviews } = useAppStore(
+  const ref: any = useRef(null)
+  const { progressBar, onDuplicateNode, onDeleteNode, onModifyChange } = useAppStore(
     (st) => ({
       progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
-      imagePreviews: st.graph?.[node.id]?.images
-        ?.map((image, index) => {
-          return {
-            image,
-            index,
-          }
-        })
-        .filter(Boolean),
-      inputImgPreviews: [
-        {
-          image: {
-            filename: st.onGetNodeFieldsData(node.id, 'image'),
-            type: 'input',
-          },
-          index: 0,
-        },
-      ].filter((i) => i.image.filename),
       onPropChange: st.onPropChange,
       onDuplicateNode: st.onDuplicateNode,
       onDeleteNode: st.onDeleteNode,
@@ -54,21 +34,10 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
 
   const theme = useTheme()
   const [nicknameInput, setNicknameInput] = useState<boolean>(false)
-  const params: any[] = []
-  const inputs: any[] = []
-  const outputs: any[] = node.data.output
   const isInProgress = progressBar !== undefined
   const isSelected = node.selected
   const name = node.data?.nickname || node.data.name
-
-  for (const [property, input] of Object.entries(node.data.input.required)) {
-    if (checkInput.isParameterOrList(input)) {
-      params.push({ name: property, type: input[0], input })
-    } else {
-      inputs.push({ name: property, type: input[0] })
-    }
-  }
-
+  const isGroup = node.data.name === 'Group'
   const handleNickname = (e: any) => {
     const nickname = e.target.value
     onModifyChange(node.id, 'nickname', nickname)
@@ -110,10 +79,26 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
     },
   ]
 
+  const StyledCard = isGroup ? GroupCard : NodeCard
+  let background
+  if (isGroup) {
+    background = node.data?.color ? rgba(node.data.color, 0.2) : theme.colorFill
+  } else {
+    background = node.data?.color ? mix(0.8, theme.colorBgContainer, node.data.color) : theme.colorBgContainer
+  }
+
+  useEffect(() => {
+    if (isGroup) {
+      const parenet = ref.current?.parentNode
+      parenet.setAttribute('type', 'group')
+    }
+  }, [])
+
   return (
-    <NodeCard
+    <StyledCard
+      ref={ref}
       size="small"
-      style={node.data?.color ? { background: mix(0.8, theme.colorBgContainer, node.data.color) } : {}}
+      style={{ background }}
       title={
         nicknameInput ? (
           <Input
@@ -129,7 +114,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
         )
       }
       active={isInProgress || isSelected ? 1 : 0}
-      hoverable
+      hoverable={!isGroup}
       extra={
         isInProgress
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
@@ -140,14 +125,9 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
             )
       }
     >
-      <SpaceGrid>
-        <NodeInputs data={inputs} />
-        <NodeOutpus data={outputs} />
-      </SpaceGrid>
-      <NodeParams data={params} nodeId={node.id} />
-      <NodeImgPreview data={imagePreviews || inputImgPreviews} />
-      {isSelected && <NodeResizeControl />}
-    </NodeCard>
+      <SdNode {...node} />
+      {isSelected && <NodeResizeControl minWidth={80} minHeight={120} />}
+    </StyledCard>
   )
 }
 

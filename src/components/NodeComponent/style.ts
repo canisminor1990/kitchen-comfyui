@@ -3,17 +3,42 @@ import { Position } from 'reactflow'
 import styled, { css } from 'styled-components'
 
 export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
-  min-width: 240px;
   box-shadow: ${({ theme }) => theme.boxShadowTertiary};
+  min-width: 80px;
+  min-height: 120px;
   ${({ active, theme }) =>
     active
       ? css`
           outline: 2px solid ${theme.colorPrimary};
         `
-      : ''}
+      : ''};
   .ant-card-head {
     background: ${({ theme }) => theme.colorFillQuaternary} !important;
     padding-right: 3px;
+    border-bottom: unset;
+    height: 15px;
+  }
+`
+
+export const GroupCard = styled(Card)<{ active: 1 | 0 }>`
+  min-width: 80px;
+  min-height: 120px;
+  height: 100%;
+  ${({ active, theme }) =>
+    active
+      ? css`
+          outline: 2px solid ${theme.colorPrimary};
+        `
+      : ''};
+  .react-flow__resize-control {
+    pointer-events: all !important;
+  }
+  .ant-card-head {
+    background: ${({ theme }) => theme.colorFillQuaternary} !important;
+    padding-right: 3px;
+    border-bottom: unset;
+    height: 15px;
+    pointer-events: all !important;
   }
 `
 

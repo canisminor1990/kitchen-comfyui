@@ -3,6 +3,7 @@ import { useAppStore } from '@/store'
 import { getPostion, getPostionCenter } from '@/utils'
 import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
+import { NodeDragHandler } from '@reactflow/core/dist/esm/types/nodes'
 import { useTheme } from 'antd-style'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'reactflow'
@@ -17,21 +18,32 @@ const FlowEditor: React.FC = () => {
   const reactFlowRef: any = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, onInit, onAddNode, onCopyNode, onPasteNode } =
-    useAppStore(
-      (st) => ({
-        nodes: st.nodes,
-        edges: st.edges,
-        onNodesChange: st.onNodesChange,
-        onEdgesChange: st.onEdgesChange,
-        onConnect: st.onConnect,
-        onInit: st.onInit,
-        onAddNode: st.onAddNode,
-        onCopyNode: st.onCopyNode,
-        onPasteNode: st.onPasteNode,
-      }),
-      shallow
-    )
+  const {
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    onInit,
+    onAddNode,
+    onCopyNode,
+    onPasteNode,
+    onSetNodesGroup,
+  } = useAppStore(
+    (st) => ({
+      nodes: st.nodes,
+      edges: st.edges,
+      onInit: st.onInit,
+      onNodesChange: st.onNodesChange,
+      onEdgesChange: st.onEdgesChange,
+      onConnect: st.onConnect,
+      onAddNode: st.onAddNode,
+      onCopyNode: st.onCopyNode,
+      onPasteNode: st.onPasteNode,
+      onSetNodesGroup: st.onSetNodesGroup,
+    }),
+    shallow
+  )
 
   const onEdgeUpdateStart = useCallback(() => {
     edgeUpdateSuccessful.current = false
@@ -75,6 +87,18 @@ const FlowEditor: React.FC = () => {
         widget,
         position,
       })
+    },
+    [reactFlowInstance]
+  )
+
+  const onNodeDrag: NodeDragHandler = useCallback(
+    (_, node, nodes) => {
+      if (nodes.length > 2 || node.data.name !== 'Group') return
+      const intersections = reactFlowInstance
+        .getIntersectingNodes(node)
+        .filter((n: any) => n.data.name !== 'Group' && (n.parentNode === node.id || !n.parentNode))
+        .map((n: any) => n.id)
+      onSetNodesGroup(intersections, node)
     },
     [reactFlowInstance]
   )
@@ -123,14 +147,13 @@ const FlowEditor: React.FC = () => {
       edges={edges}
       fitView
       snapToGrid
-      snapGrid={[24, 24]}
+      snapGrid={[20, 20]}
       minZoom={0.05}
       nodeTypes={nodeTypes}
       deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
       panOnScroll={!isWindows}
       zoomOnScroll={isWindows}
-      onlyRenderVisibleElements
       disableKeyboardA11y={true}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
@@ -138,6 +161,7 @@ const FlowEditor: React.FC = () => {
       onEdgeUpdateStart={onEdgeUpdateStart}
       onEdgeUpdateEnd={onEdgeUpdateEnd}
       onConnect={onConnect}
+      onNodeDrag={onNodeDrag}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onInit={(e: any) => {

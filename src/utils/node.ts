@@ -7,7 +7,7 @@ import { fromWidget } from './widget'
 // 用于添加、更新和获取节点的函数
 export function addNode(
   state: AppState,
-  { widget, node, position, width, height, key }: NodeItem,
+  { widget, node, position, width, height, key, parentNode }: NodeItem,
   isCopy?: boolean
 ): AppState {
   const nextKey = key ? key : uuid()
@@ -26,6 +26,7 @@ export function addNode(
     zIndex: maxZ + 1,
     width,
     height,
+    parentNode,
     style: {
       width,
       height,

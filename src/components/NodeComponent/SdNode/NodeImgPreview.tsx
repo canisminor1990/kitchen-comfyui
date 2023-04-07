@@ -1,4 +1,4 @@
-import { ImagePreview } from '@/components/NodeComponent/index'
+import { ImagePreview } from '@/components/NodeComponent'
 import { emptyImg } from '@/components/theme'
 import { getBackendUrl } from '@/config'
 import { Image } from 'antd'

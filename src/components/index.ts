@@ -6,5 +6,5 @@ export { default as WorkflowPageComponent } from './ControlPanelComponent/Workfl
 export * from './EditorComponent'
 export { default as Header } from './Header'
 export { NODE_IDENTIFIER, default as NodeComponent } from './NodeComponent'
-export { default as InputComponent } from './NodeComponent/InputComponent'
-export { default as PreviewNode } from './NodeComponent/PreviewNode'
+export { default as InputComponent } from './NodeComponent/SdNode/InputComponent'
+export { default as PreviewNode } from './NodeComponent/SdNode/PreviewNode'

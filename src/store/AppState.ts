@@ -47,6 +47,7 @@ export interface AppState {
   /******************************************************
    *********************** Node *************************
    ******************************************************/
+  onSetNodesGroup: (childIds: NodeId[], groupNode: Node) => void
   onNodesChange: OnNodesChange
   onUpdateNodes: (id: string, data: any) => void
   onAddNode: (nodeItem: NodeItem) => void
