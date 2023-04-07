@@ -13,6 +13,7 @@ const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
 const FlowEditor: React.FC = () => {
   const theme = useTheme()
+  const isWindows = navigator.platform.includes('Win')
   const reactFlowRef: any = useRef(null)
   const edgeUpdateSuccessful = useRef(true)
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
@@ -127,8 +128,8 @@ const FlowEditor: React.FC = () => {
       nodeTypes={nodeTypes}
       deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
-      panOnScroll
-      zoomOnScroll={false}
+      panOnScroll={!isWindows}
+      zoomOnScroll={isWindows}
       onlyRenderVisibleElements
       disableKeyboardA11y={true}
       onNodesChange={onNodesChange}
