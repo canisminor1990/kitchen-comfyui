@@ -98,9 +98,10 @@ const FlowEditor: React.FC = () => {
 
   const handleKeyDown = useCallback(
     (event: any) => {
-      if (event.ctrlKey && event.code === 'KeyC') {
+      const ctrlKey = event.metaKey || (event.ctrlKey && !event.altKey)
+      if (ctrlKey && event.code === 'KeyC') {
         handleCopy()
-      } else if (event.ctrlKey && event.code === 'KeyV') {
+      } else if (ctrlKey && event.code === 'KeyV') {
         handlePaste(reactFlowInstance)
       }
     },
@@ -122,10 +123,13 @@ const FlowEditor: React.FC = () => {
       fitView
       snapToGrid
       snapGrid={[24, 24]}
-      minZoom={0.1}
+      minZoom={0.05}
       nodeTypes={nodeTypes}
       deleteKeyCode={['Delete', 'Backspace']}
       multiSelectionKeyCode={['Shift']}
+      panOnScroll
+      zoomOnScroll={false}
+      onlyRenderVisibleElements
       disableKeyboardA11y={true}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
