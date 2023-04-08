@@ -1,4 +1,5 @@
 import type { NodeId, PersistedGraph, PersistedNode, Widget } from '@/types'
+import { Connection } from '@/types'
 import { Node, PromptRequest, PromptResponse, Queue } from '@/types/client'
 import { checkInput, getBackendUrl } from '@/utils'
 
@@ -47,22 +48,51 @@ export const sendPrompt = async (prompt: PromptRequest): Promise<PromptResponse>
 }
 
 /**
+ * 重新连接
+ * @param oldConnections Connection[] 旧连接
+ * @returns Connection[] 新连接
+ */
+const reconnection = (oldConnections: Connection[]): Connection[] => {
+  let connections: Connection[] = oldConnections.map((connect) => {
+    if (connect.sourceHandle === '*') {
+      const parent: any = oldConnections.find((c) => c.target === connect.source)
+      return {
+        ...connect,
+        source: parent.source,
+        sourceHandle: parent.sourceHandle,
+      }
+    }
+    return connect
+  })
+
+  if (connections.find((c) => c.sourceHandle === '*')) {
+    return reconnection(connections)
+  } else {
+    return connections.filter((c) => c.targetHandle !== '*')
+  }
+}
+
+/**
  * 创建 Prompt 请求参数
- * @param graph 持久化图数据
- * @param widgets 小部件库
- * @param clientId 客户端 id
+ * @param {Props} props - 参数对象
  * @returns Prompt 请求参数
  */
-export const createPrompt = (
-  graph: PersistedGraph,
-  widgets: Record<string, Widget>,
+export const createPrompt = ({
+  graph,
+  widgets,
+  customWidgets,
+  clientId,
+}: {
+  graph: PersistedGraph
+  widgets: Record<string, Widget>
+  customWidgets: string[]
   clientId?: string
-): PromptRequest => {
+}): PromptRequest => {
   const prompt: Record<NodeId, Node> = {}
   const data: Record<NodeId, PersistedNode> = {}
 
   Object.entries(graph.data).forEach(([id, node]) => {
-    if (node.value.widget === 'Group') return
+    if (customWidgets.includes(node.value.widget)) return
     const fields = { ...node.value.fields }
     Object.entries(fields).forEach(([property, value]) => {
       const input = widgets[node.value.widget].input.required[property]
@@ -80,7 +110,12 @@ export const createPrompt = (
     }
   })
 
-  graph.connections.forEach((edge) => {
+  // Reconnection
+
+  let connections = reconnection(graph.connections)
+  console.log(connections)
+
+  connections.forEach((edge) => {
     const source = graph.data[edge.source]
     if (!source) return
     const outputIndex = widgets[source.value.widget].output.findIndex((f) => f === edge.sourceHandle)
@@ -92,6 +127,6 @@ export const createPrompt = (
   return {
     prompt,
     client_id: clientId,
-    extra_data: { extra_pnginfo: { workflow: { connections: graph.connections, data } } },
+    extra_data: { extra_pnginfo: { workflow: { connections, data } } },
   }
 }

@@ -11,6 +11,7 @@
  * - 'INT' 整数
  * - 'FLOAT' 浮点数
  * - 'STRING' 字符串
+ * - '*' 所有
  */
 export type Flow =
   | 'MODEL'
@@ -24,3 +25,4 @@ export type Flow =
   | 'INT'
   | 'FLOAT'
   | 'STRING'
+  | '*'

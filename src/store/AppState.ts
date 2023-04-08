@@ -38,6 +38,11 @@ export interface AppState {
   widgets: Record<WidgetKey, Widget>
 
   /**
+   * @title 自定义小部件
+   */
+  customWidgets: string[]
+
+  /**
    * @title 图表
    */
   graph: Record<NodeId, SDNode>

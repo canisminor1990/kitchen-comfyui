@@ -6,7 +6,7 @@ import { Handle, HandleType, Position } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { Slot } from '../style'
 
-interface NodeSlotProps {
+interface NodeHandleProps {
   label: string
   type: HandleType
   position: Position
@@ -14,11 +14,12 @@ interface NodeSlotProps {
   isRequired?: boolean
 }
 
-const NodeSlot: React.FC<NodeSlotProps> = ({ label, type, position, slotType, isRequired }) => {
+const NodeHandle: React.FC<NodeHandleProps> = ({ label, type, position, slotType, isRequired }) => {
   const { nodes } = useAppStore((state) => ({ nodes: state.nodes }), shallow)
 
   const handleValidCheck = useCallback(
     (connection: Connection) => {
+      if (connection.targetHandle === '*' || connection.sourceHandle === '*') return true
       try {
         let targetType = nodes.find((n) => n.id === connection.target)?.data.input.required[
           String(connection.targetHandle)
@@ -43,4 +44,4 @@ const NodeSlot: React.FC<NodeSlotProps> = ({ label, type, position, slotType, is
   )
 }
 
-export default NodeSlot
+export default NodeHandle

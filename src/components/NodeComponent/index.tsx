@@ -126,10 +126,9 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   }
 
   useEffect(() => {
-    if (isGroup) {
-      const parenet = ref.current?.parentNode
-      parenet.setAttribute('type', 'group')
-    }
+    const parenet = ref.current?.parentNode
+    parenet.setAttribute('type', node.data.name)
+    ref.current.setAttribute('type', node.data.name)
   }, [])
 
   return (
@@ -157,14 +156,14 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
         isInProgress
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
           : isSelected && (
-              <Dropdown menu={{ items: extraMenu }} trigger={['click']}>
+              <Dropdown menu={{ items: extraMenu }} trigger={['click', 'hover']}>
                 <ActionIcon icon={<MoreOutlined />} onClick={(e) => e.preventDefault()} />
               </Dropdown>
             )
       }
     >
       <SdNode {...node} />
-      {isSelected && <NodeResizeControl minWidth={80} minHeight={120} />}
+      {isSelected && <NodeResizeControl minWidth={80} minHeight={40} />}
     </StyledCard>
   )
 }
