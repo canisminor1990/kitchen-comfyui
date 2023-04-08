@@ -5,6 +5,7 @@ import { Connection } from '@reactflow/core/dist/esm/types'
 import { Edge } from '@reactflow/core/dist/esm/types/edges'
 import { NodeDragHandler } from '@reactflow/core/dist/esm/types/nodes'
 import { useTheme } from 'antd-style'
+import { debounce } from 'lodash-es'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReactFlow, { Background, BackgroundVariant, Controls, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
@@ -41,18 +42,9 @@ const FlowEditor: React.FC = () => {
     onCreateGroup,
   } = useAppStore(
     (st) => ({
-      nodes: st.nodes,
-      edges: st.edges,
-      onInit: st.onInit,
-      onNodesChange: st.onNodesChange,
-      onEdgesChange: st.onEdgesChange,
-      onConnect: st.onConnect,
-      onAddNode: st.onAddNode,
-      onCopyNode: st.onCopyNode,
-      onPasteNode: st.onPasteNode,
-      onSetNodesGroup: st.onSetNodesGroup,
-      onDeleteNode: st.onDeleteNode,
-      onCreateGroup: st.onCreateGroup,
+      ...st,
+      onEdgesChange: debounce(st.onEdgesChange, 20),
+      onNodesChange: debounce(st.onNodesChange, 20),
     }),
     shallow
   )

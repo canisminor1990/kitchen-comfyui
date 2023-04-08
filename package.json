@@ -12,6 +12,7 @@
     "build": "umi build",
     "dev": "umi dev",
     "dev:with-mock": "cross-env MOCK=true umi dev",
+    "docs": "typedoc --options typedoc.json",
     "postinstall": "umi setup",
     "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\" --fix",
     "prepare": "husky install",
@@ -81,6 +82,9 @@
     "semantic-release-config-gitmoji": "^1",
     "styled-components": "^5.3.9",
     "stylelint": "^15.4.0",
+    "typedoc": "^0.23.28",
+    "typedoc-github-wiki-theme": "^1.0.1",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.0",
     "use-merge-value": "^1.2.0",
     "uuid": "^9.0.0"

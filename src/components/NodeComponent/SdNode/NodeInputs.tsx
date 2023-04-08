@@ -1,7 +1,7 @@
 import React from 'react'
 import { Position } from 'reactflow'
 import { SpaceCol } from '../style'
-import NodeSlot from './NodeSlot'
+import NodeHandle from './NodeHandle'
 
 interface NodeInputsProps {
   data: {
@@ -15,7 +15,7 @@ const NodeInputs: React.FC<NodeInputsProps> = ({ data }) => {
   return (
     <SpaceCol>
       {data.map(({ name, type }) => (
-        <NodeSlot key={name} slotType={type} label={name} type="target" position={Position.Left} isRequired />
+        <NodeHandle key={name} slotType={type} label={name} type="target" position={Position.Left} isRequired />
       ))}
     </SpaceCol>
   )

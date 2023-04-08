@@ -15,9 +15,13 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Hack', 'IBM Plex Mono', 'ui-monospace', 'Consolas', monospace !important;
   }
 
-  .react-flow__node[type="group"] {
+  .react-flow__node[type="Group"] {
     z-index: -1 !important;
     pointer-events: none !important;
+  }
+
+  .ant-card[type="Reroute"] .react-flow__handle {
+    margin-top: 0;
   }
 
 

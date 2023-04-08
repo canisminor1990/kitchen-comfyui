@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
   box-shadow: ${({ theme }) => theme.boxShadowTertiary};
   min-width: 80px;
-  min-height: 120px;
+  min-height: 40px;
   ${({ active, theme }) =>
     active
       ? css`

@@ -1,5 +1,5 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
-import type { PersistedGraph, Widget, WidgetKey } from '@/types'
+import type { PersistedGraph } from '@/types'
 import {
   addConnection,
   addNode,
@@ -21,17 +21,8 @@ import { v4 as uuid } from 'uuid'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { AppState } from './AppState'
+import customWidgets from './customWidgets'
 export * from './AppState'
-
-const defaultWidgets: Record<WidgetKey, Widget> = {
-  Group: {
-    input: { required: {} },
-    output: [],
-    output_name: [],
-    name: 'Group',
-    category: 'Utils',
-  },
-}
 
 export const useAppStore = create<AppState>()(
   devtools((set, get) => ({
@@ -41,6 +32,7 @@ export const useAppStore = create<AppState>()(
     page: 'flow',
     counter: 0,
     widgets: {},
+    customWidgets: Object.keys(customWidgets),
     graph: {},
     nodes: [],
     edges: [],
@@ -70,13 +62,13 @@ export const useAppStore = create<AppState>()(
 
     onRefresh: async () => {
       const widgets = await getWidgets()
-      set({ widgets: { ...widgets, ...defaultWidgets } }, false, 'onRefresh')
+      set({ widgets: { ...customWidgets, ...widgets } }, false, 'onRefresh')
     },
 
     onInit: async () => {
       setInterval(() => get().onPersistTemp(), 5000)
       const widgets = await getWidgets()
-      set({ widgets: { ...widgets, ...defaultWidgets } }, false, 'onInit')
+      set({ widgets: { ...customWidgets, ...widgets } }, false, 'onInit')
       get().onLoadWorkflow(retrieveTempWorkflow() ?? { data: {}, connections: [] })
     },
 
@@ -100,7 +92,7 @@ export const useAppStore = create<AppState>()(
       })
 
       const newGroupNode = {
-        widget: defaultWidgets.Group,
+        widget: customWidgets.Group,
         position: { x: left - 40, y: top - 60 },
         width: right - left + 80,
         height: bottom - top + 100,
@@ -390,7 +382,9 @@ export const useAppStore = create<AppState>()(
     onSubmit: async () => {
       const state = get()
       const graph = toPersisted(state)
-      const res = await sendPrompt(createPrompt(graph, state.widgets, state.clientId))
+      const res = await sendPrompt(
+        createPrompt({ graph, widgets: state.widgets, customWidgets: state.customWidgets, clientId: state.clientId })
+      )
       set({ promptError: res.error, counter: state.counter + 1 }, false, 'onSubmit')
     },
 
