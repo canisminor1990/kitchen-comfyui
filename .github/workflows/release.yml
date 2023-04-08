@@ -28,6 +28,7 @@ jobs:
       - name: Test
         run: pnpm run test
   build:
+    needs: test
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +57,7 @@ jobs:
         id: release
         run: pnpm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload release asset
         id: upload-release-asset
