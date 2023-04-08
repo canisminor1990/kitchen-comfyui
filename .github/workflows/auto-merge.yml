@@ -1,0 +1,35 @@
+name: Dependabot Auto Merge
+on:
+  pull_request_target:
+    types: [labeled, edited]
+
+jobs:
+  merge:
+    if: contains(github.event.pull_request.labels.*.name, 'dependencies')
+    name: Dependabot Auto Merge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Read Node version
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+
+      - name: Set Node version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Get yarn cache
+        uses: c-hive/gha-yarn-cache@v1
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Merge
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          command: merge
+          target: minor
+          github-token: ${{ secrets.GH_TOKEN }}
