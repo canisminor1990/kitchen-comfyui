@@ -62,7 +62,7 @@
     "dayjs": "^1.11.7",
     "eslint": "^8",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^2.2.1",
+    "eslint-import-resolver-typescript": "^3.5.5",
     "husky": "^8",
     "lint-staged": "^13.2.0",
     "lodash-es": "^4.17.21",
