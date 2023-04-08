@@ -5,6 +5,63 @@
 
 <div align="center">
   A reactflow base stable diffusion GUI as ComfyUI alternative interface.
+
+<br/>
+<br/>
+
+<!-- SHIELD GROUP -->
+
+[![release][release-shield]][release-url]
+[![releaseDate][release-date-shield]][release-date-url]
+[![ciTest][ci-test-shield]][ci-test-url]
+[![ciRelease][ci-release-shield]][ci-release-url]
+[![contributors][contributors-shield]][contributors-url]
+[![forks][forks-shield]][forks-url]
+[![stargazers][stargazers-shield]][stargazers-url]
+[![issues][issues-shield]][issues-url]
+
+<!-- SHIELD LINK GROUP -->
+
+<!-- release -->
+
+[release-shield]: https://img.shields.io/github/v/release/canisminor1990/kitchen-comfyui?style=flat&sort=semver&logo=github
+[release-url]: https://github.com/canisminor1990/kitchen-comfyui/releases
+
+<!-- releaseDate -->
+
+[release-date-shield]: https://img.shields.io/github/release-date/canisminor1990/kitchen-comfyui?style=flat
+[release-date-url]: https://github.com/canisminor1990/kitchen-comfyui/releases
+
+<!-- ciTest -->
+
+[ci-test-shield]: https://github.com/canisminor1990/kitchen-comfyui/workflows/Test%20CI/badge.svg
+[ci-test-url]: https://github.com/canisminor1990/kitchen-comfyui/actions/workflows/test.yml
+
+<!-- ciRelease -->
+
+[ci-release-shield]: https://github.com/canisminor1990/kitchen-comfyui/workflows/Build%20and%20Release/badge.svg
+[ci-release-url]: https://github.com/canisminor1990/kitchen-comfyui/actions/workflows/release.yml
+
+<!-- contributors -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/canisminor1990/kitchen-comfyui.svg?style=flat
+[contributors-url]: https://github.com/canisminor1990/kitchen-comfyui/graphs/contributors
+
+<!-- forks -->
+
+[forks-shield]: https://img.shields.io/github/forks/canisminor1990/kitchen-comfyui.svg?style=flat
+[forks-url]: https://github.com/canisminor1990/kitchen-comfyui/network/members
+
+<!-- stargazers -->
+
+[stargazers-shield]: https://img.shields.io/github/stars/canisminor1990/kitchen-comfyui.svg?style=flat
+[stargazers-url]: https://github.com/canisminor1990/kitchen-comfyui/stargazers
+
+<!-- issues -->
+
+[issues-shield]: https://img.shields.io/github/issues/canisminor1990/kitchen-comfyui.svg?style=flat
+[issues-url]: https://img.shields.io/github/issues/canisminor1990/kitchen-comfyui.svg?style=flat
+
 </div>
 
 <br/>
@@ -30,7 +87,7 @@
   - [ ] 局部 Flow 转换为组件
 
 - 节点
-  - [ ] 中继节点，支持一个到多个变量中继
+  - [x] 中继节点，支持一个到多个变量中继
   - [ ] WIFI 无线节点，输出节点/接受节点
   - [ ] 开关节点，控制流程是否往下
   - [ ] ...
@@ -45,7 +102,7 @@ clone ComfyUI follow the README.md installing there
 git clone https://github.com/comfyanonymous/ComfyUI
 ```
 
-replace `ComfyUI/web` frontend with `dist` build
+replace `ComfyUI/web` frontend with [release](https://github.com/canisminor1990/kitchen-comfyui/releases) build
 
 <br/>
 
