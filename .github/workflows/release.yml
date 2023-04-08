@@ -52,6 +52,10 @@ jobs:
       - name: Compress dist folder
         run: zip -r web.zip dist/
 
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=version::$(git describe --tags $(git rev-list --tags --max-count=1))
+
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -59,12 +63,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
           body: |
             Changes in this release:
             - Build dist folder
-          draft: false
-          prerelease: false
 
       - name: Upload release asset
         id: upload-release-asset
