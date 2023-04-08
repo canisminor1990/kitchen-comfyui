@@ -46,29 +46,17 @@ jobs:
       - name: Install deps
         run: pnpm install
 
-      - name: build
+      - name: Build
         run: pnpm run build
 
       - name: Compress dist folder
         run: zip -r web.zip dist/
 
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=version::$(git describe --tags $(git rev-list --tags --max-count=1))
-
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1.0.0
+      - name: Release
+        id: release
+        run: pnpm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.get_version.outputs.version }}
-          draft: false
-          prerelease: false
-          body: |
-            Changes in this release:
-            - Build dist folder
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload release asset
         id: upload-release-asset
@@ -76,7 +64,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.release.upload_url }}
           asset_path: ./web.zip
           asset_name: web.zip
           asset_content_type: application/zip

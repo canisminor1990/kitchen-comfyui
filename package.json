@@ -9,7 +9,6 @@
   "author": "canisminor1990 <i@canisminor.cc>",
   "sideEffects": false,
   "scripts": {
-    "---": "",
     "build": "umi build",
     "dev": "umi dev",
     "dev:with-mock": "cross-env MOCK=true umi dev",
@@ -17,6 +16,7 @@
     "lint": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\" --fix",
     "prepare": "husky install",
     "prettier": "prettier -c --write \"**/**\"",
+    "release": "semantic-release",
     "setup": "umi setup",
     "start": "npm run dev",
     "test": "npm run lint",
