@@ -15,16 +15,17 @@ const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 const FlowEditor: React.FC = () => {
   const theme = useTheme()
   const isWindows = navigator.platform.includes('Win')
-  const reactFlowRef: any = useRef(null)
+  const reactFlowRef = useRef<any>(null)
   const edgeUpdateSuccessful = useRef(true)
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
+
   const {
     nodes,
     edges,
+    onInit,
     onNodesChange,
     onEdgesChange,
     onConnect,
-    onInit,
     onAddNode,
     onCopyNode,
     onPasteNode,
@@ -152,14 +153,14 @@ const FlowEditor: React.FC = () => {
 
   return (
     <ReactFlow
-      ref={reactFlowRef}
       nodes={nodes}
       edges={edges}
+      nodeTypes={nodeTypes}
+      ref={reactFlowRef}
       fitView
       snapToGrid
       snapGrid={[20, 20]}
       minZoom={0.05}
-      nodeTypes={nodeTypes}
       multiSelectionKeyCode={['Shift']}
       deleteKeyCode={[]}
       panOnScroll={!isWindows}

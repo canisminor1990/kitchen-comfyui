@@ -50,6 +50,7 @@ export interface AppState {
   onCreateGroup: () => void
   onSetNodesGroup: (childIds: NodeId[], groupNode: Node) => void
   onDetachNodesGroup: (childIds: NodeId[], groupNode: Node) => void
+  onDetachGroup: (node: Node) => Node
   onNodesChange: OnNodesChange
   onUpdateNodes: (id: string, data: any) => void
   onAddNode: (nodeItem: NodeItem) => void

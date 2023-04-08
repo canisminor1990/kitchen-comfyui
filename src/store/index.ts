@@ -4,6 +4,8 @@ import {
   PersistedGraph,
   addConnection,
   addNode,
+  copyConnections,
+  copyNodes,
   getLocalWorkflowFromId,
   getQueueItems,
   getTopLeftPoint,
@@ -83,32 +85,30 @@ export const useAppStore = create<AppState>()(
      *********************** Node *************************
      ******************************************************/
     onCreateGroup: () => {
-      const childNodes = get().nodes.filter((n) => n.selected && n.data.name !== 'Group')
+      const { nodes, onDetachGroup } = get()
+      const childNodes = nodes.filter((n) => n.selected).map((n) => onDetachGroup(n))
+      if (childNodes.length < 1) return
       let left = Infinity
       let right = 0
       let top = Infinity
       let bottom = 0
 
-      Object.values(childNodes).forEach((node) => {
-        const { position, width, height } = node
-        left = Math.min(left, position.x)
-        right = Math.max(right, position.x + Number(width))
-        top = Math.min(top, position.y)
-        bottom = Math.max(bottom, position.y + Number(height))
+      childNodes.forEach(({ position: { x, y }, width, height }) => {
+        left = Math.min(left, x)
+        right = Math.max(right, x + Number(width))
+        top = Math.min(top, y)
+        bottom = Math.max(bottom, y + Number(height))
       })
 
-      set(
-        (st) =>
-          addNode(st, {
-            widget: defaultWidgets.Group,
-            position: { x: left - 40, y: top - 60 },
-            width: right - left + 80,
-            height: bottom - top + 100,
-            key: uuid(),
-          }),
-        false,
-        'onCreateGroup'
-      )
+      const newGroupNode = {
+        widget: defaultWidgets.Group,
+        position: { x: left - 40, y: top - 60 },
+        width: right - left + 80,
+        height: bottom - top + 100,
+        key: uuid(),
+      }
+
+      set((st) => addNode(st, newGroupNode), false, 'onCreateGroup')
     },
 
     onSetNodesGroup: (childIds, groupNode) => {
@@ -127,6 +127,20 @@ export const useAppStore = create<AppState>()(
           return n
         }),
       }))
+    },
+
+    onDetachGroup: (node) => {
+      if (!node.parentNode) return node
+      const nodes = get().nodes
+      const groupNode = nodes.find((n) => n.id === node.parentNode)
+      return {
+        ...node,
+        parentNode: undefined,
+        position: {
+          x: node.position.x + Number(groupNode?.position.x),
+          y: node.position.y + Number(groupNode?.position.y),
+        },
+      }
     },
 
     onDetachNodesGroup: (childIds, groupNode) => {
@@ -171,13 +185,18 @@ export const useAppStore = create<AppState>()(
     onDuplicateNode: (id) => {
       set(
         (st) => {
-          const item = st.graph[id]
-          const node = st.nodes.find((n) => n.id === id)
+          const { graph, nodes, widgets } = st
+          const item = graph[id]
+          const node = nodes.find((n) => n.id === id)
           const position = node?.position
-          const moved = position !== undefined ? { ...position, y: position.y + (node?.height || 100) + 24 } : undefined
-          const nodeData: any = { widget: st.widgets[item.widget], node: item, position: moved }
-          if (node?.width) nodeData.width = node.width
-          if (node?.height) nodeData.height = node.height
+          const moved = position ? { ...position, y: position.y + (node.height || 100) + 24 } : undefined
+          const nodeData = {
+            widget: widgets[item.widget],
+            node: item,
+            position: moved,
+            ...(node?.width && { width: node.width }),
+            ...(node?.height && { height: node.height }),
+          }
           return addNode(st, nodeData)
         },
         false,
@@ -191,19 +210,23 @@ export const useAppStore = create<AppState>()(
 
     onPropChange: (id, key, val) => {
       set(
-        (state) => {
-          state.onUpdateNodes(id, { [key]: val })
+        (st) => {
+          st.onUpdateNodes(id, { [key]: val })
+          const updatedFields = {
+            ...st.graph[id]?.fields,
+            [key]: val,
+          }
+          const updatedNode = {
+            ...st.graph[id],
+            fields: updatedFields,
+          }
+          const updatedGraph = {
+            ...st.graph,
+            [id]: updatedNode,
+          }
           return {
-            graph: {
-              ...state.graph,
-              [id]: {
-                ...state.graph[id],
-                fields: {
-                  ...state.graph[id]?.fields,
-                  [key]: val,
-                },
-              },
-            },
+            ...st,
+            graph: updatedGraph,
           }
         },
         false,
@@ -213,19 +236,23 @@ export const useAppStore = create<AppState>()(
 
     onModifyChange: (id, key, val) => {
       set(
-        (state) => {
-          state.onUpdateNodes(id, { [key]: val })
+        (st) => {
+          st.onUpdateNodes(id, { [key]: val })
+          const updatedModify = {
+            ...st.graph[id]?.modify,
+            [key]: val,
+          }
+          const updatedNode = {
+            ...st.graph[id],
+            modify: updatedModify,
+          }
+          const updatedGraph = {
+            ...st.graph,
+            [id]: updatedNode,
+          }
           return {
-            graph: {
-              ...state.graph,
-              [id]: {
-                ...state.graph[id],
-                modify: {
-                  ...state.graph[id]?.modify,
-                  [key]: val,
-                },
-              },
-            },
+            ...st,
+            graph: updatedGraph,
           }
         },
         false,
@@ -242,13 +269,25 @@ export const useAppStore = create<AppState>()(
     },
 
     onCopyNode: () => {
-      const selectedNodes = get()
-        .nodes.filter((n) => n.selected)
-        .map((n) => n.id)
+      const nodes = get().nodes
+      const selectedNodes = nodes.filter((n) => n.selected).map((n) => n.id)
       const workflow = toPersisted(get())
       const workflowData: any = {}
       selectedNodes.forEach((id) => {
-        workflowData[id] = workflow.data[id]
+        const selectNode = workflow.data[id]
+        if (selectNode.parentNode) {
+          const groupNode = nodes.find((n) => n.id === selectNode.parentNode)
+          workflowData[id] = {
+            ...selectNode,
+            parentNode: undefined,
+            position: {
+              x: selectNode.position.x + Number(groupNode?.position.x),
+              y: selectNode.position.y + Number(groupNode?.position.y),
+            },
+          }
+        } else {
+          workflowData[id] = selectNode
+        }
       })
       workflow.data = workflowData
       workflow.connections = workflow.connections.filter(
@@ -259,56 +298,15 @@ export const useAppStore = create<AppState>()(
 
     onPasteNode: (workflow, position) => {
       const basePositon = getTopLeftPoint(Object.values(workflow.data).map((item) => item.position))
-      const idMap: { [id: string]: string } = {} // 存储原始节点 id 和新节点 id 的映射关系
-      const newWorkflow: PersistedGraph = {
-        data: {},
-        connections: [],
-      }
-
-      // 复制节点并更新 id
-      Object.entries(workflow.data).forEach(([id, node]) => {
-        const newNode = {
-          ...node,
-          position: {
-            x: Math.floor(node.position.x - basePositon.x + position.x),
-            y: Math.floor(node.position.y - basePositon.y + position.y),
-          },
-          key: uuid(), // 使用 uuid 生成新的唯一标识符
-        }
-        if (node.parentNode) {
-          if (!Object.keys(workflow.data).includes(node.parentNode)) {
-            newNode.parentNode = undefined
-          } else {
-            newNode.position = node.position
-          }
-        }
-        newWorkflow.data[newNode.key] = newNode
-        idMap[id] = newNode.key // 记录原始节点 id 和新节点 id 的映射关系
-      })
-
-      Object.keys(newWorkflow.data).forEach((key) => {
-        const parentNodeId = newWorkflow.data[key]?.parentNode
-        if (parentNodeId) newWorkflow.data[key].parentNode = idMap[parentNodeId]
-      })
-
-      // 更新 connection 中的 source 和 target
-      workflow.connections.forEach((conn) => {
-        const newConn = {
-          ...conn,
-          source: idMap[conn.source],
-          target: idMap[conn.target],
-        }
-        newWorkflow.connections.push(newConn)
-      })
-
-      // 将新的 workflow 合并到状态管理器中
+      const { data, idMap } = copyNodes(workflow, basePositon, position)
+      const connections = copyConnections(workflow, idMap)
+      const newWorkflow: PersistedGraph = { data, ...connections }
       set(
-        (st) => {
-          let state: AppState = st
-          for (const [key, node] of Object.entries(newWorkflow.data)) {
+        (st) =>
+          Object.entries(newWorkflow.data).reduce((state, [key, node]) => {
             const widget = state.widgets[node.value.widget]
-            if (widget !== undefined) {
-              state = addNode(
+            if (widget) {
+              return addNode(
                 state,
                 {
                   widget,
@@ -321,15 +319,10 @@ export const useAppStore = create<AppState>()(
                 },
                 true
               )
-            } else {
-              console.warn(`Unknown widget ${node.value.widget}`)
             }
-          }
-          for (const connection of newWorkflow.connections) {
-            state = addConnection(state, connection)
-          }
-          return state
-        },
+            console.warn(`Unknown widget ${node.value.widget}`)
+            return state
+          }, connections.connections.reduce(addConnection, st)),
         true,
         'onPasteNode'
       )
@@ -443,26 +436,27 @@ export const useAppStore = create<AppState>()(
     onLoadWorkflow: (workflow) => {
       set(
         (st) => {
+          const { widgets } = st
           let state: AppState = { ...st, nodes: [], edges: [], counter: 0, graph: {} }
-          for (const [key, node] of Object.entries(workflow.data)) {
-            const widget = state.widgets[node.value.widget]
-            if (widget !== undefined) {
+          Object.entries(workflow.data).forEach(([key, node]) => {
+            const widget = widgets?.[node.value.widget]
+            if (widget) {
               state = addNode(state, {
                 widget,
                 node: node.value,
                 position: node.position,
                 width: node.width,
                 height: node.height,
-                key: key,
+                key,
                 parentNode: node.parentNode,
               })
             } else {
               console.warn(`Unknown widget ${node.value.widget}`)
             }
-          }
-          for (const connection of workflow.connections) {
+          })
+          workflow.connections.forEach((connection) => {
             state = addConnection(state, connection)
-          }
+          })
           return state
         },
         true,

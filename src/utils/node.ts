@@ -3,7 +3,14 @@ import { AppState } from '@/store'
 import { NodeItem } from '@/types'
 import { applyNodeChanges, Node } from 'reactflow'
 import { v4 as uuid } from 'uuid'
+import { PersistedGraph } from './persistence'
 import { fromWidget } from './widget'
+
+interface nodePostion {
+  x: number
+  y: number
+}
+
 // 用于添加、更新和获取节点的函数
 export function addNode(
   state: AppState,
@@ -65,7 +72,7 @@ export function getPostionCenter(reactFlowRef: any, reactFlowInstance: any) {
   }
 }
 
-export function getTopLeftPoint(points: { x: number; y: number }[]): { x: number; y: number } {
+export function getTopLeftPoint(points: nodePostion[]): nodePostion {
   let topLeftPoint = points[0]
   for (let i = 1; i < points.length; i++) {
     const point = points[i]
@@ -74,4 +81,43 @@ export function getTopLeftPoint(points: { x: number; y: number }[]): { x: number
     }
   }
   return topLeftPoint
+}
+
+export function copyNode(node: Node, basePositon: nodePostion, position: nodePostion) {
+  return {
+    ...node,
+    position: {
+      x: Math.floor(node.position.x - basePositon.x + position.x),
+      y: Math.floor(node.position.y - basePositon.y + position.y),
+    },
+    key: uuid(),
+  }
+}
+
+export function copyNodes(workflow: PersistedGraph, basePositon: nodePostion, position: nodePostion) {
+  return Object.entries(workflow.data).reduce<{ data: { [id: string]: any }; idMap: { [id: string]: string } }>(
+    (acc, [id, node]: any) => {
+      const newNode = copyNode(node, basePositon, position)
+      return {
+        data: {
+          ...acc.data,
+          [newNode.key]: newNode,
+        },
+        idMap: {
+          ...acc.idMap,
+          [id]: newNode.key,
+        },
+      }
+    },
+    { data: {}, idMap: {} }
+  )
+}
+export function copyConnections(workflow: PersistedGraph, idMap: { [id: string]: string }) {
+  return {
+    connections: workflow.connections.map((conn) => ({
+      ...conn,
+      source: idMap[conn.source],
+      target: idMap[conn.target],
+    })),
+  }
 }
