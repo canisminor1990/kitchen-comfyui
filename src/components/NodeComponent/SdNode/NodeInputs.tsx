@@ -11,18 +11,11 @@ interface NodeInputsProps {
 }
 
 const NodeInputs: React.FC<NodeInputsProps> = ({ data }) => {
-  if (!data || data.length === 0) return <div />
+  if (!data?.length) return <div />
   return (
     <SpaceCol>
-      {data.map((item) => (
-        <NodeSlot
-          key={item.name}
-          slotType={item.type}
-          label={item.name}
-          type="target"
-          position={Position.Left}
-          isRequired={true}
-        />
+      {data.map(({ name, type }) => (
+        <NodeSlot key={name} slotType={type} label={name} type="target" position={Position.Left} isRequired />
       ))}
     </SpaceCol>
   )

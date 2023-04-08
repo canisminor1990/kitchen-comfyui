@@ -11,12 +11,8 @@ const hotReloadConfig = {
 const config =
   process.env.NODE_ENV === 'development' ? (process.env.MOCK ? defaultConfig : hotReloadConfig) : defaultConfig
 
+export default config
+
 if (process.env.NODE_ENV === 'development') {
   console.table({ host: config.host, isMock: Boolean(process.env.MOCK) })
 }
-
-export function getBackendUrl(endpoint: string): string {
-  return `${config.protocol}//${config.host}${endpoint}`
-}
-
-export default config

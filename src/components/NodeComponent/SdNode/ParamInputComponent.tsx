@@ -9,13 +9,25 @@ import { shallow } from 'zustand/shallow'
 import SelectUploadInput from './SelectUploadInput'
 import SliderInput from './SliderInput'
 
-interface InputProps {
+/**
+ * @title 参数输入组件参数
+ */
+interface ParamInputComponentProps {
+  /**
+   * @title 输入框节点 ID
+   */
   id: NodeId
+  /**
+   * @title 输入框名称
+   */
   name: string
+  /**
+   * @title 输入框数据
+   */
   input: InputData
 }
 
-const InputComponent: React.FC<InputProps> = ({ id, name, input }) => {
+const ParamInputComponent: React.FC<ParamInputComponentProps> = ({ id, name, input }) => {
   const { value, onChange } = useAppStore(
     (st) => ({
       value: st.graph[id]?.fields[name],
@@ -88,4 +100,4 @@ const InputComponent: React.FC<InputProps> = ({ id, name, input }) => {
   return null
 }
 
-export default React.memo(InputComponent)
+export default React.memo(ParamInputComponent)

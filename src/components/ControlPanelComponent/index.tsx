@@ -1,6 +1,16 @@
 import { GalleryComponent, NodePickerComponent, Tabs, WorkflowPageComponent } from '@/components'
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
+
+enum TABS {
+  NODES = 'Nodes',
+  WORKFLOW = 'Workflow',
+  GALLERY = 'Gallery',
+}
+
+/******************************************************
+ *********************** Style *************************
+ ******************************************************/
 
 const SideBar = styled.div`
   display: flex;
@@ -8,29 +18,34 @@ const SideBar = styled.div`
   height: 100%;
 `
 
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
 const ControlPanelComponent: React.FC = () => {
+  const tabs = useMemo(
+    () => [
+      {
+        label: TABS.NODES,
+        key: TABS.NODES,
+        children: <NodePickerComponent />,
+      },
+      {
+        label: TABS.WORKFLOW,
+        key: TABS.WORKFLOW,
+        children: <WorkflowPageComponent />,
+      },
+      {
+        label: TABS.GALLERY,
+        key: TABS.GALLERY,
+        children: <GalleryComponent />,
+      },
+    ],
+    []
+  )
+
   return (
     <SideBar>
-      <Tabs
-        defaultActiveKey="Nodes"
-        items={[
-          {
-            label: 'Nodes',
-            key: 'Nodes',
-            children: <NodePickerComponent />,
-          },
-          {
-            label: 'Workflow',
-            key: 'Workflow',
-            children: <WorkflowPageComponent />,
-          },
-          {
-            label: 'Gallery',
-            key: 'Gallery',
-            children: <GalleryComponent />,
-          },
-        ]}
-      />
+      <Tabs defaultActiveKey={TABS.NODES} items={tabs} />
     </SideBar>
   )
 }

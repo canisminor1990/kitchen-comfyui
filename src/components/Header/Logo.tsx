@@ -3,7 +3,15 @@ import { useThemeMode } from 'antd-style'
 import React from 'react'
 
 interface LogoProps {
+  /**
+   * @title 尺寸
+   * @description Logo 的大小
+   */
   size?: number
+  /**
+   * @title 样式
+   * @description Logo 的样式
+   */
   style?: React.CSSProperties
 }
 

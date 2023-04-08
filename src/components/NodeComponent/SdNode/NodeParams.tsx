@@ -14,14 +14,14 @@ interface NodeParamsProps {
 }
 
 const NodeParams: React.FC<NodeParamsProps> = ({ data, nodeId }) => {
-  if (!data || data.length === 0) return null
+  if (!data?.length) return null
 
   return (
     <div>
-      {data.map((item) => (
-        <div key={item.name}>
-          <NodeSlot slotType={item.type} label={item.name} type="target" position={Position.Left} isRequired={false} />
-          <InputComponent name={item.name} id={nodeId} input={item.input} />
+      {data.map(({ name, type, input }) => (
+        <div key={name}>
+          <NodeSlot slotType={type} label={name} type="target" position={Position.Left} isRequired={false} />
+          <InputComponent name={name} id={nodeId} input={input} />
           <div style={{ height: 4 }} />
         </div>
       ))}

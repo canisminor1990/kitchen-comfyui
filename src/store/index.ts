@@ -1,7 +1,6 @@
 import { createPrompt, deleteFromQueue, getWidgetLibrary as getWidgets, sendPrompt } from '@/client'
-import { Widget, WidgetKey } from '@/types'
+import type { PersistedGraph, Widget, WidgetKey } from '@/types'
 import {
-  PersistedGraph,
   addConnection,
   addNode,
   copyConnections,
@@ -306,19 +305,15 @@ export const useAppStore = create<AppState>()(
           Object.entries(newWorkflow.data).reduce((state, [key, node]) => {
             const widget = state.widgets[node.value.widget]
             if (widget) {
-              return addNode(
-                state,
-                {
-                  widget,
-                  node: node.value,
-                  position: node.position,
-                  width: node.width,
-                  height: node.height,
-                  parentNode: node.parentNode,
-                  key,
-                },
-                true
-              )
+              return addNode(state, {
+                widget,
+                node: node.value,
+                position: node.position,
+                width: node.width,
+                height: node.height,
+                parentNode: node.parentNode,
+                key,
+              })
             }
             console.warn(`Unknown widget ${node.value.widget}`)
             return state

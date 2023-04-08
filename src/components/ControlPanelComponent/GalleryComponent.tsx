@@ -1,41 +1,42 @@
 import { emptyImg } from '@/components/theme'
-import { getBackendUrl } from '@/config'
 import { useAppStore } from '@/store'
+import { getBackendUrl } from '@/utils'
 import { Empty, Image } from 'antd'
 import queryString from 'query-string'
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { shallow } from 'zustand/shallow'
+
+const EMPTY_IMAGE = 'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+const EMPTY_DESCRIPTION = 'Nothing here yet!'
+
+/******************************************************
+ *********************** Style *************************
+ ******************************************************/
 
 const ImgList = styled.div`
   display: flex;
   flex-wrap: wrap;
 `
 
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
 const GalleryComponent: React.FC = () => {
-  const { gallery } = useAppStore((st) => ({ gallery: st.gallery }), shallow)
+  const { gallery } = useAppStore((state) => state, shallow)
 
-  return gallery.length === 0 ? (
-    <Empty
-      style={{ marginTop: '40vh' }}
-      image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-      description="Nothing here yet!"
-    />
-  ) : (
+  const renderImage = useCallback(({ image }: any) => {
+    const src = getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))
+    return <Image key={image.filename} src={src} fallback={emptyImg} width={125} height={125} />
+  }, [])
+
+  return (
     <Image.PreviewGroup>
-      <ImgList>
-        {gallery
-          .map(({ image }) => (
-            <Image
-              width={125}
-              height={125}
-              key={image.filename}
-              src={getBackendUrl(queryString.stringifyUrl({ url: `/view`, query: image }))}
-              fallback={emptyImg}
-            />
-          ))
-          .reverse()}
-      </ImgList>
+      {!gallery.length ? (
+        <Empty style={{ marginTop: '40vh' }} image={EMPTY_IMAGE} description={EMPTY_DESCRIPTION} />
+      ) : (
+        <ImgList>{gallery.reverse().map(renderImage)}</ImgList>
+      )}
     </Image.PreviewGroup>
   )
 }

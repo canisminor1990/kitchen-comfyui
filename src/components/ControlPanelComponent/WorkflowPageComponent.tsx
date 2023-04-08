@@ -1,24 +1,17 @@
 import defaultWorkflow from '@/defaultWorkflow'
 import { useAppStore } from '@/store'
-import {
-  cleanTempWorkflow,
-  deleteLocalWorkflowFromId,
-  LocalPersistedGraphs,
-  PersistedGraph,
-  readWorkflowFromFile,
-  retrieveLocalWorkflows,
-} from '@/utils'
+import type { LocalPersistedGraphs, PersistedGraph } from '@/types'
+import { cleanTempWorkflow, deleteLocalWorkflowFromId, readWorkflowFromFile, retrieveLocalWorkflows } from '@/utils'
 import { DownloadOutlined, FileAddOutlined, SaveOutlined, UploadOutlined } from '@ant-design/icons'
-import { Button, Empty, Input, List, message, Space, Upload } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { Button, Empty, Input, List, Space, Upload, message } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { PanelBody, PanelHeader } from './style'
 import WorkflowItem from './WorkflowItem'
+import { PanelBody, PanelHeader } from './style'
 
 const WorkflowPageComponent = () => {
   const [messageApi, contextHolder] = message.useMessage()
   const [title, setTitle] = useState<string>()
-
   const [localWorkflowList, setLocalWorkflowList] = useState<LocalPersistedGraphs[]>()
   const [count, setCount] = useState<number>(0)
 
@@ -28,73 +21,120 @@ const WorkflowPageComponent = () => {
     onSaveLocalWorkFlow,
     onUpdateLocalWorkFlowGraph,
     onUpdateLocalWorkFlowTitle,
-  } = useAppStore(
-    (st) => ({
-      onLoadWorkflow: st.onLoadWorkflow,
-      onDownloadWorkflow: st.onDownloadWorkflow,
-      onSaveLocalWorkFlow: st.onSaveLocalWorkFlow,
-      onUpdateLocalWorkFlowGraph: st.onUpdateLocalWorkFlowGraph,
-      onUpdateLocalWorkFlowTitle: st.onUpdateLocalWorkFlowTitle,
-    }),
-    shallow
+  } = useAppStore((st) => st, shallow)
+
+  /**
+   * @title 保存本地工作流
+   * @param title - 工作流标题
+   * @returns void
+   */
+  const handleSave = useCallback(() => {
+    onSaveLocalWorkFlow(title)
+    setCount(count + 1)
+    messageApi.success(`Success! ${title ?? 'Your workflow'} have been saved.`)
+  }, [count, messageApi, onSaveLocalWorkFlow, title])
+
+  /**
+   * @title 删除本地工作流
+   * @param id - 工作流 ID
+   * @param name - 工作流名称
+   * @returns void
+   */
+  const handleDelete = useCallback(
+    (id: string, name: string) => {
+      deleteLocalWorkflowFromId(id)
+      setCount(count + 1)
+      messageApi.info(`${name} has been deleted.`)
+    },
+    [count, messageApi]
   )
+
+  /**
+   * @title 加载工作流
+   * @param graph - 工作流图形数据
+   * @param name - 工作流名称
+   * @returns void
+   */
+  const handleLoad = useCallback(
+    (graph: PersistedGraph, name: string) => {
+      onLoadWorkflow(graph)
+      setCount(count + 1)
+      messageApi.success(`Success! ${name} have been loaded.`)
+    },
+    [count, messageApi, onLoadWorkflow]
+  )
+
+  /**
+   * @title 上传工作流文件
+   * @param file - 工作流文件
+   * @returns void
+   */
+  const handleUpload = useCallback(
+    (file: File) => {
+      readWorkflowFromFile(file, onLoadWorkflow)
+      setCount(count + 1)
+      messageApi.success(`Success! the workflow have been loaded.`)
+    },
+    [count, messageApi, onLoadWorkflow]
+  )
+
+  /**
+   * @title 更新本地工作流图形数据
+   * @param id - 工作流 ID
+   * @param name - 工作流名称
+   * @returns void
+   */
+  const handleUpdate = useCallback(
+    (id: string, name: string) => {
+      onUpdateLocalWorkFlowGraph(id)
+      setCount(count + 1)
+      messageApi.success(`Success! ${name} have been update.`)
+    },
+    [count, messageApi, onUpdateLocalWorkFlowGraph]
+  )
+
+  /**
+   * @title 重命名本地工作流
+   * @param id - 工作流 ID
+   * @param name - 新工作流名称
+   * @returns void
+   */
+  const handleRename = useCallback(
+    (id: string, name: string) => {
+      onUpdateLocalWorkFlowTitle(id, name)
+      setCount(count + 1)
+      messageApi.success(`Success! the workflow have been renamed to ${name} .`)
+    },
+    [count, messageApi, onUpdateLocalWorkFlowTitle]
+  )
+
+  /**
+   * @title 加载默认工作流
+   * @returns void
+   */
+  const handleNew = useCallback(() => {
+    cleanTempWorkflow()
+    onLoadWorkflow(defaultWorkflow)
+    setCount(count + 1)
+    messageApi.success(`Success! load default workflow.`)
+  }, [count, messageApi, onLoadWorkflow])
 
   useEffect(() => {
     setLocalWorkflowList(retrieveLocalWorkflows().sort((a, b) => b.time - a.time))
   }, [count])
 
-  const handleSave = () => {
-    onSaveLocalWorkFlow(title)
-    setCount(count + 1)
-    messageApi.success(`Success! ${title ?? 'Your workflow'} have been saved.`)
-  }
-
-  const handleDelete = (id: string, name: string) => {
-    deleteLocalWorkflowFromId(id)
-    setCount(count + 1)
-    messageApi.info(`${name} has been deleted.`)
-  }
-
-  const handleLoad = (graph: PersistedGraph, name: string) => {
-    onLoadWorkflow(graph)
-    setCount(count + 1)
-    messageApi.success(`Success! ${name} have been loaded.`)
-  }
-
-  const handleUpload = (file: File) => {
-    readWorkflowFromFile(file, onLoadWorkflow)
-    setCount(count + 1)
-    messageApi.success(`Success! the workflow have been loaded.`)
-  }
-
-  const handleUpdate = (id: string, name: string) => {
-    onUpdateLocalWorkFlowGraph(id)
-    setCount(count + 1)
-    messageApi.success(`Success! ${name} have been update.`)
-  }
-
-  const handleRename = (id: string, name: string) => {
-    onUpdateLocalWorkFlowTitle(id, name)
-    setCount(count + 1)
-    messageApi.success(`Success! the workflow have been renamed to ${name} .`)
-  }
-
-  const handleNew = () => {
-    cleanTempWorkflow()
-    onLoadWorkflow(defaultWorkflow)
-    setCount(count + 1)
-    messageApi.success(`Success! load default workflow.`)
-  }
-
-  const renderList = (item: LocalPersistedGraphs, index: number) => (
-    <WorkflowItem
-      item={item}
-      index={index}
-      handleLoad={handleLoad}
-      handleUpdate={handleUpdate}
-      handleDelete={handleDelete}
-      handleRename={handleRename}
-    />
+  const renderList = useCallback(
+    (item: LocalPersistedGraphs, index: number) => (
+      <WorkflowItem
+        item={item}
+        index={index}
+        handleLoad={handleLoad}
+        handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
+        handleRename={handleRename}
+      />
+    ),
+    [handleDelete, handleLoad, handleRename, handleUpdate]
   )
 
   return (

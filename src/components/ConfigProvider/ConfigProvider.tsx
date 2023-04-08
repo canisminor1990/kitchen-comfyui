@@ -5,6 +5,12 @@ import type { OverrideToken } from 'antd/es/theme/interface'
 import type { FC, ReactNode } from 'react'
 import { ThemeContext } from 'styled-components'
 import { shallow } from 'zustand/shallow'
+
+/**
+ * @title Studio 主题配置钩子
+ * @param appearance - 主题外观
+ * @returns Studio 主题配置
+ */
 export const useStudioAntdTheme = (appearance: ThemeAppearance) => {
   const token = useAntdToken()
   const themeConfig = createStudioAntdTheme(appearance)
@@ -30,11 +36,23 @@ export const useStudioAntdTheme = (appearance: ThemeAppearance) => {
   return themeConfig
 }
 
+/**
+ * @title 配置提供器组件属性
+ */
 export interface ConfigProviderProps {
+  /**
+   * @title 覆盖组件的主题样式
+   */
   componentToken?: OverrideToken
+  /**
+   * @title 子组件
+   */
   children: ReactNode
 }
 
+/**
+ * @title 配置提供器组件
+ */
 export const ConfigProvider: FC<ConfigProviderProps> = ({ children, componentToken }) => {
   setupStyled({ ThemeContext })
   const { themeMode } = useAppStore(

@@ -1,9 +1,14 @@
 import { PropertyKey, SDNode, Widget } from '@/types'
 import { checkInput } from './input'
-// 用于处理节点数据的函数
-export function getDefaultFields(widget: Widget): Record<PropertyKey, any> {
+
+/**
+ * 获取默认节点数据
+ * @param widget - 组件信息
+ * @returns 节点数据
+ */
+export const getDefaultFields = (widget: Widget): Record<PropertyKey, any> => {
   const fields: Record<PropertyKey, any> = {}
-  for (const [key, input] of Object.entries(widget.input.required)) {
+  Object.entries(widget.input.required).forEach(([key, input]) => {
     if (checkInput.isBool(input)) {
       fields[key] = input[1].default ?? false
     } else if (checkInput.isFloat(input)) {
@@ -15,10 +20,13 @@ export function getDefaultFields(widget: Widget): Record<PropertyKey, any> {
     } else if (checkInput.isList(input)) {
       fields[key] = input[0][0]
     }
-  }
+  })
   return fields
 }
 
-export function fromWidget(widget: Widget): SDNode {
-  return { widget: widget.name, fields: getDefaultFields(widget) }
-}
+/**
+ * 根据组件信息生成节点数据
+ * @param widget - 组件信息
+ * @returns 节点数据
+ */
+export const fromWidget = (widget: Widget): SDNode => ({ widget: widget.name, fields: getDefaultFields(widget) })

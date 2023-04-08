@@ -14,20 +14,37 @@ import { GroupCard, NodeCard } from './style'
 
 export const NODE_IDENTIFIER = 'sdNode'
 
+/**
+ * @title 图片预览参数
+ */
 export interface ImagePreview {
+  /**
+   * @title 预览的图片对象
+   */
   image: ImageItem
+  /**
+   * @title 预览的图片索引
+   */
   index: number
 }
 
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
+
+/**
+ * @interface Props
+ * @description 组件的 props 类型
+ * @generic T - 节点数据类型的泛型
+ * @param node - 节点相关的信息
+ */
 const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const ref: any = useRef(null)
+
   const { progressBar, onDuplicateNode, onDeleteNode, onModifyChange } = useAppStore(
     (st) => ({
+      ...st,
       progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
-      onPropChange: st.onPropChange,
-      onDuplicateNode: st.onDuplicateNode,
-      onDeleteNode: st.onDeleteNode,
-      onModifyChange: st.onModifyChange,
     }),
     shallow
   )
@@ -38,16 +55,32 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const isSelected = node.selected
   const name = node.data?.nickname || node.data.name
   const isGroup = node.data.name === 'Group'
+
+  /**
+   * @function handleNickname
+   * @description 处理修改昵称
+   * @param e - 事件对象
+   */
   const handleNickname = (e: any) => {
     const nickname = e.target.value
     onModifyChange(node.id, 'nickname', nickname)
     setNicknameInput(false)
   }
 
+  /**
+   * @function handleNodeColor
+   * @description 处理节点颜色
+   * @param key - 颜色 key
+   */
   const handleNodeColor: MenuProps['onClick'] = ({ key }: any) => {
     onModifyChange(node.id, 'color', colorList[key])
   }
 
+  /**
+   * @constant extraMenu
+   * @description 节点额外菜单
+   * @type {Array}
+   */
   const extraMenu: MenuProps['items'] = [
     {
       icon: <EditOutlined />,
@@ -79,6 +112,11 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
     },
   ]
 
+  /**
+   * @constant StyledCard
+   * @description 样式卡片
+   * @type {React.FC}
+   */
   const StyledCard = isGroup ? GroupCard : NodeCard
   let background
   if (isGroup) {

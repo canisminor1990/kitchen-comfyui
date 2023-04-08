@@ -1,63 +1,43 @@
-import { getBackendUrl } from '@/config'
-import { NodeId, PropertyKey, Widget, WidgetKey } from '@/types'
-import { PersistedGraph, PersistedNode, checkInput } from '@/utils'
+import type { NodeId, PersistedGraph, PersistedNode, Widget } from '@/types'
+import { Node, PromptRequest, PromptResponse, Queue } from '@/types/client'
+import { checkInput, getBackendUrl } from '@/utils'
 
-interface PromptRequest {
-  client_id?: string
-  prompt: Record<NodeId, Node>
-  extra_data?: ExtraData
-}
+/**
+ * 获取小部件库
+ * @returns 小部件库
+ */
+export const getWidgetLibrary = async (): Promise<Record<string, Widget>> =>
+  (await fetch(getBackendUrl('/object_info'))).json()
 
-interface ExtraData {
-  extra_pnginfo?: Record<string, any>
-}
+/**
+ * 获取队列
+ * @returns 队列
+ */
+export const getQueue = async (): Promise<Queue> => (await fetch(getBackendUrl('/queue'))).json()
 
-interface PromptResponse {
-  error?: string
-}
-
-interface Node {
-  class_type: WidgetKey
-  inputs: Record<PropertyKey, any>
-}
-
-interface Queue {
-  queue_running: QueueItem[]
-  queue_pending: QueueItem[]
-}
-
-type QueueItem = [number, number, Record<NodeId, Node>, { client_id?: string }]
-
-type History = Record<string, HistoryItem>
-
-interface HistoryItem {
-  prompt: QueueItem
-  outputs: Record<NodeId, Record<PropertyKey, any>>
-}
-
-export async function getWidgetLibrary(): Promise<Record<string, Widget>> {
-  const response = await fetch(getBackendUrl('/object_info'))
-  return response.json()
-}
-
-export async function getQueue(): Promise<Queue> {
-  const response = await fetch(getBackendUrl('/queue'))
-  return response.json()
-}
-
-export async function deleteFromQueue(id: number): Promise<void> {
+/**
+ * 从队列中删除项
+ * @param id 队列项 id
+ */
+export const deleteFromQueue = async (id: number): Promise<void> => {
   await fetch(getBackendUrl('/queue'), {
     method: 'POST',
     body: JSON.stringify({ delete: [id] }),
   })
 }
 
-export async function getHistory(): Promise<History> {
-  const response = await fetch(getBackendUrl('/history'))
-  return response.json()
-}
+/**
+ * 获取历史记录
+ * @returns 历史记录
+ */
+export const getHistory = async (): Promise<History> => (await fetch(getBackendUrl('/history'))).json()
 
-export async function sendPrompt(prompt: PromptRequest): Promise<PromptResponse> {
+/**
+ * 发送 Prompt 请求
+ * @param prompt Prompt 请求参数
+ * @returns Prompt 响应参数
+ */
+export const sendPrompt = async (prompt: PromptRequest): Promise<PromptResponse> => {
   const response = await fetch(getBackendUrl('/prompt'), {
     method: 'POST',
     body: JSON.stringify(prompt),
@@ -66,7 +46,18 @@ export async function sendPrompt(prompt: PromptRequest): Promise<PromptResponse>
   return { error }
 }
 
-export function createPrompt(graph: PersistedGraph, widgets: Record<string, Widget>, clientId?: string): PromptRequest {
+/**
+ * 创建 Prompt 请求参数
+ * @param graph 持久化图数据
+ * @param widgets 小部件库
+ * @param clientId 客户端 id
+ * @returns Prompt 请求参数
+ */
+export const createPrompt = (
+  graph: PersistedGraph,
+  widgets: Record<string, Widget>,
+  clientId?: string
+): PromptRequest => {
   const prompt: Record<NodeId, Node> = {}
   const data: Record<NodeId, PersistedNode> = {}
 

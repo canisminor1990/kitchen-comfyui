@@ -7,12 +7,18 @@ import { Outlet } from 'umi'
 import GlobalStyle from './GlobalStyle'
 import WsController from './WsController'
 
+/******************************************************
+ *********************** Style *************************
+ ******************************************************/
+
 const EditorView = styled.div`
   display: flex;
   height: 100vh;
   width: 100vw;
 `
-
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
 const Editor: React.FC = () => {
   return (
     <ConfigProvider>

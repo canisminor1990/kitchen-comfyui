@@ -1,7 +1,12 @@
 import type { MenuProps } from 'antd'
 
-export const colorList = [
-  null,
+/**
+ * @title 颜色列表
+ * @type {Array}
+ * @ignore
+ */
+export const colorList: Array<string> = [
+  '',
   '#f5222d',
   '#fa541c',
   '#fa8c16',
@@ -12,7 +17,13 @@ export const colorList = [
   '#13c2c2',
   '#1677ff',
 ]
-export const ColorMenu: MenuProps['items'] = colorList.map((c, i) => ({
+
+/**
+ * @title 颜色选择菜单
+ * @type {Array}
+ * @ignore
+ */
+export const ColorMenu: MenuProps['items'] = colorList.map((c: string | null, i: number) => ({
   label: <div style={{ background: c || '#eee', width: 16, height: 16, borderRadius: '50%' }} />,
   key: i,
 }))

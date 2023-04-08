@@ -5,7 +5,16 @@ import { Spin } from 'antd'
 import Label from './Label'
 
 interface QueueListProps {
+  /**
+   * @title 队列
+   * @description QueueList 的数据源
+   */
   queue: QueueItem[]
+  /**
+   * @title 从队列中删除
+   * @description 当某个元素被删除时触发
+   * @param id - 被删除元素的 id
+   */
   onDeleteFromQueue: (id: number) => Promise<void>
 }
 

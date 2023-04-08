@@ -7,15 +7,15 @@ interface NodeOutpusProps {
   data: string[]
 }
 
-const NodeOutpus: React.FC<NodeOutpusProps> = ({ data }) => {
-  if (!data || data.length === 0) return <div />
+const NodeOutputs: React.FC<NodeOutpusProps> = ({ data }) => {
+  if (!data?.length) return <div />
   return (
     <SpaceCol>
       {data.map((item) => (
-        <NodeSlot key={item} slotType={item} label={item} type="source" position={Position.Right} isRequired={true} />
+        <NodeSlot key={item} slotType={item} label={item} type="source" position={Position.Right} isRequired />
       ))}
     </SpaceCol>
   )
 }
 
-export default React.memo(NodeOutpus)
+export default React.memo(NodeOutputs)

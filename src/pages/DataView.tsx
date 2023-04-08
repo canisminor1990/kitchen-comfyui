@@ -1,10 +1,32 @@
 import { useAppStore } from '@/store'
 import { Card, Col, Row } from 'antd'
 import { useThemeMode } from 'antd-style'
-import React from 'react'
+import React, { useMemo } from 'react'
 import ReactJson from 'react-json-view'
 import styled from 'styled-components'
 import { shallow } from 'zustand/shallow'
+
+const dataList: {
+  title: string
+  key: 'nodes' | 'edges' | 'graph'
+}[] = [
+  {
+    title: 'Nodes',
+    key: 'nodes',
+  },
+  {
+    title: 'Edges',
+    key: 'edges',
+  },
+  {
+    title: 'Graph',
+    key: 'graph',
+  },
+]
+
+/******************************************************
+ *********************** Style *************************
+ ******************************************************/
 
 const View = styled.div`
   padding: 16px;
@@ -15,36 +37,22 @@ const JsonView = styled.div`
   overflow-y: auto;
 `
 
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
+
 const DataView: React.FC = () => {
   const { isDarkMode } = useThemeMode()
-  const { graph, nodes, edges } = useAppStore(
-    (st) => ({
-      graph: st.graph,
-      nodes: st.nodes,
-      edges: st.edges,
-    }),
-    shallow
-  )
+  const state = useAppStore((st) => st, shallow)
 
-  const dataList = [
-    {
-      title: 'Nodes',
-      src: nodes,
-    },
-    {
-      title: 'Edges',
-      src: edges,
-    },
-    {
-      title: 'Graph',
-      src: graph,
-    },
-  ]
+  const memoizedDataList = useMemo(() => {
+    return dataList.map((item) => ({ ...item, src: state[item.key] }))
+  }, [state.nodes, state.edges, state.graph])
 
   return (
     <View>
       <Row gutter={[8, 8]}>
-        {dataList.map((item) => (
+        {memoizedDataList.map((item) => (
           <Col span={8} key={item.title}>
             <Card size="small" title={item.title}>
               <JsonView>

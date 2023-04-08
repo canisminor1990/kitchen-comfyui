@@ -12,11 +12,18 @@ import { shallow } from 'zustand/shallow'
 
 const nodeTypes = { [NODE_IDENTIFIER]: NodeComponent }
 
+/**
+ * @title FlowEditor
+ * @visibleName 流程图编辑器
+ */
 const FlowEditor: React.FC = () => {
   const theme = useTheme()
-  const isWindows = navigator.platform.includes('Win')
   const reactFlowRef = useRef<any>(null)
+  // 系统环境
+  const isWindows = navigator.platform.includes('Win')
+  // 记录连线更新状态
   const edgeUpdateSuccessful = useRef(true)
+  // react-flow 实例
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null)
 
   const {
@@ -50,10 +57,18 @@ const FlowEditor: React.FC = () => {
     shallow
   )
 
+  /**
+   * 连线更新开始回调函数
+   */
   const onEdgeUpdateStart = useCallback(() => {
     edgeUpdateSuccessful.current = false
   }, [])
 
+  /**
+   * 连线更新回调函数
+   * @param oldEdge - 旧的连线信息
+   * @param newConnection - 新的连线信息
+   */
   const onEdgeUpdate = useCallback((oldEdge: Edge, newConnection: Connection) => {
     edgeUpdateSuccessful.current = true
     onEdgesChange([
@@ -65,6 +80,11 @@ const FlowEditor: React.FC = () => {
     onConnect(newConnection)
   }, [])
 
+  /**
+   * 连线更新结束回调函数
+   * @param _ - 无用参数
+   * @param edge - 连线信息
+   */
   const onEdgeUpdateEnd = useCallback((_: any, edge: Edge) => {
     if (!edgeUpdateSuccessful.current) {
       onEdgesChange([
@@ -77,11 +97,19 @@ const FlowEditor: React.FC = () => {
     edgeUpdateSuccessful.current = true
   }, [])
 
+  /**
+   * 拖拽到容器上回调函数
+   * @param event - 事件对象
+   */
   const onDragOver = useCallback((event: any) => {
     event.preventDefault()
     event.dataTransfer.dropEffect = 'move'
   }, [])
 
+  /**
+   * 拖拽结束回调函数
+   * @param event - 事件对象
+   */
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault()
@@ -96,6 +124,12 @@ const FlowEditor: React.FC = () => {
     [reactFlowInstance]
   )
 
+  /**
+   * 节点拖拽回调函数
+   * @param event - 事件对象
+   * @param node - 当前拖拽的节点信息
+   * @param nodes - 所有节点信息
+   */
   const onNodeDrag: NodeDragHandler = useCallback(
     (_, node, nodes) => {
       if (nodes.length > 2 || node.data.name !== 'Group') return
@@ -108,12 +142,19 @@ const FlowEditor: React.FC = () => {
     [reactFlowInstance]
   )
 
+  /**
+   * 复制回调函数
+   */
   const handleCopy = useCallback(() => {
     const copyData = onCopyNode()
     navigator.clipboard.writeText(JSON.stringify(copyData))
     console.log('[Copy]', copyData)
   }, [])
 
+  /**
+   * 粘贴回调函数
+   * @param instance - react-flow 实例
+   */
   const handlePaste = useCallback(async (instance: any) => {
     try {
       const clipboardData = await navigator.clipboard.readText()
@@ -126,6 +167,10 @@ const FlowEditor: React.FC = () => {
     }
   }, [])
 
+  /**
+   * 键盘按键回调函数
+   * @param event - 事件对象
+   */
   const handleKeyDown = useCallback(
     (event: any) => {
       const ctrlKey = event.metaKey || (event.ctrlKey && !event.altKey)
@@ -144,6 +189,9 @@ const FlowEditor: React.FC = () => {
     [reactFlowInstance]
   )
 
+  /**
+   * 监听键盘按键事件
+   */
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => {

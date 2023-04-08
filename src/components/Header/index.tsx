@@ -2,15 +2,11 @@ import { Segmented } from '@/components'
 import { useAppStore } from '@/store'
 import { GithubOutlined, LoadingOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Space, Spin, message } from 'antd'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import Logo from './Logo'
 import QueueList from './QueueList'
 import { EdgeTypeList, ThemeList, View, edgeTypeIcon, themeIcon } from './style'
-
-interface HeaderProps {
-  children?: ReactNode
-}
 
 const pages = [
   {
@@ -22,6 +18,15 @@ const pages = [
     value: 'data',
   },
 ]
+
+/******************************************************
+ ************************* Dom *************************
+ ******************************************************/
+
+interface HeaderProps {
+  children?: ReactNode
+}
+
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const [messageApi, messageHolder] = message.useMessage()
   const [count, setCount] = useState(0)
@@ -38,40 +43,28 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
     onEdgesAnimate,
     edgeType,
     onEdgesType,
-  } = useAppStore(
-    (st) => ({
-      page: st.page,
-      onSetPage: st.onSetPage,
-      themeMode: st.themeMode,
-      onSetThemeMode: st.onSetThemeMode,
-      onSubmit: st.onSubmit,
-      queue: st.queue,
-      onDeleteFromQueue: st.onDeleteFromQueue,
-      promptError: st.promptError,
-      onEdgesAnimate: st.onEdgesAnimate,
-      edgeType: st.edgeType,
-      onEdgesType: st.onEdgesType,
-    }),
-    shallow
-  )
+  } = useAppStore((state) => state, shallow)
 
   useEffect(() => {
-    if (promptError !== undefined)
+    if (promptError !== undefined) {
       messageApi.open({
         type: 'error',
         content: promptError,
         duration: 4,
       })
-  }, [promptError, count])
+    }
+  }, [promptError, count, messageApi])
 
   useEffect(() => {
     onEdgesAnimate(queue.length > 0)
-  }, [queue])
+  }, [queue, onEdgesAnimate])
 
-  const handleRun = () => {
+  const handleRun = useCallback(() => {
     onSubmit()
-    setCount(count + 1)
-  }
+    setCount((prevCount) => prevCount + 1)
+  }, [onSubmit])
+
+  const queueHasItems = queue.length > 0
 
   return (
     <>
@@ -108,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
             onClick={handleRun}
             menu={{ items: QueueList({ queue, onDeleteFromQueue }) }}
             icon={
-              queue.length > 0 ? (
+              queueHasItems ? (
                 <Spin size="small" indicator={<LoadingOutlined spin style={{ color: '#fff' }} />} />
               ) : undefined
             }

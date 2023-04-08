@@ -1,36 +1,19 @@
 import { AppState } from '@/store'
-import { Connection, NodeId, SDNode } from '@/types'
+import { LocalPersistedGraphs, NodeId, PersistedGraph, PersistedNode } from '@/types'
 import { getValidConnections } from '@/utils/connection'
 import defaultWorkflow from '../defaultWorkflow'
-
-type Position = { x: number; y: number }
-
-export interface PersistedNode {
-  value: SDNode
-  position: Position
-  width?: number
-  height?: number
-  parentNode?: string
-}
-
-export interface PersistedGraph {
-  data: Record<NodeId, PersistedNode>
-  connections: Connection[]
-}
-
-export interface LocalPersistedGraphs {
-  title: string
-  time: number
-  id: string
-  graph: PersistedGraph
-}
 
 const TEMP_KEY = 'kitchen-flow-temp'
 const LOCAL_KEY = 'kitchen-flow-local'
 
-export function toPersisted(state: AppState): PersistedGraph {
+/**
+ * 将应用状态转换为持久化状态
+ * @param state - 应用状态
+ * @returns 持久化状态
+ */
+export const toPersisted = (state: AppState): PersistedGraph => {
   const data: Record<NodeId, PersistedNode> = {}
-  for (const node of state.nodes) {
+  state.nodes.forEach((node) => {
     const value = state.graph[node.id]
     if (value !== undefined) {
       data[node.id] = { value, position: node.position }
@@ -38,15 +21,17 @@ export function toPersisted(state: AppState): PersistedGraph {
       if (node.height) data[node.id].height = node.height
       if (node.parentNode) data[node.id].parentNode = node.parentNode
     }
-  }
+  })
   return {
     data,
     connections: getValidConnections(state),
   }
 }
 
-// Temp Workflow
-export function cleanTempWorkflow(): void {
+/**
+ * 清除临时工作流
+ */
+export const cleanTempWorkflow = (): void => {
   try {
     localStorage.removeItem(TEMP_KEY)
   } catch (e) {
@@ -54,12 +39,20 @@ export function cleanTempWorkflow(): void {
   }
 }
 
-export function retrieveTempWorkflow(): PersistedGraph | null {
+/**
+ * 从 localStorage 中获取临时工作流
+ * @returns 持久化状态或 null
+ */
+export const retrieveTempWorkflow = (): PersistedGraph | null => {
   const item = localStorage.getItem(TEMP_KEY)
   return item ? JSON.parse(item) : defaultWorkflow
 }
 
-export function saveTempWorkflow(graph: PersistedGraph): void {
+/**
+ * 将临时工作流保存到 localStorage 中
+ * @param graph - 持久化状态
+ */
+export const saveTempWorkflow = (graph: PersistedGraph): void => {
   try {
     localStorage.setItem(TEMP_KEY, JSON.stringify(graph))
   } catch (e) {
@@ -67,9 +60,10 @@ export function saveTempWorkflow(graph: PersistedGraph): void {
   }
 }
 
-// Local Workflow
-
-export function cleanLocalWorkflows(): void {
+/**
+ * 清除本地工作流
+ */
+export const cleanLocalWorkflows = (): void => {
   try {
     localStorage.removeItem(LOCAL_KEY)
   } catch (e) {
@@ -77,7 +71,11 @@ export function cleanLocalWorkflows(): void {
   }
 }
 
-export function retrieveLocalWorkflows(): LocalPersistedGraphs[] {
+/**
+ * 从 localStorage 中获取本地工作流
+ * @returns 持久化状态数组
+ */
+export const retrieveLocalWorkflows = (): LocalPersistedGraphs[] => {
   try {
     const item = localStorage.getItem(LOCAL_KEY)
     return item ? JSON.parse(item) : []
@@ -87,13 +85,22 @@ export function retrieveLocalWorkflows(): LocalPersistedGraphs[] {
   }
 }
 
-export function getLocalWorkflowFromId(id: string): PersistedGraph | null {
+/**
+ * 从本地工作流中获取指定 ID 的工作流
+ * @param id - 工作流 ID
+ * @returns 持久化状态或 null
+ */
+export const getLocalWorkflowFromId = (id: string): PersistedGraph | null => {
   const workflows = retrieveLocalWorkflows()
   const workflow = workflows.find((item) => item.id === id)
   return workflow ? workflow.graph : null
 }
 
-export function deleteLocalWorkflowFromId(id: string) {
+/**
+ * 从本地工作流中删除指定 ID 的工作流
+ * @param id - 工作流 ID
+ */
+export const deleteLocalWorkflowFromId = (id: string) => {
   try {
     const localWorkflows = retrieveLocalWorkflows()
       .map((workflow) => {
@@ -107,7 +114,12 @@ export function deleteLocalWorkflowFromId(id: string) {
   }
 }
 
-export function saveLocalWorkflow(graph: PersistedGraph, title?: string): void {
+/**
+ * 将工作流保存到本地工作流中
+ * @param graph - 持久化状态
+ * @param title - 工作流标题
+ */
+export const saveLocalWorkflow = (graph: PersistedGraph, title?: string): void => {
   try {
     const localWorkflows = retrieveLocalWorkflows()
     const time = new Date().getTime()
@@ -123,7 +135,12 @@ export function saveLocalWorkflow(graph: PersistedGraph, title?: string): void {
   }
 }
 
-export function updateLocalWorkflow(id: string, modifyData: { title?: string; graph?: PersistedGraph }): void {
+/**
+ * 更新本地工作流中指定 ID 的工作流
+ * @param id - 工作流 ID
+ * @param modifyData - 修改的数据
+ */
+export const updateLocalWorkflow = (id: string, modifyData: { title?: string; graph?: PersistedGraph }): void => {
   try {
     const localWorkflows = retrieveLocalWorkflows().map((workflow) => {
       if (workflow.id !== id) return workflow
@@ -139,7 +156,12 @@ export function updateLocalWorkflow(id: string, modifyData: { title?: string; gr
   }
 }
 
-export function readWorkflowFromFile(file: File, callback: (workflow: PersistedGraph) => void): void {
+/**
+ * 从文件中读取工作流
+ * @param file - 文件
+ * @param callback - 读取完成后的回调函数
+ */
+export const readWorkflowFromFile = (file: File, callback: (workflow: PersistedGraph) => void): void => {
   try {
     const reader = new FileReader()
     if (file) {
@@ -156,7 +178,12 @@ export function readWorkflowFromFile(file: File, callback: (workflow: PersistedG
   }
 }
 
-export function writeWorkflowToFile(workflow: PersistedGraph, title?: string): void {
+/**
+ * 将工作流写入文件
+ * @param workflow - 持久化状态
+ * @param title - 工作流标题
+ */
+export const writeWorkflowToFile = (workflow: PersistedGraph, title?: string): void => {
   const blob = new Blob([JSON.stringify(workflow)], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
