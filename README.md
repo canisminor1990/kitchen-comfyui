@@ -1,18 +1,25 @@
 # Kitchen ComfyUI
 
+| Dark                                                                                        | Light                                                                                       |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| ![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-1.webp) | ![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-2.webp) |
+
 ## TODO List
 
 - 键盘快捷键
-  - [x] **Copy/Paste:** <kbd>Ctrl</kbd> + <kbd>C</kbd>/<kbd>V</kbd>
+  - [x] **Delete:** <kbd>Delete</kbd> / <kbd>Backspace</kbd>
   - [x] **Multi Selection:** <kbd>Shift</kbd>
-  - [ ] **Undo/Redo**: <kbd>Ctrl</kbd> + <kbd>Z</kbd>/<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
+  - [x] **Copy/Paste:** <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd>
+  - [x] **Group Selection:** <kbd>Ctrl</kbd> + <kbd>G</kbd>
+  - [ ] **Undo/Redo**: <kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
 - 图片节点
   - [x] 图片节点上传适配
   - [ ] 拖拽图片自动上传并生成节点
 - 编组
-  - [ ] 框选节点编组
+
   - [x] 编组相关基础功能
   - [ ] 局部 Flow 转换为组件
+
 - 节点
   - [ ] 中继节点，支持一个到多个变量中继
   - [ ] WIFI 无线节点，输出节点/接受节点
