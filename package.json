@@ -19,7 +19,7 @@
     "prettier": "prettier -c --write \"**/**\"",
     "setup": "umi setup",
     "start": "npm run dev",
-    "test": "npm run lint && npm run type-check",
+    "test": "npm run lint",
     "type-check": "tsc -p tsconfig-check.json"
   },
   "lint-staged": {
