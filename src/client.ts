@@ -70,15 +70,15 @@ export function createPrompt(graph: PersistedGraph, widgets: Record<string, Widg
   const prompt: Record<NodeId, Node> = {}
   const data: Record<NodeId, PersistedNode> = {}
 
-  for (const [id, node] of Object.entries(graph.data)) {
+  Object.entries(graph.data).forEach(([id, node]) => {
+    if (node.value.widget === 'Group') return
     const fields = { ...node.value.fields }
-    for (const [property, value] of Object.entries(fields)) {
+    Object.entries(fields).forEach(([property, value]) => {
       const input = widgets[node.value.widget].input.required[property]
-      if (checkInput.isInt(input) && input[1].randomizable === true && value === -1) {
+      if (checkInput.isInt(input) && input[1].randomizable && value === -1) {
         fields[property] = Math.trunc(Math.random() * Number.MAX_SAFE_INTEGER)
       }
-    }
-
+    })
     data[id] = {
       position: node.position,
       value: { ...node.value, fields },
@@ -87,18 +87,16 @@ export function createPrompt(graph: PersistedGraph, widgets: Record<string, Widg
       class_type: node.value.widget,
       inputs: fields,
     }
-  }
+  })
 
-  for (const edge of graph.connections) {
+  graph.connections.forEach((edge) => {
     const source = graph.data[edge.source]
-    if (source === undefined) {
-      continue
-    }
+    if (!source) return
     const outputIndex = widgets[source.value.widget].output.findIndex((f) => f === edge.sourceHandle)
-    if (prompt[edge.target] !== undefined) {
+    if (prompt[edge.target]) {
       prompt[edge.target].inputs[edge.targetHandle] = [edge.source, outputIndex]
     }
-  }
+  })
 
   return {
     prompt,

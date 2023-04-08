@@ -82,6 +82,35 @@ export const useAppStore = create<AppState>()(
     /******************************************************
      *********************** Node *************************
      ******************************************************/
+    onCreateGroup: () => {
+      const childNodes = get().nodes.filter((n) => n.selected && n.data.name !== 'Group')
+      let left = Infinity
+      let right = 0
+      let top = Infinity
+      let bottom = 0
+
+      Object.values(childNodes).forEach((node) => {
+        const { position, width, height } = node
+        left = Math.min(left, position.x)
+        right = Math.max(right, position.x + Number(width))
+        top = Math.min(top, position.y)
+        bottom = Math.max(bottom, position.y + Number(height))
+      })
+
+      set(
+        (st) =>
+          addNode(st, {
+            widget: defaultWidgets.Group,
+            position: { x: left - 40, y: top - 60 },
+            width: right - left + 80,
+            height: bottom - top + 100,
+            key: uuid(),
+          }),
+        false,
+        'onCreateGroup'
+      )
+    },
+
     onSetNodesGroup: (childIds, groupNode) => {
       set((st) => ({
         nodes: st.nodes.map((n) => {
@@ -229,7 +258,6 @@ export const useAppStore = create<AppState>()(
     },
 
     onPasteNode: (workflow, position) => {
-      const nodes = get().nodes
       const basePositon = getTopLeftPoint(Object.values(workflow.data).map((item) => item.position))
       const idMap: { [id: string]: string } = {} // 存储原始节点 id 和新节点 id 的映射关系
       const newWorkflow: PersistedGraph = {
@@ -250,11 +278,6 @@ export const useAppStore = create<AppState>()(
         if (node.parentNode) {
           if (!Object.keys(workflow.data).includes(node.parentNode)) {
             newNode.parentNode = undefined
-            const groupNode = nodes.find((n) => n.id === node.parentNode)
-            if (groupNode) {
-              newNode.position.x = newNode.position.x + groupNode.position.x
-              newNode.position.y = newNode.position.y + groupNode.position.y
-            }
           } else {
             newNode.position = node.position
           }

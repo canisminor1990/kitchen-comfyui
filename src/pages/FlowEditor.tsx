@@ -30,6 +30,7 @@ const FlowEditor: React.FC = () => {
     onPasteNode,
     onSetNodesGroup,
     onDeleteNode,
+    onCreateGroup,
   } = useAppStore(
     (st) => ({
       nodes: st.nodes,
@@ -43,6 +44,7 @@ const FlowEditor: React.FC = () => {
       onPasteNode: st.onPasteNode,
       onSetNodesGroup: st.onSetNodesGroup,
       onDeleteNode: st.onDeleteNode,
+      onCreateGroup: st.onCreateGroup,
     }),
     shallow
   )
@@ -126,10 +128,14 @@ const FlowEditor: React.FC = () => {
   const handleKeyDown = useCallback(
     (event: any) => {
       const ctrlKey = event.metaKey || (event.ctrlKey && !event.altKey)
-      if (ctrlKey && event.code === 'KeyC') {
-        handleCopy()
-      } else if (ctrlKey && event.code === 'KeyV') {
-        handlePaste(reactFlowInstance)
+      const ctrlAction: any = {
+        KeyC: () => handleCopy(),
+        KeyV: () => handlePaste(reactFlowInstance),
+        KeyG: () => onCreateGroup(),
+      }
+      if (ctrlKey) {
+        const action = ctrlAction[event.code]
+        if (action) action()
       } else if (event.code === 'Delete' || event.code === 'Backspace') {
         reactFlowInstance.getNodes().forEach((n: any) => n.selected && onDeleteNode(n.id))
       }
