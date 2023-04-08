@@ -7,6 +7,7 @@
   A reactflow base stable diffusion GUI as ComfyUI alternative interface.
 
 <br/>
+<br/>
 
 <!-- SHIELD GROUP -->
 
@@ -86,7 +87,7 @@
   - [ ] 局部 Flow 转换为组件
 
 - 节点
-  - [ ] 中继节点，支持一个到多个变量中继
+  - [x] 中继节点，支持一个到多个变量中继
   - [ ] WIFI 无线节点，输出节点/接受节点
   - [ ] 开关节点，控制流程是否往下
   - [ ] ...
