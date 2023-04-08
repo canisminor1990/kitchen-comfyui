@@ -9,23 +9,20 @@ jobs:
     name: Dependabot Auto Merge
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Read Node version
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
-
-      - name: Set Node version
-        uses: actions/setup-node@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+          version: 7
 
-      - name: Get yarn cache
-        uses: c-hive/gha-yarn-cache@v1
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-      - name: Install dependencies
-        run: yarn
+      - name: Install deps
+        run: pnpm install
 
       - name: Merge
         uses: ahmadnassri/action-dependabot-auto-merge@v2
