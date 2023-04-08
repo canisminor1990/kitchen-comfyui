@@ -4,12 +4,7 @@ import { shallow } from 'zustand/shallow'
 import DataView from './DataView'
 import FlowEditor from './FlowEditor'
 const App: React.FC = () => {
-  const { page } = useAppStore(
-    (st) => ({
-      page: st.page,
-    }),
-    shallow
-  )
+  const { page } = useAppStore((st) => st, shallow)
 
   return (
     <>
