@@ -1,10 +1,19 @@
-# Kitchen ComfyUI
+<p align="center">
+  <img width="160" src="https://gw.alipayobjects.com/mdn/rms_7d1485/afts/img/A*XDYxSJXBjjwAAAAAAAAAAAAAARQnAQ">
+</p>
+<h1 align="center">Kitchen ComfyUI</h1>
 
-| Dark                                                                                        | Light                                                                                       |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| ![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-1.webp) | ![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-2.webp) |
+<div align="center">
+  A reactflow base stable diffusion GUI as ComfyUI alternative interface.
+</div>
 
-## TODO List
+<br/>
+
+![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-1.webp)
+
+<br/>
+
+## 🔨 TODO List
 
 - 键盘快捷键
   - [x] **Delete:** <kbd>Delete</kbd> / <kbd>Backspace</kbd>
@@ -26,7 +35,9 @@
   - [ ] 开关节点，控制流程是否往下
   - [ ] ...
 
-## Installation
+<br/>
+
+## 📦 Installation
 
 clone ComfyUI follow the README.md installing there
 
@@ -36,9 +47,11 @@ git clone https://github.com/comfyanonymous/ComfyUI
 
 replace `ComfyUI/web` frontend with `dist` build
 
-## Development
+<br/>
 
-place this repo anywhere, just edit `ComfyUI/server.py`, add `cors_handler`
+## ⌨️ Development
+
+place this repo anywhere, and edit `ComfyUI/server.py`
 
 > check [assets/modify-server.py](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/modify-server.py)
 
@@ -59,7 +72,9 @@ class PromptServer():
 ......
 ```
 
-## Credits
+<br/>
+
+## 🔗 Credits
 
 - ComfyUI - https://github.com/comfyanonymous/ComfyUI
 - comfyweb - https://github.com/jac3km4/comfyweb
