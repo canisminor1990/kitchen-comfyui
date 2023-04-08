@@ -9,6 +9,7 @@
   "author": "canisminor1990 <i@canisminor.cc>",
   "sideEffects": false,
   "scripts": {
+    "---": "",
     "build": "umi build",
     "dev": "umi dev",
     "dev:with-mock": "cross-env MOCK=true umi dev",
@@ -18,6 +19,7 @@
     "prettier": "prettier -c --write \"**/**\"",
     "setup": "umi setup",
     "start": "npm run dev",
+    "test": "npm run lint && npm run type-check",
     "type-check": "tsc -p tsconfig-check.json"
   },
   "lint-staged": {
