@@ -102,7 +102,7 @@ clone ComfyUI follow the README.md installing there
 git clone https://github.com/comfyanonymous/ComfyUI
 ```
 
-replace `ComfyUI/web` frontend with `dist` build
+replace `ComfyUI/web` frontend with [release](https://github.com/canisminor1990/kitchen-comfyui/releases) build
 
 <br/>
 
