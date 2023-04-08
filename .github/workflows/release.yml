@@ -50,14 +50,14 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Compress dist folder
-        run: zip -r web.zip dist/
-
       - name: Release
         id: release
         run: pnpm run release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Compress dist folder
+        run: zip -r web.zip dist/
 
       - name: Upload release asset
         id: upload-release-asset

@@ -47,4 +47,4 @@ screenshot
 example/.temp/*
 .eslintcache
 techUI*
-
+*.zip
