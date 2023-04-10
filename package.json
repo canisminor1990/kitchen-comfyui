@@ -82,7 +82,7 @@
     "semantic-release-config-gitmoji": "^1",
     "styled-components": "^5.3.9",
     "stylelint": "^15.4.0",
-    "typedoc": "^0.23.28",
+    "typedoc": "^0.24.1",
     "typedoc-github-wiki-theme": "^1.0.1",
     "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^5.0.0",
