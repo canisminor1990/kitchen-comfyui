@@ -94,6 +94,16 @@
 
 <br/>
 
+## 👀 Screenshot
+
+#### Light Mode
+
+![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/screenshot-2.webp)
+
+#### Connection Styles
+
+![](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/connections.webp)
+
 ## 📦 Installation
 
 clone ComfyUI follow the README.md installing there
