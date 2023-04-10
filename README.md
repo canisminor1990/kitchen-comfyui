@@ -98,11 +98,13 @@
 
 #### Light Mode
 
-![](https://raw.githubusercontent.com/canisminor1990/kitchen-comfyui/dev/assets/screenshot-1.webp)
+![](https://raw.githubusercontent.com/canisminor1990/kitchen-comfyui/dev/assets/screenshot-2.webp)
 
 #### Connection Styles
 
 ![](https://raw.githubusercontent.com/canisminor1990/kitchen-comfyui/dev/assets/connections.webp)
+
+<br/>
 
 ## 📦 Installation
 
