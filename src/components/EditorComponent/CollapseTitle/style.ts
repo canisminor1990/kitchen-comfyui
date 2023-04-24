@@ -8,10 +8,10 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
       className,
       showPanel
         ? css`
+            margin-bottom: 8px;
             padding: 6px 8px 12px 8px;
             background: ${token.colorFillQuaternary};
             border-radius: 4px;
-            margin-bottom: 8px;
           `
         : ''
     ),
@@ -21,8 +21,8 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
       showPanel
         ? ''
         : css`
-            padding: 6px 8px;
             user-select: none;
+            padding: 6px 8px;
             border-radius: 4px;
             ${stylish.containerBgL2}
           `
@@ -34,10 +34,11 @@ export const useStyles = createStyles(({ token, stylish }, { prefixCls, classNam
       `,
       showPanel
         ? css`
+            user-select: none;
             margin-left: -4px;
             padding: 4px;
             border-radius: 4px;
-            user-select: none;
+
             ${stylish.containerBgHover}
           `
         : ''

@@ -4,10 +4,10 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
   const commonHandle = css`
     position: relative;
     &::before {
+      content: '';
       position: absolute;
       z-index: 50;
       transition: all 0.3s ease-in-out;
-      content: '';
     }
 
     &:hover,
@@ -19,18 +19,21 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
   `
 
   const commonToggle = css`
-    position: absolute;
-    opacity: 0;
-    z-index: 1001;
-    transition: opacity 0.1s;
-
-    border-radius: 4px;
     cursor: pointer;
-    background: ${token.colorBgElevated};
-    border-width: 1px;
-    border-style: solid;
+
+    position: absolute;
+    z-index: 1001;
+
     color: ${token.colorTextTertiary};
+
+    opacity: 0;
+    background: ${token.colorBgElevated};
     border-color: ${token.colorBorder};
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+
+    transition: opacity 0.1s;
 
     &:hover {
       color: ${token.colorTextSecondary};
@@ -46,8 +49,8 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
     container: cx(
       prefix,
       css`
-        flex-shrink: 0;
         position: relative;
+        flex-shrink: 0;
         border: 0 solid ${token.colorSplit};
 
         &:hover {
@@ -62,13 +65,15 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
       `${prefix}-toggle-left`,
       commonToggle,
       css`
+        top: 50%;
+        left: -${offset}px;
+
         width: ${toggleShort}px;
         height: ${toggleLength}px;
-        left: -${offset}px;
-        top: 50%;
         margin-top: -20px;
-        border-radius: 4px 0 0 4px;
+
         border-right-width: 0;
+        border-radius: 4px 0 0 4px;
       `
     ),
     toggleRight: cx(
@@ -76,13 +81,15 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
       `${prefix}-toggle-right`,
       commonToggle,
       css`
+        top: 50%;
+        right: -${offset}px;
+
         width: ${toggleShort}px;
         height: ${toggleLength}px;
-        right: -${offset}px;
-        top: 50%;
         margin-top: -20px;
-        border-radius: 0 4px 4px 0;
+
         border-left-width: 0;
+        border-radius: 0 4px 4px 0;
       `
     ),
     toggleTop: cx(
@@ -90,13 +97,15 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
       `${prefix}-toggle-top`,
       commonToggle,
       css`
-        height: ${toggleShort}px;
-        width: ${toggleLength}px;
         top: -${offset}px;
         left: 50%;
+
+        width: ${toggleLength}px;
+        height: ${toggleShort}px;
         margin-left: -20px;
-        border-radius: 4px 4px 0 0;
+
         border-bottom-width: 0;
+        border-radius: 4px 4px 0 0;
       `
     ),
     toggleBottom: cx(
@@ -104,30 +113,34 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
       `${prefix}-toggle-bottom`,
       commonToggle,
       css`
-        height: 16px;
-        width: ${toggleLength}px;
         bottom: -${offset}px;
         left: 50%;
+
+        width: ${toggleLength}px;
+        height: 16px;
         margin-left: -20px;
-        border-radius: 0 0 4px 4px;
+
         border-top-width: 0;
+        border-radius: 0 0 4px 4px;
       `
     ),
     fixed: cx(
       `${prefix}-fixed`,
       css`
-        background: ${token.colorBgContainer};
         overflow: hidden;
+        background: ${token.colorBgContainer};
       `
     ),
     float: cx(
       `${prefix}-float`,
       css`
-        overflow: hidden;
-        border-radius: 8px;
-        background: ${token.colorBgElevated};
-        box-shadow: ${token.boxShadowSecondary};
         z-index: 2000;
+
+        overflow: hidden;
+
+        background: ${token.colorBgElevated};
+        border-radius: 8px;
+        box-shadow: ${token.boxShadowSecondary};
       `
     ),
     leftHandle: cx(
@@ -160,8 +173,8 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
 
         &::before {
           top: 50%;
-          height: 2px;
           width: 100%;
+          height: 2px;
         }
       `
     ),
@@ -172,8 +185,8 @@ export const useStyle = createStyles(({ token }, prefix: string) => {
 
         &::before {
           bottom: 50%;
-          height: 2px;
           width: 100%;
+          height: 2px;
         }
       `
     ),

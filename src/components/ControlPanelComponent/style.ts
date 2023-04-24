@@ -6,6 +6,6 @@ export const PanelHeader = styled.div`
 `
 
 export const PanelBody = styled.div`
-  flex: 1;
   overflow: auto;
+  flex: 1;
 `

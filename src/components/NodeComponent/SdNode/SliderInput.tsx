@@ -14,8 +14,8 @@ const Row = styled.div`
 `
 
 const Col = styled.div<{ span: number }>`
-  flex: ${({ span }) => span};
   display: flex;
+  flex: ${({ span }) => span};
   align-items: center;
   justify-content: flex-start;
   > * {

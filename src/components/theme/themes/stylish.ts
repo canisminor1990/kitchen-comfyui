@@ -78,9 +78,9 @@ export const getStudioStylish: GetCustomStylish<StudioStylish> = ({ token, css }
       }
     `,
     containerBgL2: css`
-      ${containerBgHover};
-      border-radius: 4px;
       background: ${token.colorFillQuaternary};
+      border-radius: 4px;
+      ${containerBgHover};
 
       &:hover {
         background: ${token.colorFillTertiary};

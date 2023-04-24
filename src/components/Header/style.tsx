@@ -6,11 +6,13 @@ export const darkLogo = 'https://gw.alipayobjects.com/zos/bmw-prod/9ecb2822-1592
 export const lightLogo = 'https://gw.alipayobjects.com/zos/bmw-prod/e146116d-c65a-4306-a3d2-bb8d05e1c49b.svg'
 
 export const View = styled.div`
-  height: 46px;
-  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  height: 46px;
+  padding: 16px 24px;
+
   background: ${({ theme }) => theme.colorBgContainer};
   border-bottom: 1px solid ${({ theme }) => theme.colorBorderSecondary};
 `

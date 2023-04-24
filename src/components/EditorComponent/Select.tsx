@@ -40,8 +40,10 @@ const useStyles = createStyles(({ css, stylish, prefixCls }) => {
       &-arrow {
         top: 13px;
         right: 8px;
+
         width: 10px;
         height: 10px;
+
         font-size: 10px;
       }
     }

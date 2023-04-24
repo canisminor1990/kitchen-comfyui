@@ -7,4 +7,15 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
+  extraBabelPlugins: [
+    [
+      'babel-plugin-styled-components',
+      {
+        minify: true,
+        transpileTemplateLiterals: true,
+        displayName: process.env.NODE_ENV === 'development',
+        pure: true,
+      },
+    ],
+  ],
 })

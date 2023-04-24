@@ -3,9 +3,10 @@ import { Position } from 'reactflow'
 import styled, { css } from 'styled-components'
 
 export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
-  box-shadow: ${({ theme }) => theme.boxShadowTertiary};
   min-width: 80px;
   min-height: 40px;
+  box-shadow: ${({ theme }) => theme.boxShadowTertiary};
+
   ${({ active, theme }) =>
     active
       ? css`
@@ -13,17 +14,18 @@ export const NodeCard = styled(Card)<{ active: 1 | 0 }>`
         `
       : ''};
   .ant-card-head {
-    background: ${({ theme }) => theme.colorFillQuaternary} !important;
-    padding-right: 3px;
-    border-bottom: unset;
     height: 15px;
+    padding-right: 3px;
+    background: ${({ theme }) => theme.colorFillQuaternary} !important;
+    border-bottom: unset;
   }
 `
 
 export const GroupCard = styled(Card)<{ active: 1 | 0 }>`
   min-width: 80px;
-  min-height: 120px;
   height: 100%;
+  min-height: 120px;
+
   ${({ active, theme }) =>
     active
       ? css`
@@ -34,11 +36,13 @@ export const GroupCard = styled(Card)<{ active: 1 | 0 }>`
     pointer-events: all !important;
   }
   .ant-card-head {
-    background: ${({ theme }) => theme.colorFillQuaternary} !important;
-    padding-right: 3px;
-    border-bottom: unset;
-    height: 15px;
     pointer-events: all !important;
+
+    height: 15px;
+    padding-right: 3px;
+
+    background: ${({ theme }) => theme.colorFillQuaternary} !important;
+    border-bottom: unset;
   }
 `
 
@@ -56,10 +60,10 @@ export const SpaceCol = styled.div`
 `
 
 export const SpaceGrid = styled.div`
-  width: 100%;
+  display: flex;
   align-items: stretch;
   justify-content: stretch;
-  display: flex;
+  width: 100%;
 
   ${SpaceCol} + ${SpaceCol} {
     margin-left: 24px;

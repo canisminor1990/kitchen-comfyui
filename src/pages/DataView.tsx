@@ -33,8 +33,8 @@ const View = styled.div`
 `
 
 const JsonView = styled.div`
-  height: 88vh;
   overflow-y: auto;
+  height: 88vh;
 `
 
 /******************************************************

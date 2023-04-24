@@ -10,8 +10,8 @@ import { NodeCard, SpaceCol, SpaceGrid } from '../style'
  ******************************************************/
 
 const Slot = styled.div<{ isRequired: 1 | 0 }>`
-  background: ${({ isRequired, theme }) => (isRequired ? theme.colorPrimary : theme.colorBorder)};
   margin-top: 6px;
+  background: ${({ isRequired, theme }) => (isRequired ? theme.colorPrimary : theme.colorBorder)};
 `
 
 /******************************************************

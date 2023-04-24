@@ -1,9 +1,3 @@
 {
-  "extends": "./src/.umi/tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
-    }
-  }
+  "extends": "./src/.umi/tsconfig.json"
 }

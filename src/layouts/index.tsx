@@ -13,8 +13,8 @@ import WsController from './WsController'
 
 const EditorView = styled.div`
   display: flex;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
 `
 /******************************************************
  ************************* Dom *************************

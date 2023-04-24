@@ -16,8 +16,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .react-flow__node[type="Group"] {
-    z-index: -1 !important;
     pointer-events: none !important;
+    z-index: -1 !important;
+  }
+
+  .react-flow__handle {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
   }
 
   .ant-card[type="Reroute"] .react-flow__handle {
@@ -51,11 +57,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
 
-  .react-flow__handle {
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-  }
+
 
   .react-flow__handle-connecting {
     background: ${({ theme }) => theme.colorError} !important;
@@ -70,12 +72,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .react-flow__minimap {
+    overflow: hidden;
+
+    height: 150px;
+
     background: ${({ theme }) => rgba(theme.colorBgContainer, 0.8)};
     backdrop-filter: blur(24px);
     border: 1px solid ${({ theme }) => theme.colorBorderSecondary};
-    overflow: hidden;
     border-radius: 4px;
-    height: 150px;
     box-shadow: ${({ theme }) => theme.boxShadowTertiary};
   }
 
@@ -91,21 +95,21 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid ${({ theme }) => theme.colorBorder};
     box-shadow: ${({ theme }) => theme.boxShadow};
 
+    button {
+      color: ${({ theme }) => theme.colorTextBase};
+      background-color: ${({ theme }) => theme.colorBgElevated};
+      border-bottom: none;
+      path {
+        fill: currentColor;
+      }
+    }
+
     button + button {
       border-top: 1px solid ${({ theme }) => theme.colorBorder};
     }
 
-    button {
-      background-color: ${({ theme }) => theme.colorBgElevated};
-      color: ${({ theme }) => theme.colorTextBase};
-      border-bottom: none;
-      &:hover {
-        background-color: ${({ theme }) => theme.colorBgSpotlight};
-      }
-
-      path {
-        fill: currentColor;
-      }
+    button:hover {
+      background-color: ${({ theme }) => theme.colorBgSpotlight};
     }
   }
 `

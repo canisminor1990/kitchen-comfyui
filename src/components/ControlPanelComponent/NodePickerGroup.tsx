@@ -12,8 +12,8 @@ const CARD_LIST_PADDING = '8px 4px'
  ******************************************************/
 
 const CardList = styled.div`
-  padding: ${CARD_LIST_PADDING};
   cursor: pointer;
+  padding: ${CARD_LIST_PADDING};
 `
 
 /******************************************************

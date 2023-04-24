@@ -9,10 +9,12 @@ const useStyles = createStyles(({ token, prefixCls, css, stylish }) => {
 
   return {
     cls: css`
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       position: relative;
+
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
       max-height: 100%;
 
       ${prefix}-tab + ${prefix}-tab {
@@ -37,14 +39,17 @@ const useStyles = createStyles(({ token, prefixCls, css, stylish }) => {
       }
 
       ${prefix}-nav {
-        height: 46px;
-        padding: 0 12px;
         position: relative;
-        flex: none;
         z-index: 10;
+
+        flex: none;
+
         width: 100%;
-        ${stylish.backgroundBlur}
+        height: 46px;
         margin: 0;
+        padding: 0 12px;
+
+        ${stylish.backgroundBlur};
       }
 
       ${prefix}-content {
@@ -52,15 +57,15 @@ const useStyles = createStyles(({ token, prefixCls, css, stylish }) => {
       }
 
       ${prefix}-tabpane-active {
-        height: 100%;
         display: flex;
         flex-direction: column;
+        height: 100%;
       }
 
       ${prefix}-content-holder {
         overflow-y: auto;
-        padding: 8px 12px;
         flex: 1;
+        padding: 8px 12px;
       }
     `,
   }
