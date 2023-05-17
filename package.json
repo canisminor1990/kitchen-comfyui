@@ -96,7 +96,7 @@
     "typedoc": "^0.24.1",
     "typedoc-github-wiki-theme": "^1.0.1",
     "typedoc-plugin-markdown": "^3.14.0",
-    "typescript": "^5.0.0",
+    "typescript": "^5.0.4",
     "use-merge-value": "^1.2.0",
     "uuid": "^9.0.0"
   }
