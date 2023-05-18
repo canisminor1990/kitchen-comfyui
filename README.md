@@ -1,13 +1,14 @@
-<p align="center">
-  <img width="160" src="https://gw.alipayobjects.com/mdn/rms_7d1485/afts/img/A*XDYxSJXBjjwAAAAAAAAAAAAAARQnAQ">
-</p>
-<h1 align="center">Kitchen ComfyUI</h1>
+<a name="readme-top"></a>
 
 <div align="center">
-  A reactflow base stable diffusion GUI as ComfyUI alternative interface.
+  
+<img width="160" src="https://gw.alipayobjects.com/mdn/rms_7d1485/afts/img/A*XDYxSJXBjjwAAAAAAAAAAAAAARQnAQ">
 
-<br/>
-<br/>
+<h1 align="center">Kitchen ComfyUI</h1>
+
+A reactflow base stable diffusion GUI as ComfyUI alternative interface.
+
+[Changelog](./CHANGELOG.md) · [Report Bug][issues-url] · [Request Feature][issues-url]
 
 <!-- SHIELD GROUP -->
 
@@ -15,35 +16,33 @@
 
 </div>
 
-<br/>
-
 ![](https://raw.githubusercontent.com/canisminor1990/kitchen-comfyui/dev/assets/screenshot-1.webp)
-
-<br/>
 
 ## 🔨 TODO List
 
-- 键盘快捷键
+- Keyboard Shortcuts
   - [x] **Delete:** <kbd>Delete</kbd> / <kbd>Backspace</kbd>
   - [x] **Multi Selection:** <kbd>Shift</kbd>
   - [x] **Copy/Paste:** <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd>
   - [x] **Group Selection:** <kbd>Ctrl</kbd> + <kbd>G</kbd>
   - [ ] **Undo/Redo**: <kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
-- 图片节点
-  - [x] 图片节点上传适配
-  - [ ] 拖拽图片自动上传并生成节点
-- 编组
-
-  - [x] 编组相关基础功能
-  - [ ] 局部 Flow 转换为组件
-
-- 节点
-  - [x] 中继节点，支持一个到多个变量中继
-  - [ ] WIFI 无线节点，输出节点/接受节点
-  - [ ] 开关节点，控制流程是否往下
+- Image Nodes
+  - [x] Image node upload adaptation
+  - [ ] Drag and drop images to automatically upload and generate nodes
+- Grouping
+  - [x] Basic grouping functionality
+  - [ ] Convert local flow to component
+- Nodes
+  - [x] Relay node, supports relaying one to multiple variables
+  - [ ] WIFI wireless node, output node/receiving node
+  - [ ] Switch node, controls whether the flow continues downward
   - [ ] ...
 
-<br/>
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
 
 ## 👀 Screenshot
 
@@ -55,7 +54,11 @@
 
 ![](https://raw.githubusercontent.com/canisminor1990/kitchen-comfyui/dev/assets/connections.webp)
 
-<br/>
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
 
 ## 📦 Installation
 
@@ -67,7 +70,11 @@ git clone https://github.com/comfyanonymous/ComfyUI
 
 replace `ComfyUI/web` frontend with [release](https://github.com/canisminor1990/kitchen-comfyui/releases) build
 
-<br/>
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
 
 ## ⌨️ Development
 
@@ -92,7 +99,11 @@ class PromptServer():
 ......
 ```
 
-<br/>
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
 
 ## 🤝 Contributing
 
@@ -115,14 +126,38 @@ class PromptServer():
 
 <!-- CONTRIBUTION END -->
 
-<br/>
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
 
 ## 🔗 Credits
 
 - ComfyUI - https://github.com/comfyanonymous/ComfyUI
 - comfyweb - https://github.com/jac3km4/comfyweb
 
+<div align="right">
+
+[![][back-to-top]](#readme-top)
+
+</div>
+
+---
+#### 📝 License
+
+Copyright © 2023 [CanisMinor][profile-url]. <br />
+This project is [MIT](./LICENSE) licensed. 
+
+
+<!-- LINK GROUP -->
+
+[profile-url]: https://github.com/canisminor1990
+[issues-url]: https://github.com/canisminor1990/lobe-commit/issues/new/choose
+
 <!-- SHIELD LINK GROUP -->
+
+[back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square
 
 <!-- release -->
 
