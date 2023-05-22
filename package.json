@@ -64,7 +64,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/uuid": "^9.0.1",
     "@umijs/lint": "^4.0.64",
-    "ahooks": "^3.7.6",
+    "ahooks": "^3.7.7",
     "babel-plugin-styled-components": "^2.1.1",
     "commitlint": "^17",
     "commitlint-config-gitmoji": "^2",
