@@ -53,7 +53,7 @@
     "react-use-websocket": "^4.3.1",
     "reactflow": "^11.7.2",
     "umi": "^4.0.69",
-    "zustand": "^4.3.7"
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^17",
