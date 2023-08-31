@@ -78,9 +78,24 @@ replace `ComfyUI/web` frontend with [release](https://github.com/canisminor1990/
 
 ## ⌨️ Development
 
-place this repo anywhere, and edit `ComfyUI/server.py`
+⌨️ Local Development
 
-> check [assets/modify-server.py](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/modify-server.py)
+You can use Gitpod for online development:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][gitpod-url]
+
+Or clone it for local development:
+
+```bash
+$ git clone https://github.com/canisminor1990/kitchen-comfyui
+$ cd kitchen-comfyui
+$ pnpm install
+$ pnpm dev
+```
+
+Place this repo anywhere, and edit `ComfyUI/server.py`
+
+> **👉 Note:** Check [assets/modify-server.py](https://github.com/canisminor1990/kitchen-comfyui/blob/master/assets/modify-server.py)
 
 ```py
 @web.middleware
@@ -154,6 +169,7 @@ This project is [MIT](./LICENSE) licensed.
 
 [profile-url]: https://github.com/canisminor1990
 [issues-url]: https://github.com/canisminor1990/lobe-commit/issues/new/choose
+[gitpod-url]: https://gitpod.io/#https://github.com/canisminor1990/kitchen-comfyui
 
 <!-- SHIELD LINK GROUP -->
 
