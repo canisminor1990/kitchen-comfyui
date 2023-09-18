@@ -98,6 +98,6 @@
     "typedoc-plugin-markdown": "^3.15.4",
     "typescript": "^5.1.6",
     "use-merge-value": "^1.2.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   }
 }
