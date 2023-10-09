@@ -84,7 +84,7 @@
     "prettier-plugin-packagejson": "^2",
     "query-string": "^8.1.0",
     "re-resizable": "^6.9.11",
-    "react-layout-kit": "^1.7.3",
+    "react-layout-kit": "^1.7.4",
     "react-rnd": "^10.4.1",
     "semantic-release": "^21",
     "semantic-release-config-gitmoji": "^1",
