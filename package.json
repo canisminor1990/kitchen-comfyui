@@ -46,7 +46,7 @@
     "@ant-design/pro-components": "^2.6.28",
     "@floating-ui/react": "^0.26.1",
     "@radix-ui/react-icons": "^1.3.0",
-    "antd": "^5.10.1",
+    "antd": "^5.10.2",
     "antd-style": "^3.5.0",
     "exifr": "^7.1.3",
     "react-json-view": "^1.21.3",
