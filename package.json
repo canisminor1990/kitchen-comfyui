@@ -60,7 +60,7 @@
     "@types/styled-components": "^5.1.29",
     "@semantic-release/github": "^9.2.1",
     "@types/lodash-es": "^4.17.10",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "@types/uuid": "^9.0.4",
     "@umijs/lint": "^4.0.87",
