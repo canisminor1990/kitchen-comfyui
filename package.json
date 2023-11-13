@@ -52,7 +52,7 @@
     "react-json-view": "^1.21.3",
     "react-use-websocket": "^4.5.0",
     "reactflow": "^11.9.4",
-    "umi": "^4.0.87",
+    "umi": "^4.0.88",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
