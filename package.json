@@ -63,7 +63,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@types/uuid": "^9.0.6",
-    "@umijs/lint": "^4.0.87",
+    "@umijs/lint": "^4.0.88",
     "ahooks": "^3.7.8",
     "babel-plugin-styled-components": "^2.1.4",
     "commitlint": "^17",
