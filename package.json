@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17",
-    "@types/styled-components": "^5.1.29",
+    "@types/styled-components": "^5.1.32",
     "@semantic-release/github": "^9.2.3",
     "@types/lodash-es": "^4.17.10",
     "@types/react": "^18.2.37",
