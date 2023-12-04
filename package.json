@@ -88,7 +88,7 @@
     "react-rnd": "^10.4.1",
     "semantic-release": "^21",
     "semantic-release-config-gitmoji": "^1",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.1.1",
     "stylelint": "^15.11.0",
     "stylelint-config-clean-order": "^5.2.0",
     "stylelint-config-recommended": "^12.0.0",
