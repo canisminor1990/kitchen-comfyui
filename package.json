@@ -95,7 +95,7 @@
     "stylelint-order": "^6.0.3",
     "typedoc": "^0.25.3",
     "typedoc-github-wiki-theme": "^1.1.0",
-    "typedoc-plugin-markdown": "^3.15.4",
+    "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^5.2.2",
     "use-merge-value": "^1.2.0",
     "uuid": "^9.0.1"
