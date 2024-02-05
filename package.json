@@ -79,7 +79,7 @@
     "polished": "^4.3.1",
     "postcss-less": "^6.0.0",
     "postcss-styled-syntax": "^0.6.4",
-    "prettier": "^2",
+    "prettier": "^3",
     "prettier-plugin-organize-imports": "^3",
     "prettier-plugin-packagejson": "^2",
     "query-string": "^8.1.0",
