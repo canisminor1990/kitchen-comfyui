@@ -76,7 +76,7 @@
     "husky": "^8",
     "lint-staged": "^13.2.3",
     "lodash-es": "^4.17.21",
-    "polished": "^4.2.2",
+    "polished": "^4.3.1",
     "postcss-less": "^6.0.0",
     "postcss-styled-syntax": "^0.6.4",
     "prettier": "^2",
