@@ -90,7 +90,7 @@
     "semantic-release-config-gitmoji": "^1",
     "styled-components": "^5.3.11",
     "stylelint": "^15.11.0",
-    "stylelint-config-clean-order": "^5.4.0",
+    "stylelint-config-clean-order": "^5.4.1",
     "stylelint-config-recommended": "^12.0.0",
     "stylelint-order": "^6.0.4",
     "typedoc": "^0.25.7",
