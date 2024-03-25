@@ -61,7 +61,7 @@
     "@semantic-release/github": "^9.2.6",
     "@types/lodash-es": "^4.17.10",
     "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-dom": "^18.2.22",
     "@types/uuid": "^9.0.8",
     "@umijs/lint": "^4.1.2",
     "ahooks": "^3.7.10",
