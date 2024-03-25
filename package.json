@@ -73,7 +73,7 @@
     "eslint": "^8",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^2.2.1",
-    "husky": "^8",
+    "husky": "^9",
     "lint-staged": "^13.2.3",
     "lodash-es": "^4.17.21",
     "polished": "^4.3.1",
