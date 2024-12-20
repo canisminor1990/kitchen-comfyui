@@ -127,16 +127,16 @@ class PromptServer():
 > 📊 Total: <kbd>**4**</kbd>
 
 <a href="https://github.com/apps/dependabot" title="dependabot[bot]">
-  <img src="https://private-avatars.githubusercontent.com/in/29110?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ1Njc2NjAsIm5iZiI6MTczNDU2NjQ2MCwicGF0aCI6Ii9pbi8yOTExMCJ9.xoEQT5HDgw48jkbFxRdDgtArEGUbdr7UVzsOZUzx4pY&v=4" width="50" />
+  <img src="https://private-avatars.githubusercontent.com/in/29110?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2NTQwNjAsIm5iZiI6MTczNDY1Mjg2MCwicGF0aCI6Ii9pbi8yOTExMCJ9.zOuxs1gArljklXCfDo0fV8ChTrNa0JIGT_xdJLPwQVU&v=4" width="50" />
 </a>
 <a href="https://github.com/canisminor1990" title="canisminor1990">
-  <img src="https://private-avatars.githubusercontent.com/u/17870709?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ1NjgzODAsIm5iZiI6MTczNDU2NzE4MCwicGF0aCI6Ii91LzE3ODcwNzA5In0.U3f0fl-bd9_WskmRNTvhR3_EoMeZ5jDqHPZzgFcU_eU&v=4" width="50" />
+  <img src="https://private-avatars.githubusercontent.com/u/17870709?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2NTQ3ODAsIm5iZiI6MTczNDY1MzU4MCwicGF0aCI6Ii91LzE3ODcwNzA5In0.tn2HgnkPx6tOHTYQHZmTCDFteseVJlxQ7NNhIMPn9ts&v=4" width="50" />
 </a>
 <a href="https://github.com/actions-user" title="actions-user">
-  <img src="https://private-avatars.githubusercontent.com/u/65916846?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ1Njc3MjAsIm5iZiI6MTczNDU2NjUyMCwicGF0aCI6Ii91LzY1OTE2ODQ2In0.gvfAwmxLg0Zg0A89OK1IeLUtAx9FZRluYYqGJc-MSoU&v=4" width="50" />
+  <img src="https://private-avatars.githubusercontent.com/u/65916846?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2NTQxMjAsIm5iZiI6MTczNDY1MjkyMCwicGF0aCI6Ii91LzY1OTE2ODQ2In0.GAgJ5JRfb1nI2tEKqvJvC9CgL5lyA2VE8LAqJ6MvbT4&v=4" width="50" />
 </a>
 <a href="https://github.com/arvinxx" title="arvinxx">
-  <img src="https://private-avatars.githubusercontent.com/u/28616219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ1Njc2MDAsIm5iZiI6MTczNDU2NjQwMCwicGF0aCI6Ii91LzI4NjE2MjE5In0.7qiKRo9QSPwDyDGU9zw-wIYtim12Ki0jLo1_p6vq9iI&v=4" width="50" />
+  <img src="https://private-avatars.githubusercontent.com/u/28616219?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2NTQwMDAsIm5iZiI6MTczNDY1MjgwMCwicGF0aCI6Ii91LzI4NjE2MjE5In0._LOYS1_39rqMuIZTfbqazb5FSLoqUqUayGDWhL7xsaI&v=4" width="50" />
 </a>
 
 <!-- CONTRIBUTION END -->
