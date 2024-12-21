@@ -1,4 +1,4 @@
-import { ActionIcon, Input } from '@/components'
+import { Input } from '@/components'
 import { ColorMenu, colorList } from '@/components/NodeComponent/ColorMenu'
 import { useAppStore } from '@/store'
 import { ImageItem, type Widget } from '@/types'
@@ -46,7 +46,7 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
       ...st,
       progressBar: st.nodeInProgress?.id === node.id ? st.nodeInProgress.progress : undefined,
     }),
-    shallow
+    shallow,
   )
 
   const theme = useTheme()
@@ -55,7 +55,6 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
   const isSelected = node.selected
   const name = node.data?.nickname || node.data.name
   const isGroup = node.data.name === 'Group'
-
   /**
    * @function handleNickname
    * @description 处理修改昵称
@@ -157,7 +156,9 @@ const NodeComponent: React.FC<NodeProps<Widget>> = (node) => {
           ? progressBar > 0 && <Progress steps={4} percent={Math.floor(progressBar * 100)} />
           : isSelected && (
               <Dropdown menu={{ items: extraMenu }} trigger={['click', 'hover']}>
-                <ActionIcon icon={<MoreOutlined />} onClick={(e) => e.preventDefault()} />
+                <div onClick={(e) => e.preventDefault()}>
+                  <MoreOutlined />
+                </div>
               </Dropdown>
             )
       }

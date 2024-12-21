@@ -1,4 +1,11 @@
 #!/bin/sh
-# gitmoji as a commit hook
-exec < /dev/tty
-gitmoji --hook $1 $2
+. "$(dirname "$0")/_/husky.sh"
+
+# 检测操作系统
+if [ "$(uname -s)" != "Linux" ] && [ "$(uname -s)" != "Darwin" ]; then
+  # 如果不是 Linux 或 macOS，则不尝试访问 /dev/tty
+  git commit --file="$1"
+else
+  # 对于 Linux 或 macOS，继续使用 /dev/tty
+  exec < /dev/tty && git commit --file="$1"
+fi
