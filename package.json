@@ -56,7 +56,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17",
+    "@commitlint/cli": "^19",
     "@types/styled-components": "^5.1.34",
     "@semantic-release/github": "^9.2.6",
     "@types/lodash-es": "^4.17.10",
