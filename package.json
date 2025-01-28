@@ -86,7 +86,7 @@
     "re-resizable": "^6.9.11",
     "react-layout-kit": "^1.9.0",
     "react-rnd": "^10.4.10",
-    "semantic-release": "^21",
+    "semantic-release": "^24",
     "semantic-release-config-gitmoji": "^1",
     "styled-components": "^5.3.11",
     "stylelint": "^15.11.0",
